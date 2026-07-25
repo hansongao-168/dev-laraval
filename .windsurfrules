@@ -1,0 +1,3 @@
+Read and follow docs/AI_DEVELOPMENT.md and AGENTS.md for every task.
+
+Preserve the protected super administrator and idempotent initialization invariants. Never expose .env secrets. Use APIs matching the installed Laravel, Filament, Livewire, PHP, PHPUnit, and Tailwind versions. Run the relevant verification commands before reporting completion.

@@ -1,0 +1,3 @@
+Read and follow `docs/AI_DEVELOPMENT.md` and `AGENTS.md` before editing code.
+
+The protected super administrator and idempotent initialization flow are mandatory business invariants. Never expose `.env` secrets. Match APIs to installed lock-file versions and verify every change with the commands appropriate to its scope.

@@ -1,0 +1,31 @@
+filters:
+  and:
+    - 'file.inFolder("05-Decisions")'
+    - 'file.ext == "md"'
+properties:
+  status:
+    displayName: 状态
+  owner:
+    displayName: 负责人
+  created:
+    displayName: 决策日期
+  updated:
+    displayName: 更新日期
+views:
+  - type: table
+    name: 全部决策
+    order:
+      - file.name
+      - status
+      - owner
+      - created
+      - updated
+  - type: table
+    name: 已批准
+    filters:
+      and:
+        - 'status == "approved"'
+    order:
+      - file.name
+      - owner
+      - created

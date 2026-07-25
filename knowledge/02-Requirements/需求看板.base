@@ -1,0 +1,49 @@
+filters:
+  and:
+    - 'file.inFolder("02-Requirements")'
+    - 'file.ext == "md"'
+properties:
+  status:
+    displayName: 状态
+  priority:
+    displayName: 优先级
+  owner:
+    displayName: 负责人
+  market:
+    displayName: 市场
+  platform:
+    displayName: 平台
+  updated:
+    displayName: 更新日期
+views:
+  - type: table
+    name: 全部需求
+    order:
+      - file.name
+      - status
+      - priority
+      - owner
+      - market
+      - platform
+      - updated
+  - type: table
+    name: 待评审
+    filters:
+      or:
+        - 'status == "draft"'
+        - 'status == "review"'
+    order:
+      - file.name
+      - status
+      - priority
+      - owner
+  - type: table
+    name: 进行中
+    filters:
+      and:
+        - 'status == "in-progress"'
+    order:
+      - file.name
+      - priority
+      - owner
+      - updated

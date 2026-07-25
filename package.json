@@ -1,0 +1,31 @@
+{
+    "$schema": "https://www.schemastore.org/package.json",
+    "name": "erp-platform",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "build": "vite build",
+        "build:all": "npm run build && npm run build:web && npm run build:miniapp",
+        "build:web": "npm --prefix apps/web run build",
+        "build:miniapp": "npm --prefix apps/miniapp run build:weapp",
+        "check:clients": "npm run check:web && npm run check:mobile && npm run check:miniapp",
+        "check:web": "npm --prefix apps/web run lint && npm --prefix apps/web run typecheck",
+        "check:mobile": "npm --prefix apps/mobile run lint && npm --prefix apps/mobile run typecheck",
+        "check:miniapp": "npm --prefix apps/miniapp run typecheck",
+        "dev": "vite",
+        "dev:web": "npm --prefix apps/web run dev",
+        "dev:mobile": "npm --prefix apps/mobile run start",
+        "dev:miniapp": "npm --prefix apps/miniapp run dev:weapp",
+        "setup:clients": "npm --prefix apps/web install && npm --prefix apps/mobile install && npm --prefix apps/miniapp install --ignore-scripts"
+    },
+    "engines": {
+        "node": ">=22"
+    },
+    "devDependencies": {
+        "@tailwindcss/vite": "^4.0.0",
+        "concurrently": "^9.0.1",
+        "laravel-vite-plugin": "^3.1",
+        "tailwindcss": "^4.0.0",
+        "vite": "^8.0.0"
+    }
+}

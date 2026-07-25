@@ -1,0 +1,8 @@
+---
+description: ERP project-wide rules
+alwaysApply: true
+---
+
+Read and follow `docs/AI_DEVELOPMENT.md` and `AGENTS.md`.
+
+Preserve the protected super administrator and idempotent initialization invariants. Never expose `.env` secrets. Use APIs matching Laravel 13, Filament 5, Livewire 4, PHP 8.5, PHPUnit 12, and Tailwind CSS 4.

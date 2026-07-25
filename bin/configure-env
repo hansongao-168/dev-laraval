@@ -1,0 +1,128 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+project_directory="${1:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
+env_file="$project_directory/.env"
+example_file="$project_directory/.env.example"
+
+if [[ ! -f "$example_file" ]]; then
+    echo "Missing environment template: $example_file"
+    exit 1
+fi
+
+if [[ ! -f "$env_file" ]]; then
+    cp "$example_file" "$env_file"
+fi
+
+read_env_value() {
+    local key="$1"
+    local value
+    value="$(sed -n "s/^${key}=//p" "$env_file" | head -n 1)"
+    value="${value%\"}"
+    value="${value#\"}"
+    printf '%s' "$value"
+}
+
+ask() {
+    local label="$1"
+    local default_value="$2"
+    local answer
+
+    read -r -p "$label [$default_value]: " answer
+    printf '%s' "${answer:-$default_value}"
+}
+
+ask_required_secret() {
+    local label="$1"
+    local answer
+
+    while true; do
+        read -r -s -p "$label: " answer
+        echo
+
+        if [[ -n "$answer" ]]; then
+            printf '%s' "$answer"
+            return
+        fi
+
+        echo "A non-empty value is required." >&2
+    done
+}
+
+if [[ ! -t 0 ]]; then
+    echo "Environment configuration requires an interactive terminal."
+    echo "Run: bin/configure-env"
+    exit 1
+fi
+
+echo "Configure $env_file"
+echo "Passwords are hidden while typing and are written only to the ignored .env file."
+echo
+
+app_name="$(ask 'Application name' "$(read_env_value APP_NAME)")"
+app_url="$(ask 'Laravel URL' "$(read_env_value APP_URL)")"
+frontend_url="$(ask 'Next.js URL' "$(read_env_value FRONTEND_URL)")"
+db_host="$(ask 'MySQL host' "$(read_env_value DB_HOST)")"
+db_port="$(ask 'MySQL port' "$(read_env_value DB_PORT)")"
+db_database="$(ask 'MySQL database' "$(read_env_value DB_DATABASE)")"
+db_username="$(ask 'MySQL username' "$(read_env_value DB_USERNAME)")"
+db_password="$(ask_required_secret 'MySQL password')"
+redis_host="$(ask 'Redis host' "$(read_env_value REDIS_HOST)")"
+redis_port="$(ask 'Redis port' "$(read_env_value REDIS_PORT)")"
+admin_name="$(ask 'Protected administrator name' "$(read_env_value SUPER_ADMIN_NAME)")"
+admin_email="$(ask 'Protected administrator email' "$(read_env_value SUPER_ADMIN_EMAIL)")"
+admin_password="$(ask_required_secret 'Protected administrator password')"
+
+php -r '
+    array_shift($argv);
+    $path = array_shift($argv);
+    $values = [];
+
+    foreach ($argv as $argument) {
+        [$key, $value] = explode("=", $argument, 2);
+        $values[$key] = $value;
+    }
+
+    $quote = static fn (string $value): string => "\"".str_replace(
+        ["\\", "\"", "\r", "\n"],
+        ["\\\\", "\\\"", "", ""],
+        $value,
+    )."\"";
+
+    $contents = file_get_contents($path);
+
+    foreach ($values as $key => $value) {
+        $replacement = $key."=".$quote($value);
+        $pattern = "/^".preg_quote($key, "/")."=.*$/m";
+
+        if (preg_match($pattern, $contents) === 1) {
+            $contents = preg_replace($pattern, $replacement, $contents, 1);
+        } else {
+            $contents .= PHP_EOL.$replacement;
+        }
+    }
+
+    file_put_contents($path, $contents);
+' "$env_file" \
+    "APP_NAME=$app_name" \
+    "APP_URL=$app_url" \
+    "FRONTEND_URL=$frontend_url" \
+    "CORS_ALLOWED_ORIGINS=$frontend_url" \
+    "SANCTUM_STATEFUL_DOMAINS=${frontend_url#*://}" \
+    "DB_HOST=$db_host" \
+    "DB_PORT=$db_port" \
+    "DB_DATABASE=$db_database" \
+    "DB_USERNAME=$db_username" \
+    "DB_PASSWORD=$db_password" \
+    "REDIS_HOST=$redis_host" \
+    "REDIS_PORT=$redis_port" \
+    "SUPER_ADMIN_NAME=$admin_name" \
+    "SUPER_ADMIN_EMAIL=$admin_email" \
+    "SUPER_ADMIN_PASSWORD=$admin_password"
+
+chmod 600 "$env_file"
+
+echo
+echo "Environment initialized: $env_file"
+echo "The file is ignored by Git and has owner-only permissions."

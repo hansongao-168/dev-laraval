@@ -1,0 +1,13 @@
+<VirtualHost *:80>
+    ServerName erp.local
+    DocumentRoot "/absolute/path/to/erp/public"
+
+    <Directory "/absolute/path/to/erp/public">
+        AllowOverride All
+        Options FollowSymLinks
+        Require all granted
+    </Directory>
+
+    ErrorLog "${APACHE_LOG_DIR}/erp-error.log"
+    CustomLog "${APACHE_LOG_DIR}/erp-access.log" combined
+</VirtualHost>
