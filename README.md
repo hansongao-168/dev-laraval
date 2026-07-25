@@ -49,7 +49,7 @@ bin/create-project ../new-erp "New ERP"
 ```
 
 创建过程中可以直接初始化新项目的 `.env`。已经创建的项目可在其根目录执行
-`bin/configure-env` 重新配置。
+`bin/configure-env` 重新配置，并执行 `bin/configure-apache` 生成 Apache VirtualHost。
 
 完整说明参见 [docs/NEW_PROJECT.md](docs/NEW_PROJECT.md)。
 

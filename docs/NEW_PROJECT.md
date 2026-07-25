@@ -74,8 +74,31 @@ composer setup
 
 ## Apache
 
-复制并修改 `docs/apache-vhost.conf.example`，将 Apache `DocumentRoot` 指向新项目的
-`public` 目录，然后启用站点和 URL Rewrite。
+运行 `.env` 配置器时可以同时生成 Apache VirtualHost。也可以单独执行：
+
+```shell
+bin/configure-apache
+```
+
+默认从 `.env` 的 `APP_URL` 提取域名并使用端口 `80`。也可以显式指定项目、域名和端口：
+
+```shell
+bin/configure-apache /absolute/path/to/new-erp erp.example.test 8080
+```
+
+配置输出到 `docs/apache-vhost.conf`，其中 `DocumentRoot` 始终指向项目的 `public`
+目录。该机器专属文件已被 Git 忽略，不会覆盖可提交的
+`docs/apache-vhost.conf.example`。
+
+生成器不会自动修改 `/etc/hosts`、系统 Apache 配置或重启 Apache。管理员需要：
+
+1. 确保 Apache 已启用 `mod_rewrite`。
+2. 从 Apache 主配置或 VirtualHost 配置中包含生成文件。
+3. 本地域名需要在 `/etc/hosts` 中映射到 `127.0.0.1`。
+4. 使用 Apache 配置测试命令验证后再重新加载服务。
+5. 确保 Apache 进程可以写入 `storage` 和 `bootstrap/cache`。
+
+HTTPS 应由生产服务器或反向代理配置证书，不要把证书私钥放入项目仓库。
 
 ## Obsidian 与 Markdown
 

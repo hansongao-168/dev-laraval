@@ -14,7 +14,7 @@
 1. 复制 `.env.example` 为 `.env`。
 2. 配置 MySQL、Redis、`APP_URL`、`SUPER_ADMIN_EMAIL` 和 `SUPER_ADMIN_PASSWORD`。
 3. 执行 `composer setup`。该命令会安装 Laravel、Next.js、Expo、Taro 的全部依赖并构建 Web 与微信小程序。
-4. 将 Apache 虚拟主机根目录指向项目的 `public` 目录，可参考 `docs/apache-vhost.conf.example`。
+4. 执行 `bin/configure-apache` 生成机器专属 VirtualHost，并将 Apache 站点根目录指向项目的 `public` 目录。
 5. 访问 `/admin`。
 
 ## 多端开发

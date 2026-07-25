@@ -126,3 +126,9 @@ chmod 600 "$env_file"
 echo
 echo "Environment initialized: $env_file"
 echo "The file is ignored by Git and has owner-only permissions."
+
+read -r -p "Generate an Apache VirtualHost for this project now? [Y/n]: " configure_apache
+
+if [[ ! "$configure_apache" =~ ^[Nn]$ ]]; then
+    "$project_directory/bin/configure-apache" "$project_directory"
+fi

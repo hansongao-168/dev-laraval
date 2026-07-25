@@ -1,0 +1,74 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+project_directory="${1:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
+project_directory="$(cd "$project_directory" && pwd)"
+env_file="$project_directory/.env"
+output_file="$project_directory/docs/apache-vhost.conf"
+
+if [[ ! -f "$project_directory/public/index.php" ]]; then
+    echo "Laravel public entry point not found: $project_directory/public/index.php"
+    exit 1
+fi
+
+default_server_name="erp.local"
+
+if [[ -f "$env_file" ]]; then
+    configured_url="$(sed -n 's/^APP_URL=//p' "$env_file" | head -n 1)"
+    configured_url="${configured_url%\"}"
+    configured_url="${configured_url#\"}"
+
+    if [[ -n "$configured_url" ]]; then
+        default_server_name="$(php -r 'echo parse_url($argv[1], PHP_URL_HOST) ?: "erp.local";' "$configured_url")"
+    fi
+fi
+
+server_name="${2:-$default_server_name}"
+port="${3:-80}"
+
+if [[ ! "$server_name" =~ ^[A-Za-z0-9.-]+$ ]]; then
+    echo "Invalid Apache server name: $server_name"
+    exit 1
+fi
+
+if [[ ! "$port" =~ ^[0-9]+$ ]] || (( port < 1 || port > 65535 )); then
+    echo "Invalid Apache port: $port"
+    exit 1
+fi
+
+php -r '
+    $output = $argv[1];
+    $project = $argv[2];
+    $serverName = $argv[3];
+    $port = $argv[4];
+    $public = $project."/public";
+    $logs = $project."/storage/logs";
+
+    $configuration = <<<APACHE
+<VirtualHost *:{$port}>
+    ServerName {$serverName}
+    DocumentRoot "{$public}"
+    DirectoryIndex index.php
+
+    <Directory "{$public}">
+        AllowOverride All
+        Options FollowSymLinks
+        Require all granted
+    </Directory>
+
+    ErrorLog "{$logs}/apache-error.log"
+    CustomLog "{$logs}/apache-access.log" combined
+</VirtualHost>
+APACHE;
+
+    file_put_contents($output, $configuration.PHP_EOL);
+' "$output_file" "$project_directory" "$server_name" "$port"
+
+echo "Apache VirtualHost generated: $output_file"
+echo "Server: http://$server_name:$port"
+echo "DocumentRoot: $project_directory/public"
+echo
+echo "Enable mod_rewrite, include this file from Apache configuration, then test and reload Apache."
+echo "For local development, also map $server_name to 127.0.0.1 in /etc/hosts."
+echo "No system Apache files were modified."
