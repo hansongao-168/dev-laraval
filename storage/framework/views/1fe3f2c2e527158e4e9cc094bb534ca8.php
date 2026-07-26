@@ -1,10 +1,11 @@
 <?php
+    use Filament\Support\Enums\FontWeight;
     use Filament\Support\Enums\IconPosition;
     use Filament\Support\Enums\IconSize;
     use Filament\Support\Enums\Size;
     use Filament\Support\View\ComponentAttributeBag as FilamentComponentAttributeBag;
     use Filament\Support\View\Components\BadgeComponent;
-    use Filament\Support\View\Components\ButtonComponent;
+    use Filament\Support\View\Components\LinkComponent;
     use Illuminate\View\ComponentAttributeBag;
 ?>
 
@@ -25,16 +26,15 @@ $__propNames = \Illuminate\View\ComponentAttributeBag::extractPropNames(([
     'iconPosition' => IconPosition::Before,
     'iconSize' => null,
     'keyBindings' => null,
-    'labeledFrom' => null,
     'labelSrOnly' => false,
     'loadingIndicator' => true,
-    'outlined' => false,
     'size' => Size::Medium,
     'spaMode' => null,
-    'tag' => 'button',
+    'tag' => 'a',
     'target' => null,
     'tooltip' => null,
     'type' => 'button',
+    'weight' => null,
 ]));
 
 foreach ($attributes->all() as $__key => $__value) {
@@ -64,16 +64,15 @@ foreach (array_filter(([
     'iconPosition' => IconPosition::Before,
     'iconSize' => null,
     'keyBindings' => null,
-    'labeledFrom' => null,
     'labelSrOnly' => false,
     'loadingIndicator' => true,
-    'outlined' => false,
     'size' => Size::Medium,
     'spaMode' => null,
-    'tag' => 'button',
+    'tag' => 'a',
     'target' => null,
     'tooltip' => null,
     'type' => 'button',
+    'weight' => null,
 ]), 'is_string', ARRAY_FILTER_USE_KEY) as $__key => $__value) {
     $$__key = $$__key ?? $__value;
 }
@@ -91,12 +90,12 @@ unset($__defined_vars, $__key, $__value); ?>
         $iconPosition = filled($iconPosition) ? (IconPosition::tryFrom($iconPosition) ?? $iconPosition) : null;
     }
 
-    if (! $size instanceof Size) {
-        $size = filled($size) ? (Size::tryFrom($size) ?? $size) : null;
-    }
-
     if (! $badgeSize instanceof Size) {
         $badgeSize = filled($badgeSize) ? (Size::tryFrom($badgeSize) ?? $badgeSize) : null;
+    }
+
+    if (! $size instanceof Size) {
+        $size = filled($size) ? (Size::tryFrom($size) ?? $size) : null;
     }
 
     if (filled($iconSize) && (! $iconSize instanceof IconSize)) {
@@ -108,10 +107,13 @@ unset($__defined_vars, $__key, $__value); ?>
         default => null,
     };
 
+    if (! $weight instanceof FontWeight) {
+        $weight = filled($weight) ? (FontWeight::tryFrom($weight) ?? $weight) : null;
+    }
+
     $wireTarget = $loadingIndicator ? $attributes->whereStartsWith(['wire:target', 'wire:click'])->filter(fn ($value): bool => filled($value))->first() : null;
 
-    $hasFormProcessingLoadingIndicator = $type === 'submit' && filled($form);
-    $hasLoadingIndicator = filled($wireTarget) || $hasFormProcessingLoadingIndicator;
+    $hasLoadingIndicator = filled($wireTarget) || ($type === 'submit' && filled($form));
 
     if ($hasLoadingIndicator) {
         $loadingIndicatorTarget = html_entity_decode($wireTarget ?: $form, ENT_QUOTES);
@@ -123,31 +125,6 @@ unset($__defined_vars, $__key, $__value); ?>
         ? config('filament.livewire_loading_delay', 'default')
         : null;
 ?>
-
-<?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($labeledFrom): ?>
-    <?php if (isset($component)) { $__componentOriginalf0029cce6d19fd6d472097ff06a800a1 = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginalf0029cce6d19fd6d472097ff06a800a1 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'filament::components.icon-button','data' => ['badge' => $badge,'badgeColor' => $badgeColor,'badgeSize' => $badgeSize,'color' => $color,'disabled' => $disabled,'form' => $form,'formId' => $formId,'href' => $href,'icon' => $icon,'iconAlias' => $iconAlias,'iconSize' => $iconSize,'keyBindings' => $keyBindings,'label' => $slot,'loadingIndicator' => $loadingIndicator,'size' => $size,'spaMode' => $spaMode,'tag' => $tag,'target' => $target,'tooltip' => $tooltip,'type' => $type,'attributes' => \Filament\Support\prepare_inherited_attributes($attributes)]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
-<?php $component->withName('filament::icon-button'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
-<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
-<?php endif; ?>
-<?php $component->withAttributes(['badge' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($badge),'badge-color' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($badgeColor),'badge-size' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($badgeSize),'color' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($color),'disabled' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($disabled),'form' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($form),'form-id' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($formId),'href' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($href),'icon' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($icon),'icon-alias' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($iconAlias),'icon-size' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($iconSize),'key-bindings' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($keyBindings),'label' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($slot),'loading-indicator' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($loadingIndicator),'size' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($size),'spa-mode' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($spaMode),'tag' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($tag),'target' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($target),'tooltip' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($tooltip),'type' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($type),'attributes' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(\Filament\Support\prepare_inherited_attributes($attributes))]); ?>
-<?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::processComponentKey($component); ?>
-
-<?php echo $__env->renderComponent(); ?>
-<?php endif; ?>
-<?php if (isset($__attributesOriginalf0029cce6d19fd6d472097ff06a800a1)): ?>
-<?php $attributes = $__attributesOriginalf0029cce6d19fd6d472097ff06a800a1; ?>
-<?php unset($__attributesOriginalf0029cce6d19fd6d472097ff06a800a1); ?>
-<?php endif; ?>
-<?php if (isset($__componentOriginalf0029cce6d19fd6d472097ff06a800a1)): ?>
-<?php $component = $__componentOriginalf0029cce6d19fd6d472097ff06a800a1; ?>
-<?php unset($__componentOriginalf0029cce6d19fd6d472097ff06a800a1); ?>
-<?php endif; ?>
-<?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
 
 <<?php echo e($tag); ?>
 
@@ -166,23 +143,18 @@ unset($__defined_vars, $__key, $__value); ?>
             allowHTML: <?php echo \Illuminate\Support\Js::from($tooltip instanceof \Illuminate\Contracts\Support\Htmlable)->toHtml() ?>,
         }"
     <?php endif; ?>
-    <?php if($hasFormProcessingLoadingIndicator): ?>
-        x-data="filamentFormButton"
-        x-bind:class="{ 'fi-processing': isProcessing }"
-    <?php endif; ?>
     <?php echo e($attributes
             ->merge([
                 'aria-disabled' => $disabled ? 'true' : null,
                 // Security: These attributes are rendered without escaping, so the `aria-label` must be escaped here, otherwise an `Htmlable` label could break out of the attribute. `doubleEncode: false` preserves entities that Blade has already escaped in the slot.
-                'aria-label' => $labelSrOnly ? e(trim(strip_tags($slot->toHtml())), doubleEncode: false) : null,
+                'aria-label' => $labelSrOnly
+                ? e(trim(strip_tags($slot->toHtml())), doubleEncode: false)
+                : null,
                 'disabled' => $disabled && blank($tooltip),
                 'form' => $formId,
-                'tabindex' => (($tag === 'a') && $disabled && $hasTooltip) ? '0' : null,
                 'type' => $tag === 'button' ? $type : null,
                 'wire:loading.attr' => $tag === 'button' ? 'disabled' : null,
                 'wire:target' => ($hasLoadingIndicator && $loadingIndicatorTarget) ? $loadingIndicatorTarget : null,
-                'x-bind:disabled' => $hasFormProcessingLoadingIndicator ? 'isProcessing' : null,
-                'x-bind:aria-label' => ($labelSrOnly && $hasFormProcessingLoadingIndicator) ? ('isProcessing ? processingMessage : ' . \Illuminate\Support\Js::from(trim(strip_tags($slot->toHtml())))) : null,
             ], escape: false)
             ->when(
                 $disabled && $hasTooltip,
@@ -191,13 +163,12 @@ unset($__defined_vars, $__key, $__value); ?>
                 ),
             )
             ->class([
-                'fi-btn',
+                'fi-link',
                 'fi-disabled' => $disabled,
-                'fi-outlined' => $outlined,
                 ($size instanceof Size) ? "fi-size-{$size->value}" : (is_string($size) ? $size : ''),
-                is_string($labeledFrom) ? "fi-labeled-from-{$labeledFrom}" : null,
+                ($weight instanceof FontWeight) ? "fi-font-{$weight->value}" : (is_string($weight) ? $weight : ''),
             ])
-            ->color(ButtonComponent::make($outlined), $color)); ?>
+            ->color(LinkComponent::class, $color)); ?>
 
 >
     <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($iconPosition === IconPosition::Before): ?>
@@ -216,34 +187,13 @@ unset($__defined_vars, $__key, $__value); ?>
                 ])), size: $iconSize)); ?>
 
         <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
-
-        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($hasFormProcessingLoadingIndicator): ?>
-            <?php echo e(\Filament\Support\generate_loading_indicator_html((new \Filament\Support\View\ComponentAttributeBag([
-                    'x-cloak' => 'x-cloak',
-                    'x-show' => 'isProcessing',
-                ])), size: $iconSize)); ?>
-
-        <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
     <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
 
     <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(! $labelSrOnly): ?>
-        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($hasFormProcessingLoadingIndicator): ?>
-            <span x-show="! isProcessing">
-                <?php echo e($slot); ?>
-
-            </span>
-        <?php else: ?>
+        <span class="fi-link-label">
             <?php echo e($slot); ?>
 
-        <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
-    <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
-
-    <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($hasFormProcessingLoadingIndicator && (! $labelSrOnly)): ?>
-        <span
-            x-cloak
-            x-show="isProcessing"
-            x-text="processingMessage"
-        ></span>
+        </span>
     <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
 
     <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($iconPosition === IconPosition::After): ?>
@@ -262,18 +212,10 @@ unset($__defined_vars, $__key, $__value); ?>
                 ])), size: $iconSize)); ?>
 
         <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
-
-        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($hasFormProcessingLoadingIndicator): ?>
-            <?php echo e(\Filament\Support\generate_loading_indicator_html((new \Filament\Support\View\ComponentAttributeBag([
-                    'x-cloak' => 'x-cloak',
-                    'x-show' => 'isProcessing',
-                ])), size: $iconSize)); ?>
-
-        <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
     <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
 
     <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(filled($badge)): ?>
-        <div class="fi-btn-badge-ctn">
+        <div class="fi-link-badge-ctn">
             <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($badge instanceof \Illuminate\View\ComponentSlot): ?>
                 <?php echo e($badge); ?>
 
@@ -291,5 +233,4 @@ unset($__defined_vars, $__key, $__value); ?>
             <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
         </div>
     <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
-</<?php echo e($tag); ?>>
-<?php /**PATH /Users/37user/Documents/dev-laraval/vendor/filament/support/resources/views/components/button/index.blade.php ENDPATH**/ ?>
+</<?php echo e($tag); ?>><?php /**PATH /Users/37user/Documents/dev-laraval/vendor/filament/support/resources/views/components/link.blade.php ENDPATH**/ ?>

@@ -73,24 +73,29 @@ class InitializeApplication extends Command
             throw new ValidationException($validator);
         }
 
+        $protectedUser = User::query()->where('is_protected', true)->first();
+
+        if ($protectedUser) {
+            $this->components->info('Protected administrator already exists; no changes were made.');
+
+            return;
+        }
+
         $existingUser = User::query()->where('email', $credentials['email'])->first();
 
         if ($existingUser) {
-            if (! $existingUser->is_super_admin) {
-                throw new RuntimeException('The configured admin email is already used by an unprotected user.');
-            }
-
-            $this->components->info('Protected super administrator already exists; no changes were made.');
-
-            return;
+            throw new RuntimeException('The configured admin email is already used by an unprotected user.');
         }
 
         $user = new User([
             ...$credentials,
             'email_verified_at' => now(),
         ]);
-        $user->forceFill(['is_super_admin' => true])->saveQuietly();
+        $user->forceFill([
+            'is_protected' => true,
+            'is_super_admin' => true,
+        ])->saveQuietly();
 
-        $this->components->info('Protected super administrator created.');
+        $this->components->info('Protected administrator created.');
     }
 }

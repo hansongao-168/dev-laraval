@@ -10,8 +10,10 @@
 <?php $component->withAttributes([]); ?>
 <?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::processComponentKey($component); ?>
 
-    <?php echo e($this->content); ?>
+    <div class="fi-module-settings-index">
+        <?php echo e($this->form); ?>
 
+    </div>
  <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal166a02a7c5ef5a9331faf66fa665c256)): ?>
@@ -22,4 +24,4 @@
 <?php $component = $__componentOriginal166a02a7c5ef5a9331faf66fa665c256; ?>
 <?php unset($__componentOriginal166a02a7c5ef5a9331faf66fa665c256); ?>
 <?php endif; ?>
-<?php /**PATH /Users/37user/Documents/dev-laraval/vendor/filament/filament/resources/views/pages/page.blade.php ENDPATH**/ ?>
+<?php /**PATH /Users/37user/Documents/dev-laraval/gz168/ModuleSettings/resources/views/filament/pages/module-settings-index.blade.php ENDPATH**/ ?>

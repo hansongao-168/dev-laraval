@@ -21,17 +21,35 @@ class User extends Authenticatable implements FilamentUser
     /** @use HasFactory<UserFactory> */
     use HasApiTokens, HasFactory, Notifiable;
 
+    /** @var list<string> */
+    private const PROTECTED_USER_ALLOWED_ATTRIBUTES = [
+        'email',
+        'password',
+        'status',
+        'is_admin',
+        'is_super_admin',
+    ];
+
     protected static function booted(): void
     {
         static::updating(function (User $user): void {
-            if ((bool) $user->getRawOriginal('is_super_admin')) {
-                throw new LogicException('The protected super administrator cannot be modified.');
+            if (! (bool) $user->getRawOriginal('is_protected')) {
+                return;
+            }
+
+            $disallowedAttributes = array_diff(
+                array_keys($user->getDirty()),
+                self::PROTECTED_USER_ALLOWED_ATTRIBUTES,
+            );
+
+            if ($disallowedAttributes !== []) {
+                throw new LogicException('Only the protected administrator email, password, status, and administrator permissions can be modified.');
             }
         });
 
         static::deleting(function (User $user): void {
-            if ($user->is_super_admin) {
-                throw new LogicException('The protected super administrator cannot be deleted.');
+            if ($user->is_protected) {
+                throw new LogicException('The protected administrator cannot be deleted.');
             }
         });
     }
@@ -50,6 +68,7 @@ class User extends Authenticatable implements FilamentUser
     {
         return [
             'email_verified_at' => 'datetime',
+            'is_protected' => 'boolean',
             'is_super_admin' => 'boolean',
             'password' => 'hashed',
         ];
