@@ -2,13 +2,25 @@
 
 本文档是本项目所有 AI 编程助手共享的项目事实与工程约定。工具专属配置用于加载本文档，Laravel Boost 生成的规则用于补充具体框架规范。
 
-项目长期知识记录在 `knowledge` Obsidian Vault 中。开始较大需求前应先查看
-`knowledge/00-Home/AI上下文.md` 和相关领域笔记；完成后更新对应需求、架构决策或 API 文档。
-知识库不得包含财务明细、客户资料、个人信息、环境变量值、密码、令牌或密钥。
+项目长期学习记录在 `knowledge` Obsidian Vault 中（仓库单独 git 仓库，不与 Laravel 项目混提交）。
+
+**当前定位**：dev-laraval 是 **Dev 学习 / Playground**，原 ERP 多端业务版已演化为学习底座，相关业务参考与子模块保留在 `apps/`、`bin/`、`gz168/`。
+
+AI 助手开始任务前，按 [[00-Home/学习地图]] 与 [[00-Home/AI上下文]] 的顺序阅读：
+
+1. `knowledge/00-Home/学习地图.md` — 入口与维护规则
+2. 对应主题 MOC（`MOC-前端.md` / `MOC-后端.md` / `MOC-算法.md` / `MOC-AI.md` / `MOC-工程实践.md`）
+3. 主题 MOC 下的具体原子笔记
+4. 需要历史 ERP 业务背景时回到 `knowledge/99-Archive/erp-snapshot-2026-07-26/`
+
+任务完成后，同步更新相关知识库笔记（学习库为原子笔记形式，不是需求文档）。
+
+知识库不得包含 `.env`、密码、令牌、个人信息、生产数据或未脱敏日志；详见
+`knowledge/07-Operations/知识库安全规范.md`。
 
 ## 项目事实
 
-- 项目类型：ERP 管理后台基础项目
+- 项目类型：Dev 学习 / Playground 仓库（保留 ERP 子项目作为参考底座）
 - Web 服务器：Apache，DocumentRoot 必须指向 `public`
 - PHP：8.5
 - Laravel：13

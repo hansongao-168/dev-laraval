@@ -102,23 +102,23 @@ HTTPS 应由生产服务器或反向代理配置证书，不要把证书私钥�
 
 ## Obsidian 与 Markdown
 
-使用 Obsidian 打开新项目的 `knowledge` 目录。以下内容会随项目完整复制：
+> **2026-07-26 更新**：`knowledge` Vault 已从 ERP 业务版转型为 **Dev 学习 / Playground**。新项目若仍走 ERP 业务方向，可从 `knowledge/99-Archive/erp-snapshot-2026-07-26/` 选择性取回旧模板（`ADR.md` / `API.md` / `Requirement.md` / `Business-Process.md`），但默认新项目应以学习库骨架开始。
 
-- 产品、需求、业务、工程、架构决策和会议目录
-- 需求看板与架构决策看板
-- ADR、API、会议、需求、业务流程和日报模板
-- AI 项目上下文和知识库安全规范
-- Obsidian 核心插件、模板、每日笔记和属性配置
+使用 Obsidian 打开新项目的 `knowledge` 目录。默认随项目完整复制：
+
+- 入口与 MOC：`00-Home/学习地图.md`、`00-Home/AI上下文.md`、`00-Home/MOC-*.md`
+- 笔记分区：`10-Notes/` `20-Projects/` `30-Resources/` `06-Meetings/Daily/` `07-Operations/` `90-Templates/`
+- 模板：通用笔记、原子笔记、书摘、项目复盘、周复盘、Daily 模板
+- `.obsidian/` 核心插件、模板、每日笔记和属性配置
 
 新项目创建后，应立即更新：
 
 - `knowledge/00-Home/AI上下文.md`
-- `knowledge/01-Product/产品愿景.md`
-- `knowledge/01-Product/功能地图.md`
+- `knowledge/00-Home/学习地图.md`（若主题不同，把主题 MOC 与示例笔记重命名）
 - `README.md`
 - `docs/AI_DEVELOPMENT.md`
 
-财务明细、客户资料、个人信息、密码、令牌和密钥不得写入知识库。
+`.env`、密码、令牌、个人信息、生产数据、未脱敏日志一律不得写入知识库；具体边界参见 `knowledge/07-Operations/知识库安全规范.md`。
 
 ## 私有 Git
 

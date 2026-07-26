@@ -1,8 +1,19 @@
-# ERP
+# dev-laraval
 
-面向全球市场并兼容中国渠道的 ERP 多端基础项目。
+> **Dev 学习 / Playground 仓库**。原 ERP 多端基础项目（见下方"业务项目说明"）已演化为学习底座，配套知识库见 [Obsidian 知识库](#obsidian-知识库)。
 
-## 技术栈
+## 当前定位
+
+- 这是个人 Dev 学习的载体：Laravel 13 + Filament 5 + Livewire 4 + Tailwind v4 + Boost v2 等新版本生态的实验场
+- 配套 `knowledge/` Vault（独立 git 仓库）作为长期学习笔记与项目复盘
+- 仓库根 `AGENTS.md` 与 `docs/AI_DEVELOPMENT.md` 仍约束代码规范与多端架构
+- 历史 ERP 业务版（多端 ERP、订单 / 客户 / 财务业务描述）保留在 `apps/`、`bin/`、`gz168/` 子模块与 `99-Archive/erp-snapshot-2026-07-26/`，仅作为参考底座，不再是主线目标
+
+## 业务项目说明（原 ERP）
+
+仓库内仍然包含面向全球市场并兼容中国渠道的 ERP 多端基础项目，下方的"技术栈 / 开始使用 / 安全说明"主要描述这一块内容。
+
+### 技术栈
 
 - Apache
 - PHP 8.5
@@ -56,11 +67,22 @@ bin/create-project ../new-erp "New ERP"
 ## Obsidian 知识库
 
 使用 Obsidian 打开项目中的 `knowledge` 目录即可。知识库首页为
-[knowledge/00-Home/ERP知识库.md](knowledge/00-Home/ERP知识库.md)，需求、架构决策、会议和 API
-文档应优先使用 `knowledge/90-Templates` 中的模板。
+[knowledge/00-Home/学习地图.md](knowledge/00-Home/学习地图.md)。
 
-知识库随项目通过私有 Git 管理。财务明细、客户资料、个人信息、`.env` 内容、密码、令牌和密钥
-不得写入知识库；完整边界参见
+知识库主题分区（MOC）位于 [knowledge/00-Home/MOC-前端.md](knowledge/00-Home/MOC-前端.md)、
+[knowledge/00-Home/MOC-后端.md](knowledge/00-Home/MOC-后端.md)、
+[knowledge/00-Home/MOC-算法.md](knowledge/00-Home/MOC-算法.md)、
+[knowledge/00-Home/MOC-AI.md](knowledge/00-Home/MOC-AI.md)、
+[knowledge/00-Home/MOC-工程实践.md](knowledge/00-Home/MOC-工程实践.md)。
+
+新笔记应优先使用 `knowledge/90-Templates/` 下的对应模板（`note.md` / `atomic-note.md` /
+`book-note.md` / `project-retro.md` / `weekly.md` / `Daily.md`）。
+
+历史 ERP 业务版（2026-07-26 前）已归档为只读快照，位于
+[knowledge/99-Archive/erp-snapshot-2026-07-26/](knowledge/99-Archive/erp-snapshot-2026-07-26/)。
+
+知识库随项目通过私有 Git 管理。`.env` 内容、密码、令牌、个人信息、生产数据不得写入；
+完整边界参见
 [knowledge/07-Operations/知识库安全规范.md](knowledge/07-Operations/知识库安全规范.md)。
 
 ## AI 开发支持
