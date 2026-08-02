@@ -15,7 +15,6 @@
  *   php bin/install-gz168.php --all                        # everything on disk
  *   php bin/install-gz168.php --no-update                  # edit only, skip composer
  */
-
 $rootPath = dirname(__DIR__);
 $composerJsonPath = $rootPath.'/composer.json';
 $envPath = $rootPath.'/.env';
@@ -57,8 +56,8 @@ sort($coreFolders);
 $defaultInstall = $coreFolders !== []
     ? $coreFolders
     : ['module-core', 'common', 'ApiAuth', 'RolePermission', 'UserManagement',
-       'ModuleSettings', 'Filament', 'ExtensionData', 'ExportManagement',
-       'filament-admin'];
+        'ModuleSettings', 'Filament', 'ExtensionData', 'ExportManagement',
+        'filament-admin'];
 
 // Args parsing
 $args = array_slice($argv, 1);
@@ -212,7 +211,7 @@ function askModules(array $available): array
     foreach ($available as $i => $name) {
         echo sprintf("  [%2d] %s\n", $i, $name);
     }
-    echo "Enter indices (comma-separated), empty for all: ";
+    echo 'Enter indices (comma-separated), empty for all: ';
     $input = trim((string) fgets(STDIN));
     if ($input === '') {
         return $available;

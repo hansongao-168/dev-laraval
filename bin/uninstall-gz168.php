@@ -11,7 +11,6 @@
  *   php bin/uninstall-gz168.php module-core common
  *   php bin/uninstall-gz168.php --no-update
  */
-
 $rootPath = dirname(__DIR__);
 $composerJsonPath = $rootPath.'/composer.json';
 $envPath = $rootPath.'/.env';
