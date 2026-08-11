@@ -24,7 +24,7 @@
         "gz168/gmail-api": "dev-master",
         "gz168/git-management": "dev-master",
         "gz168/kafka-management": "dev-master",
-        "gz168/log-management-page": "dev-master",
+        "gz168/log-management": "dev-master",
         "gz168/mail": "dev-master",
         "gz168/module-core": "dev-master",
         "gz168/module-settings": "dev-master",
@@ -164,7 +164,7 @@
         },
         {
             "type": "path",
-            "url": "gz168/LogManagementPage"
+            "url": "gz168/LogManagement"
         },
         {
             "type": "path",
