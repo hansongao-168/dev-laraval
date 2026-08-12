@@ -52,6 +52,18 @@ npm run dev:miniapp
 详细安装说明参见 [docs/INSTALL.md](docs/INSTALL.md)。
 系统结构与多端边界参见 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)。
 
+## gz168 模块架构
+
+本项目按"模块化、高内聚、低耦合、单向依赖"原则把业务切成多个 `gz168/*` 公共 Composer 包，
+每个模块都是单一 Composer 包 + 单一 ServiceProvider + 两棵子树（`src/Front/` 与 `src/Admin/`，默认关闭）。
+
+- 模块设计基线：[`docs/architecture/gz168-customer.md`](docs/architecture/gz168-customer.md)
+  —— `gz168/Customer`（前台用户域）的完整架构、约束与边界守卫。
+- 多端前端架构：[`docs/architecture/web-frontend.md`](docs/architecture/web-frontend.md)
+  —— L0/L1/L2/L3 分层、声明式导航、三端 Shell。
+- Customer 域 host 接入：[`docs/architecture/customer-host-integration.md`](docs/architecture/customer-host-integration.md)
+  —— `.env` / `config/customer.php` / Filament / Sanctum 接入步骤。
+
 需要从本项目生成一个包含后端、全部客户端、AI 配置、Obsidian 和 Markdown 文档的
 新项目时，执行：
 
