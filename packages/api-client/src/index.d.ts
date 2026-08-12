@@ -1,15 +1,18 @@
-export interface ApiResponse<T> {
-  ok: boolean
-  status: number
-  data: T
+import type { CustomerApi } from './domain/customer/auth.js'
+import type { Customer, Address, CustomerSettings } from './domain/customer/types.js'
+import type { ApiResponse, HealthPayload } from './core/types.js'
+import type { HttpClient } from './core/http.js'
+
+export interface ApiClient {
+  url(path: string): string
+  health(): Promise<ApiResponse<HealthPayload>>
+  http: HttpClient
+  customer: CustomerApi
 }
 
-export interface HealthPayload {
-  data: {
-    status: 'ok'
-    api_version: 'v1'
-    timestamp: string
-  }
+export interface CreateApiClientOptions {
+  baseUrl: string
+  request?: ApiRequestHandler
 }
 
 export interface ApiRequest {
@@ -17,16 +20,31 @@ export interface ApiRequest {
   headers: Record<string, string>
 }
 
-export type ApiRequestHandler = (
-  request: ApiRequest
-) => Promise<ApiResponse<unknown>>
+export type ApiRequestHandler = (request: ApiRequest) => Promise<ApiResponse<unknown>>
 
-export interface ApiClient {
-  url(path: string): string
-  health(): Promise<ApiResponse<HealthPayload>>
-}
+export declare function createApiClient(options: CreateApiClientOptions): ApiClient
 
-export function createApiClient(options: {
-  baseUrl: string
-  request?: ApiRequestHandler
-}): ApiClient
+// 新 API
+export { createHttp } from './core/http.js'
+export type { HttpClient, HttpOptions, RequestOptions } from './core/http.js'
+export type { ApiResponse, ApiError, ApiErrorKind } from './core/types.js'
+export { createCustomerApi } from './domain/customer/auth.js'
+export type { CustomerApi } from './domain/customer/auth.js'
+export type {
+  Customer,
+  Address,
+  CustomerSettings,
+  CustomerToken,
+  CustomerWithToken,
+  RegisterInput,
+  LoginInput,
+  UpdateProfileInput,
+  ChangePasswordInput,
+  ForgotPasswordInput,
+  ResetPasswordInput,
+  WxLoginInput,
+  NativeLoginInput,
+  AddressInput,
+  SettingsInput,
+  ValidationErrorResponse
+} from './domain/customer/types.js'
