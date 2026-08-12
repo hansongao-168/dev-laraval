@@ -132,6 +132,10 @@
         },
         {
             "type": "path",
+            "url": "gz168/Customer"
+        },
+        {
+            "type": "path",
             "url": "gz168/CustomConfig"
         },
         {
