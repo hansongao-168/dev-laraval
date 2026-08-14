@@ -1,0 +1,51 @@
+{
+  "name": "@erp/front-nav",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.js",
+  "types": "./src/index.d.ts",
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.18",
+    "react": "^19.2.8",
+    "typescript": "^5.9.3"
+  },
+  "exports": {
+    ".": {
+      "types": "./src/index.d.ts",
+      "default": "./src/index.js"
+    },
+    "./core": {
+      "types": "./src/core/index.d.ts",
+      "default": "./src/core/index.js"
+    },
+    "./core/types": {
+      "types": "./src/core/types.d.ts",
+      "default": "./src/core/types.js"
+    },
+    "./core/fetch": {
+      "types": "./src/core/fetch.d.ts",
+      "default": "./src/core/fetch.js"
+    },
+    "./core/cache": {
+      "types": "./src/core/cache.d.ts",
+      "default": "./src/core/cache.js"
+    },
+    "./core/labels": {
+      "types": "./src/core/labels.d.ts",
+      "default": "./src/core/labels.js"
+    },
+    "./react": {
+      "types": "./src/react/index.d.ts",
+      "default": "./src/react/index.js"
+    }
+  }
+}
