@@ -62,6 +62,7 @@ SORT confidence ASC
 - [[10-Notes/70-Design-Patterns/责任链模式-中间件管道]] — Laravel 中间件 = 框架内建责任链（`BaseMiddleware` + 业务中间件）
 - [[10-Notes/70-Design-Patterns/备忘录模式-数据库备份与商品快照]] — `DatabaseBackup` + Amazon 快照表（save/restore/diff/prune）
 - [[10-Notes/70-Design-Patterns/框架内建vs显式模式]] — Flyweight/Prototype 的框架级借用 + 框架内建模式速查
+- [[10-Notes/70-Design-Patterns/SOLID原则-gz168落地]] — S/O/L/I/D 五原则在 gz168 真实代码中的体现（Mail ISP、ChannelInventoryAdapter OCP/DIP）
 
 ### 23 模式全景图（标注每个模式的落地状态）
 
