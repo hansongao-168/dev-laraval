@@ -13,6 +13,7 @@
 /auth.json
 /node_modules
 **/node_modules/
+**/package-lock.json
 /public/build
 /public/fonts-manifest.dev.json
 /public/hot

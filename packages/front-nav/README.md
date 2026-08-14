@@ -89,8 +89,18 @@ fall back to the server-side `label`.
 ## Tests
 
 ```
-node --test packages/front-nav/tests/core.test.mjs
+npm test                # core + e2e (14 tests)
+npm run test:core       # core only (9 tests)
+npm run test:e2e        # e2e only (5 tests, spins up a fake Laravel-shaped server)
+npm run typecheck       # tsc --noEmit
 ```
 
 React hook tests live in `tests/react.test.mjs` (uses React's `act`
 helper from `react-dom/test-utils`).
+
+## CI
+
+`.github/workflows/front-nav.yml` runs the full test surface (module
+PHPUnit + host feature PHPUnit + SDK node:test + pint) on every push
+and PR that touches `gz168/FrontNav/**`, `packages/front-nav/**`, or
+`tests/Feature/FrontNav/**`.

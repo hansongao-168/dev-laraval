@@ -14,14 +14,18 @@
     }
   },
   "scripts": {
-    "test": "node --test tests/core.test.mjs tests/e2e.test.mjs",
+    "test": "node --test tests/core.test.mjs tests/e2e.test.mjs tests/react.test.mjs",
     "test:core": "node --test tests/core.test.mjs",
     "test:e2e": "node --test tests/e2e.test.mjs",
+    "test:react": "node --test tests/react.test.mjs",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
+    "@testing-library/react": "^16.3.2",
     "@types/react": "^19.2.18",
+    "jsdom": "^25.0.1",
     "react": "^19.2.8",
+    "react-dom": "^19.2.8",
     "typescript": "^5.9.3"
   },
   "exports": {

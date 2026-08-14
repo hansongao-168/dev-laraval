@@ -1,0 +1,92 @@
+name: front-nav
+
+# CI for the gz168/front-nav module + @erp/front-nav SDK + Customer integration.
+# Three test suites run in one job so a single failure tells the whole story:
+#   1. Module PHPUnit        (gz168/FrontNav/tests/Unit)
+#   2. Host feature PHPUnit  (tests/Feature/FrontNav/* + full host suite)
+#   3. SDK node:test         (packages/front-nav/tests/*.test.mjs)
+# Pint runs before tests so formatting drift fails fast.
+
+on:
+  push:
+    paths:
+      - 'gz168/FrontNav/**'
+      - 'packages/front-nav/**'
+      - 'tests/Feature/FrontNav/**'
+      - '.github/workflows/front-nav.yml'
+      - 'composer.json'
+      - 'composer.lock'
+  pull_request:
+    paths:
+      - 'gz168/FrontNav/**'
+      - 'packages/front-nav/**'
+      - 'tests/Feature/FrontNav/**'
+      - '.github/workflows/front-nav.yml'
+      - 'composer.json'
+      - 'composer.lock'
+
+# Cancel previous runs on the same branch / PR to save CI minutes.
+concurrency:
+  group: front-nav-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: phpunit + node:test + pint
+    runs-on: ubuntu-latest
+
+    # Mirror host composer.json: php ^8.3, node 20 (LTS).
+    services:
+      # No DB needed — FrontNav tests use SQLite :memory: or no DB at all.
+      # Listed here for parity with future Filament tests; ignored today.
+
+    env:
+      CACHE_STORE: array
+      APP_ENV: testing
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, intl, sqlite, pdo_sqlite
+          coverage: none
+          tools: composer
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: packages/front-nav/package-lock.json
+
+      - name: Composer install
+        run: |
+          composer install \
+            --no-interaction \
+            --prefer-dist \
+            --no-progress \
+            --ignore-platform-req=ext-zip
+
+      - name: Pint (dirty files only)
+        # Default text output prints to stdout, which GitHub Actions
+        # renders inline in the step log. `pint --dirty` is a no-op
+        # when there is nothing to fix; failure means drift needs review.
+        run: vendor/bin/pint --dirty
+
+      - name: Module PHPUnit (gz168/FrontNav)
+        working-directory: gz168/FrontNav
+        run: ../../vendor/bin/phpunit --no-coverage
+
+      - name: Host feature PHPUnit (FrontNav)
+        run: php artisan test --filter=FrontNav --compact
+
+      - name: SDK npm test (core + e2e)
+        working-directory: packages/front-nav
+        run: |
+          npm ci --no-audit --no-fund
+          npm test
+          npm run typecheck
