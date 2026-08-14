@@ -77,6 +77,32 @@ export function Sidebar() {
 }
 ```
 
+## Server-side usage (Next.js / SSR)
+
+```ts
+// apps/web/src/lib/front-nav.ts
+import { cookies } from 'next/headers'
+import { createHttp } from '@erp/api-client/core'
+import { fetchNav, resolveLabels } from '@erp/front-nav/core'
+
+export async function getFrontNav(location: string, locale?: string) {
+  const cookieStore = await cookies()
+  const cookieHeader = cookieStore.getAll()
+    .map((c) => `${c.name}=${c.value}`)
+    .join('; ')
+
+  const http = createHttp({
+    baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL!,
+    cookies: () => cookieHeader,        // forward visitor session
+  })
+
+  const { data } = await fetchNav(http, { location, locale })
+  return resolveLabels(data, (key) => key) // server-side: pass-through
+}
+```
+
+A working example lives at `apps/web/src/app/(desktop)/nav-demo/page.tsx`.
+
 ## Wire shape
 
 Mirrors `Gz168\FrontNav\Contracts\NavItem`. Each tree row carries its
@@ -89,9 +115,10 @@ fall back to the server-side `label`.
 ## Tests
 
 ```
-npm test                # core + e2e (14 tests)
+npm test                # core + e2e + react (20 tests)
 npm run test:core       # core only (9 tests)
 npm run test:e2e        # e2e only (5 tests, spins up a fake Laravel-shaped server)
+npm run test:react      # React hook tests (6 tests, jsdom + @testing-library/react)
 npm run typecheck       # tsc --noEmit
 ```
 

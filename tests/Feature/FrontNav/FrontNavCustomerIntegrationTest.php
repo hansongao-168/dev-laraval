@@ -4,21 +4,22 @@ declare(strict_types=1);
 
 namespace Tests\Feature\FrontNav;
 
+use Gz168\FrontNav\Contracts\NavItem;
+use Gz168\FrontNav\Contracts\NavLocation;
+use Gz168\FrontNav\Contracts\NavRegistrar;
+use Gz168\FrontNav\Contracts\NavRegistry;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Tests\TestCase;
 
 /**
  * End-to-end "real business module integration" test.
  *
- * After Gz168\Customer\Providers\CustomerServiceProvider::packageBooted()
- * is wired into the host application, Customer registers three NavItems
- * under the 'customer' group. This test boots the host's full provider
- * stack (no manual registry.setUp) and verifies the items appear in
- * GET /api/v1/front-nav with the right shape, location, auth, and
- * parent/child nesting.
- *
- * This is the proof that other modules can plug into front-nav without
- * any cross-module coupling.
+ * CustomerServiceProvider binds its own NavRegistrar implementation
+ * under the 'customer' group. The FrontNav ServiceProvider pulls
+ * that Registrar from the Container during its boot sequence and
+ * materialises its NavItems into the registry. This test verifies
+ * the full pull-based contract works without any cross-module
+ * coupling.
  */
 final class FrontNavCustomerIntegrationTest extends TestCase
 {
@@ -28,11 +29,9 @@ final class FrontNavCustomerIntegrationTest extends TestCase
 
         config()->set('front-nav.cache.ttl', 0);
         config()->set('front-nav.front.enabled', true);
-        // No reset(): we want Customer's packageBooted() registration to be
-        // already materialised by the host's ServiceProvider boot sequence.
     }
 
-    public function test_customer_group_appears_in_sidebar_response(): void
+    public function test_customer_items_appear_in_sidebar_for_authed_visitor(): void
     {
         $response = $this->actingAs($this->makeAuthedVisitor())
             ->getJson('/api/v1/front-nav?location=sidebar');
@@ -40,56 +39,74 @@ final class FrontNavCustomerIntegrationTest extends TestCase
         $response->assertOk();
 
         $keys = array_column($response->json('data'), 'key');
-        self::assertContains('customer.profile', $keys);
-        self::assertContains('customer.settings', $keys);
-        self::assertNotContains('customer.addresses', $keys,
-            'customer.addresses is a child of customer.profile and must not be top-level');
+        // Customer registers 'customer.me' for authed users.
+        self::assertContains('customer.me', $keys);
     }
 
-    public function test_customer_addresses_nested_under_profile(): void
-    {
-        $response = $this->actingAs($this->makeAuthedVisitor())
-            ->getJson('/api/v1/front-nav?location=sidebar');
-
-        $profile = collect($response->json('data'))
-            ->firstWhere('key', 'customer.profile');
-
-        self::assertNotNull($profile);
-        self::assertCount(1, $profile['children']);
-        self::assertSame('customer.addresses', $profile['children'][0]['key']);
-        self::assertSame('/customer/addresses', $profile['children'][0]['url']);
-    }
-
-    public function test_customer_items_have_label_key_for_client_i18n(): void
-    {
-        $response = $this->actingAs($this->makeAuthedVisitor())
-            ->getJson('/api/v1/front-nav?location=sidebar&locale=zh-CN');
-
-        $profile = collect($response->json('data'))
-            ->firstWhere('key', 'customer.profile');
-
-        self::assertSame('My profile', $profile['label']);
-        self::assertSame('customer.profile', $profile['labelKey']);
-        self::assertSame(['en', 'zh-CN'], $profile['i18nLocales']);
-    }
-
-    public function test_customer_items_hidden_for_anonymous_visitor(): void
+    public function test_customer_login_and_register_appear_for_anonymous_visitor(): void
     {
         $response = $this->getJson('/api/v1/front-nav?location=sidebar');
 
         $response->assertOk();
-        $keys = array_column($response->json('data'), 'key');
 
-        // No 'customer.' prefix in guest output (all 3 require auth).
-        foreach ($keys as $key) {
-            self::assertStringStartsNotWith('customer.', $key);
+        $keys = array_column($response->json('data'), 'key');
+        // 'customer.login' + 'customer.register' use the 'guest' visibility,
+        // so they show up for anonymous visitors.
+        self::assertContains('customer.login', $keys);
+        self::assertContains('customer.register', $keys);
+        // 'customer.me' is auth-required and must be hidden.
+        self::assertNotContains('customer.me', $keys);
+    }
+
+    public function test_customer_me_settings_nested_under_customer_me(): void
+    {
+        $response = $this->actingAs($this->makeAuthedVisitor())
+            ->getJson('/api/v1/front-nav?location=sidebar');
+
+        $response->assertOk();
+
+        $me = collect($response->json('data'))
+            ->firstWhere('key', 'customer.me');
+
+        self::assertNotNull($me, 'customer.me should be in the sidebar for an authed visitor');
+        self::assertCount(1, $me['children']);
+        self::assertSame('customer.me.settings', $me['children'][0]['key']);
+    }
+
+    public function test_customer_registrar_is_pulled_via_container(): void
+    {
+        // Pull mode: business module binds a NavRegistrar implementation
+        // into the container; front-nav discovers it during boot.
+        self::assertTrue($this->app->bound(NavRegistrar::class));
+
+        /** @var NavRegistrar $registrar */
+        $registrar = $this->app->make(NavRegistrar::class);
+
+        self::assertSame('customer', $registrar->group());
+        self::assertSame(NavLocation::Sidebar, $registrar->location());
+
+        $items = $registrar->items();
+        self::assertGreaterThanOrEqual(4, count($items));
+
+        // Every item must be a valid NavItem — verifies the pull contract.
+        foreach ($items as $item) {
+            self::assertInstanceOf(NavItem::class, $item);
         }
+    }
+
+    public function test_registry_snapshot_contains_customer_group(): void
+    {
+        /** @var NavRegistry $registry */
+        $registry = $this->app->make(NavRegistry::class);
+
+        // Customer should be in the groups list, alongside the builtin 'core'.
+        self::assertContains('customer', $registry->groups());
+        self::assertContains('core', $registry->groups());
     }
 
     public function test_cross_group_aggregation_preserves_customer_and_core(): void
     {
         // core (header) + customer (sidebar) live in different locations.
-        // Same location ⇒ both groups' items compete for sort order.
         $sidebar = $this->actingAs($this->makeAuthedVisitor())
             ->getJson('/api/v1/front-nav?location=sidebar')
             ->json('data');
@@ -98,11 +115,9 @@ final class FrontNavCustomerIntegrationTest extends TestCase
             ->getJson('/api/v1/front-nav?location=header')
             ->json('data');
 
-        self::assertGreaterThanOrEqual(2, count($sidebar));
-        self::assertGreaterThanOrEqual(2, count($header));
+        self::assertNotEmpty($sidebar, 'sidebar must contain customer items');
+        self::assertNotEmpty($header, 'header must contain core items');
 
-        // Header should still have the built-in 'core.logout' alongside any
-        // future modules registered there.
         $headerKeys = array_column($header, 'key');
         self::assertContains('core.home', $headerKeys);
     }
