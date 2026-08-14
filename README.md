@@ -64,6 +64,62 @@ npm run dev:miniapp
 - Customer 域 host 接入：[`docs/architecture/customer-host-integration.md`](docs/architecture/customer-host-integration.md)
   —— `.env` / `config/customer.php` / Filament / Sanctum 接入步骤。
 
+### gz168/front-nav — 前台导航（14 milestone 已交付）
+
+**位置**：`gz168/FrontNav/`（Laravel 模块） + `packages/front-nav/`（TypeScript SDK） + `apps/web/src/lib/front-nav.ts`（消费示例）。
+
+**解决的问题**：业务模块各自贡献自己的菜单项，HTTP 端点 `GET /api/v1/front-nav?location=…&locale=…` 统一返回合并后的导航树，前端 SDK 缓存 + i18n 翻译后渲染。
+
+**架构亮点**（详见 [`gz168/FrontNav/ARCHITECTURE.md`](gz168/FrontNav/ARCHITECTURE.md)）：
+
+- **Contracts only**：业务模块只 `use Gz168\FrontNav\Contracts\*`，不引入具体实现，可替换 Registry/Resolver
+- **双模式集成**：push mode（`NavRegistry::group()`）+ pull mode（Container bind `NavRegistrar`）
+- **跨模块无耦合**：Customer（pull） + DemoConsumer（push） + builtin core（push）三种模式在同一 Registry 共存
+- **完整链路 CI**：GitHub Actions `.github/workflows/front-nav.yml` 在 PHP 8.3 + 8.5 双版本上跑全栈（backend PHPUnit + SDK node:test + apps/web scoped typecheck + eslint + Pint）
+- **SDK 端到端**：`@erp/front-nav` 同时提供 server-side (`getFrontNav()` for SSR) 与 client-side (`useFrontNav` React 19 hook) 双形态
+
+**30 秒上手**：
+
+```bash
+# 1. 看注册了哪些 NavItem
+php artisan frontnav:list
+
+# 2. 跑全栈测试
+cd gz168/FrontNav && ../../vendor/bin/phpunit    # 模块纯单测
+CACHE_STORE=array php artisan test --filter=FrontNav --compact   # host 集成
+cd packages/front-nav && npm test && npm run typecheck          # SDK
+
+# 3. 在浏览器看 demo
+cd apps/web && npm run dev
+# 打开 http://localhost:3000/nav-demo
+```
+
+**作为业务模块接入**（10 行）：
+
+```php
+// 你的 ServiceProvider::packageBooted()
+$registry = app(\Gz168\FrontNav\Contracts\NavRegistry::class);
+$registry->group('mymodule', function (\Gz168\FrontNav\Contracts\NavRegistrar $r): void {
+    $r->add(new \Gz168\FrontNav\Contracts\NavItem(
+        key: 'mymodule.home',
+        label: 'Home',
+        location: \Gz168\FrontNav\Contracts\NavLocation::Header,
+        url: '/mymodule',
+    ));
+});
+```
+
+**测试覆盖**：77 个测试，0 errors / 0 warnings
+
+| 套件 | 数量 | 工具 |
+|------|------|------|
+| `gz168/FrontNav/tests/Unit` | 32 | PHPUnit 12 |
+| `tests/Feature/FrontNav/*` | 31 | PHPUnit 12 (host) |
+| `packages/front-nav/tests/*.test.mjs` | 14 | node:test (core + e2e + react) |
+| `apps/web/src/lib/front-nav.ts` + `nav-demo/page.tsx` | scoped tsc + eslint | clean |
+
+参考实现：`gz168/Customer`（pull mode）+ `gz168/DemoConsumer`（push mode）—— 一个真实业务模块，一个最小演示模块。
+
 需要从本项目生成一个包含后端、全部客户端、AI 配置、Obsidian 和 Markdown 文档的
 新项目时，执行：
 

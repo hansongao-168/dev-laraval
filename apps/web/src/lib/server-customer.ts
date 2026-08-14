@@ -20,18 +20,30 @@ const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost/api/v1'
 
 /**
  * SSR 场景下的 http client：把 Next 的 cookies() 透传给 Laravel。
+ *
+ * Next 15+ 把 cookies() 改为 async(Promise<ReadonlyRequestCookies>),
+ * 因此 ssrHttp 必须返回 Promise<HttpClient>,调用方 await 后再使用。
  */
-function ssrHttp() {
+async function ssrHttp() {
+  const c = await cookies()
+  const cookieHeader = buildCookieHeader(c)
+
   return createHttp({
     baseUrl: API_BASE,
-    cookies: () => {
-      const c = cookies()
-      // Next 12+ cookies() 是只读 store；通过 .get 拼成 header
-      const all = c.getAll()
-      if (!all.length) return undefined
-      return all.map(({ name, value }) => `${name}=${value}`).join('; ')
-    }
+    cookies: () => cookieHeader,
   })
+}
+
+/**
+ * Convert a Next ReadonlyRequestCookies store into a single `Cookie: …`
+ * header string, as expected by Laravel's session middleware.
+ *
+ * `c.getAll()` returns `{ name: string, value: string }[]` since Next 14.
+ */
+function buildCookieHeader(c: Awaited<ReturnType<typeof cookies>>): string | undefined {
+  const all = c.getAll()
+  if (!all.length) return undefined
+  return all.map((pair) => `${pair.name}=${pair.value}`).join('; ')
 }
 
 export interface SessionContext {
@@ -39,13 +51,25 @@ export interface SessionContext {
   user?: import('@erp/api-client').Customer
 }
 
+/**
+ * Shape we expect the `/auth/me` endpoint to return. Kept local — the
+ * canonical wire format lives in `storage/app/openapi/customer.yaml`
+ * (when generated) and the @erp/api-client `Customer` type mirrors it.
+ */
+interface AuthMePayload {
+  email_verified_at?: string | null
+  [key: string]: unknown
+}
+
 export async function getCurrentSession(): Promise<SessionContext> {
-  const http = ssrHttp()
+  const http = await ssrHttp()
   const result = await http.request('/api/v1/auth/me', { method: 'GET' })
   if (result.ok) {
+    // Narrow `unknown` data to our local AuthMePayload shape.
+    const payload = result.data as AuthMePayload
     return {
-      status: result.data.email_verified_at ? 'authenticated' : 'unverified',
-      user: result.data
+      status: payload.email_verified_at ? 'authenticated' : 'unverified',
+      user: result.data as import('@erp/api-client').Customer,
     }
   }
   if (result.status === 401 || result.status === 419) {
@@ -55,7 +79,7 @@ export async function getCurrentSession(): Promise<SessionContext> {
 }
 
 export async function loginAction(formData: FormData): Promise<void> {
-  const http = ssrHttp()
+  const http = await ssrHttp()
   const customerApi = createCustomerApi(http)
   await customerApi.login({
     email: String(formData.get('email') || ''),
@@ -68,7 +92,7 @@ export async function loginAction(formData: FormData): Promise<void> {
 }
 
 export async function registerAction(formData: FormData): Promise<void> {
-  const http = ssrHttp()
+  const http = await ssrHttp()
   const customerApi = createCustomerApi(http)
   await customerApi.register({
     name: String(formData.get('name') || ''),
@@ -84,7 +108,7 @@ export async function registerAction(formData: FormData): Promise<void> {
 }
 
 export async function logoutAction(): Promise<void> {
-  const http = ssrHttp()
+  const http = await ssrHttp()
   const customerApi = createCustomerApi(http)
   await customerApi.logout()
   revalidatePath('/', 'layout')
@@ -92,7 +116,7 @@ export async function logoutAction(): Promise<void> {
 }
 
 export async function updateMeAction(formData: FormData): Promise<void> {
-  const http = ssrHttp()
+  const http = await ssrHttp()
   const customerApi = createCustomerApi(http)
   await customerApi.updateMe({
     name: formData.get('name') ? String(formData.get('name')) : null,
@@ -104,7 +128,7 @@ export async function updateMeAction(formData: FormData): Promise<void> {
 }
 
 export async function changePasswordAction(formData: FormData): Promise<void> {
-  const http = ssrHttp()
+  const http = await ssrHttp()
   const customerApi = createCustomerApi(http)
   await customerApi.changePassword({
     current_password: String(formData.get('current_password') || ''),
@@ -115,7 +139,7 @@ export async function changePasswordAction(formData: FormData): Promise<void> {
 }
 
 export async function forgotPasswordAction(formData: FormData): Promise<void> {
-  const http = ssrHttp()
+  const http = await ssrHttp()
   const customerApi = createCustomerApi(http)
   await customerApi.forgotPassword({
     email: String(formData.get('email') || '')

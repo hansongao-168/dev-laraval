@@ -16,6 +16,7 @@ on:
       - 'gz168/FrontNav/**'
       - 'packages/front-nav/**'
       - 'tests/Feature/FrontNav/**'
+      - 'storage/app/openapi/**'
       - 'apps/web/src/lib/front-nav.ts'
       - 'apps/web/src/app/(desktop)/nav-demo/**'
       - 'apps/web/tsconfig.frontnav.json'
@@ -28,6 +29,7 @@ on:
       - 'gz168/FrontNav/**'
       - 'packages/front-nav/**'
       - 'tests/Feature/FrontNav/**'
+      - 'storage/app/openapi/**'
       - 'apps/web/src/lib/front-nav.ts'
       - 'apps/web/src/app/(desktop)/nav-demo/**'
       - 'apps/web/tsconfig.frontnav.json'
@@ -112,12 +114,13 @@ jobs:
         working-directory: apps/web
         run: npm ci --no-audit --no-fund
 
-      - name: apps/web typecheck (front-nav consumer)
-        # Uses a dedicated tsconfig.frontnav.json that scopes typecheck
-        # to the FrontNav consumer files. This way pre-existing tsconfig
-        # drift in the rest of apps/web does not fail our CI.
+      - name: apps/web typecheck (full project)
+        # M16 unblocked the host-wide tsc by fixing the pre-existing
+        # cookies() / typing issues in server-customer.ts. CI now runs
+        # the project's main tsconfig instead of the scoped one — any
+        # new type error anywhere in apps/web is now caught here.
         working-directory: apps/web
-        run: npx tsc --noEmit --project tsconfig.frontnav.json
+        run: npx tsc --noEmit
 
       - name: apps/web eslint (front-nav consumer)
         working-directory: apps/web
