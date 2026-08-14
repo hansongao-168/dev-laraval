@@ -18,6 +18,7 @@ on:
       - 'tests/Feature/FrontNav/**'
       - 'apps/web/src/lib/front-nav.ts'
       - 'apps/web/src/app/(desktop)/nav-demo/**'
+      - 'apps/web/tsconfig.frontnav.json'
       - 'apps/web/package.json'
       - '.github/workflows/front-nav.yml'
       - 'composer.json'
@@ -29,6 +30,7 @@ on:
       - 'tests/Feature/FrontNav/**'
       - 'apps/web/src/lib/front-nav.ts'
       - 'apps/web/src/app/(desktop)/nav-demo/**'
+      - 'apps/web/tsconfig.frontnav.json'
       - 'apps/web/package.json'
       - '.github/workflows/front-nav.yml'
       - 'composer.json'
@@ -41,8 +43,17 @@ concurrency:
 
 jobs:
   test:
-    name: phpunit + node:test + apps/web typecheck + pint
+    name: php ${{ matrix.php }} + node 20
     runs-on: ubuntu-latest
+
+    # Matrix runs the entire CI suite under both PHP 8.3 (the project's
+    # composer.json constraint `php: ^8.3`) and PHP 8.5 (the version
+    # declared in AGENTS.md as the dev target). Catching upgrade friction
+    # early avoids a "PHP 8.5 day" scramble later.
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['8.3', '8.5']
 
     env:
       CACHE_STORE: array
@@ -52,10 +63,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup PHP
+      - name: Setup PHP ${{ matrix.php }}
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.3'
+          php-version: ${{ matrix.php }}
           extensions: mbstring, intl, sqlite, pdo_sqlite
           coverage: none
           tools: composer
@@ -102,14 +113,11 @@ jobs:
         run: npm ci --no-audit --no-fund
 
       - name: apps/web typecheck (front-nav consumer)
-        # Scoped to the files we added so pre-existing tsconfig drift in
-        # the rest of apps/web does not fail our CI. The FrontNav demo
-        # page is typechecked with strict mode (front-nav lib is also strict).
+        # Uses a dedicated tsconfig.frontnav.json that scopes typecheck
+        # to the FrontNav consumer files. This way pre-existing tsconfig
+        # drift in the rest of apps/web does not fail our CI.
         working-directory: apps/web
-        run: |
-          npx tsc --noEmit \
-            src/lib/front-nav.ts \
-            src/app/\(desktop\)/nav-demo/page.tsx
+        run: npx tsc --noEmit --project tsconfig.frontnav.json
 
       - name: apps/web eslint (front-nav consumer)
         working-directory: apps/web
