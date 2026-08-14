@@ -14,6 +14,7 @@
         "gz168/attribute-management": "dev-master",
         "gz168/cache-management": "dev-master",
         "gz168/common": "dev-master",
+        "gz168/customer": "dev-master",
         "gz168/custom-config": "dev-master",
         "gz168/database-backup": "dev-master",
         "gz168/deepseek": "dev-master",
