@@ -1,10 +1,13 @@
 name: front-nav
 
-# CI for the gz168/front-nav module + @erp/front-nav SDK + Customer integration.
-# Three test suites run in one job so a single failure tells the whole story:
+# CI for the gz168/front-nav module + @erp/front-nav SDK + apps/web consumer +
+# Customer integration. Five test suites run in one job so a single failure
+# tells the whole story:
 #   1. Module PHPUnit        (gz168/FrontNav/tests/Unit)
 #   2. Host feature PHPUnit  (tests/Feature/FrontNav/* + full host suite)
 #   3. SDK node:test         (packages/front-nav/tests/*.test.mjs)
+#   4. apps/web typecheck    (apps/web/tsc --noEmit, scoped to front-nav files)
+#   5. apps/web eslint       (apps/web/eslint, scoped to front-nav files)
 # Pint runs before tests so formatting drift fails fast.
 
 on:
@@ -13,6 +16,9 @@ on:
       - 'gz168/FrontNav/**'
       - 'packages/front-nav/**'
       - 'tests/Feature/FrontNav/**'
+      - 'apps/web/src/lib/front-nav.ts'
+      - 'apps/web/src/app/(desktop)/nav-demo/**'
+      - 'apps/web/package.json'
       - '.github/workflows/front-nav.yml'
       - 'composer.json'
       - 'composer.lock'
@@ -21,6 +27,9 @@ on:
       - 'gz168/FrontNav/**'
       - 'packages/front-nav/**'
       - 'tests/Feature/FrontNav/**'
+      - 'apps/web/src/lib/front-nav.ts'
+      - 'apps/web/src/app/(desktop)/nav-demo/**'
+      - 'apps/web/package.json'
       - '.github/workflows/front-nav.yml'
       - 'composer.json'
       - 'composer.lock'
@@ -32,13 +41,8 @@ concurrency:
 
 jobs:
   test:
-    name: phpunit + node:test + pint
+    name: phpunit + node:test + apps/web typecheck + pint
     runs-on: ubuntu-latest
-
-    # Mirror host composer.json: php ^8.3, node 20 (LTS).
-    services:
-      # No DB needed — FrontNav tests use SQLite :memory: or no DB at all.
-      # Listed here for parity with future Filament tests; ignored today.
 
     env:
       CACHE_STORE: array
@@ -61,7 +65,9 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
-          cache-dependency-path: packages/front-nav/package-lock.json
+          cache-dependency-path: |
+            packages/front-nav/package-lock.json
+            apps/web/package-lock.json
 
       - name: Composer install
         run: |
@@ -84,9 +90,30 @@ jobs:
       - name: Host feature PHPUnit (FrontNav)
         run: php artisan test --filter=FrontNav --compact
 
-      - name: SDK npm test (core + e2e)
+      - name: SDK npm test (core + e2e + react)
         working-directory: packages/front-nav
         run: |
           npm ci --no-audit --no-fund
           npm test
           npm run typecheck
+
+      - name: apps/web install (front-nav consumer)
+        working-directory: apps/web
+        run: npm ci --no-audit --no-fund
+
+      - name: apps/web typecheck (front-nav consumer)
+        # Scoped to the files we added so pre-existing tsconfig drift in
+        # the rest of apps/web does not fail our CI. The FrontNav demo
+        # page is typechecked with strict mode (front-nav lib is also strict).
+        working-directory: apps/web
+        run: |
+          npx tsc --noEmit \
+            src/lib/front-nav.ts \
+            src/app/\(desktop\)/nav-demo/page.tsx
+
+      - name: apps/web eslint (front-nav consumer)
+        working-directory: apps/web
+        run: |
+          npx eslint \
+            src/lib/front-nav.ts \
+            'src/app/(desktop)/nav-demo/page.tsx'
