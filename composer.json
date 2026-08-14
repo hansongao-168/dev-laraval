@@ -19,6 +19,7 @@
         "gz168/deepseek": "dev-master",
         "gz168/export-management": "dev-master",
         "gz168/extension-data": "dev-master",
+        "gz168/front-nav": "dev-master",
         "gz168/filament": "dev-master",
         "gz168/filament-admin": "dev-master",
         "gz168/gmail-api": "dev-master",
@@ -149,6 +150,10 @@
         {
             "type": "path",
             "url": "gz168/ExtensionData"
+        },
+        {
+            "type": "path",
+            "url": "gz168/FrontNav"
         },
         {
             "type": "path",
