@@ -66,7 +66,7 @@ npm run dev:miniapp
 
 ### gz168/front-nav — 前台导航（14 milestone 已交付）
 
-**位置**：`gz168/FrontNav/`（Laravel 模块） + `packages/front-nav/`（TypeScript SDK） + `apps/web/src/lib/front-nav.ts`（消费示例）。
+**位置**：`gz168/FrontNav/`（Laravel 模块） + `packages/front-nav/`（TypeScript SDK） + `apps/web/src/lib/front-nav.ts`（Next.js 消费示例）+ `apps/mobile/src/lib/front-nav.ts`（Expo 消费示例）+ `apps/miniapp/src/lib/front-nav.ts`（Taro 消费示例）。
 
 **解决的问题**：业务模块各自贡献自己的菜单项，HTTP 端点 `GET /api/v1/front-nav?location=…&locale=…` 统一返回合并后的导航树，前端 SDK 缓存 + i18n 翻译后渲染。
 
@@ -84,10 +84,14 @@ npm run dev:miniapp
 # 1. 看注册了哪些 NavItem
 php artisan frontnav:list
 
-# 2. 跑全栈测试
-cd gz168/FrontNav && ../../vendor/bin/phpunit    # 模块纯单测
-CACHE_STORE=array php artisan test --filter=FrontNav --compact   # host 集成
-cd packages/front-nav && npm test && npm run typecheck          # SDK
+# 2. 跑全栈测试（一条命令跑完全部 front-nav 套件）
+CACHE_STORE=array composer run test:front-nav
+# 等价于手动跑：
+#   vendor/bin/pint --dirty
+#   vendor/bin/phpunit --no-coverage -c gz168/FrontNav/phpunit.xml   # 模块纯单测
+#   php artisan test --filter=FrontNav --compact                     # host 集成
+#   cd packages/front-nav && npm test && npm run typecheck          # SDK
+#   cd apps/web && npx tsc --noEmit && npx eslint ...               # 消费侧
 
 # 3. 在浏览器看 demo
 cd apps/web && npm run dev
@@ -109,14 +113,17 @@ $registry->group('mymodule', function (\Gz168\FrontNav\Contracts\NavRegistrar $r
 });
 ```
 
-**测试覆盖**：77 个测试，0 errors / 0 warnings
+**测试覆盖**：102 个测试，246 个断言，0 errors / 0 warnings
 
-| 套件 | 数量 | 工具 |
-|------|------|------|
-| `gz168/FrontNav/tests/Unit` | 32 | PHPUnit 12 |
-| `tests/Feature/FrontNav/*` | 31 | PHPUnit 12 (host) |
-| `packages/front-nav/tests/*.test.mjs` | 14 | node:test (core + e2e + react) |
-| `apps/web/src/lib/front-nav.ts` + `nav-demo/page.tsx` | scoped tsc + eslint | clean |
+| 套件 | 数量 | 断言 | 工具 |
+|------|------|------|------|
+| `gz168/FrontNav/tests/Unit` | 32 | 66 | PHPUnit 12 |
+| `tests/Feature/FrontNav/*` | 39 | 139 | PHPUnit 12 (host) |
+| `packages/front-nav/tests/*.test.mjs` | 31 | — | node:test (core + env + e2e + react + exports) |
+| `apps/web` tsc + eslint | — | — | clean (全项目 0 errors) |
+| `apps/mobile` + `apps/miniapp` tsc | — | — | clean (全项目 0 errors) |
+
+一条命令跑完全部：`CACHE_STORE=array composer run test:front-nav`
 
 参考实现：`gz168/Customer`（pull mode）+ `gz168/DemoConsumer`（push mode）—— 一个真实业务模块，一个最小演示模块。
 

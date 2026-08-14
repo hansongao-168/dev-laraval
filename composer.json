@@ -83,6 +83,16 @@
             "@php artisan config:clear --ansi @no_additional_args",
             "@php artisan test"
         ],
+        "test:front-nav": [
+            "@php vendor/bin/pint --dirty",
+            "@php vendor/bin/phpunit --no-coverage -c gz168/FrontNav/phpunit.xml",
+            "@php artisan config:clear --ansi @no_additional_args",
+            "@php artisan test --filter=FrontNav --compact",
+            "@php -r \"chdir('packages/front-nav'); passthru('npm test 2>&1');\"",
+            "@php -r \"chdir('packages/front-nav'); passthru('npm run typecheck 2>&1');\"",
+            "@php -r \"chdir('apps/web'); passthru('npx tsc --noEmit 2>&1');\"",
+            "@php -r \"chdir('apps/web'); passthru('npx eslint src/lib/front-nav.ts src/lib/server-customer.ts src/app/**/nav-demo/page.tsx 2>&1');\""
+        ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi",

@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "dependencies": {
     "@erp/api-client": "file:../../packages/api-client",
+    "@erp/front-nav": "file:../../packages/front-nav",
     "@expo/ui": "~57.0.7",
     "expo": "~57.0.8",
     "expo-constants": "~57.0.7",

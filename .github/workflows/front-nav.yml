@@ -101,13 +101,6 @@ jobs:
       - name: Host feature PHPUnit (FrontNav)
         run: php artisan test --filter=FrontNav --compact
 
-      - name: SDK npm test (core + e2e + react)
-        working-directory: packages/front-nav
-        run: |
-          npm ci --no-audit --no-fund
-          npm test
-          npm run typecheck
-
       - name: apps/web install (front-nav consumer)
         working-directory: apps/web
         run: npm ci --no-audit --no-fund
@@ -126,3 +119,37 @@ jobs:
           npx eslint \
             src/lib/front-nav.ts \
             'src/app/(desktop)/nav-demo/page.tsx'
+
+  # Node matrix job — the SDK is pure JavaScript with no PHP dependency,
+  # so it gets its own matrix across Node LTS versions. Splitting it out
+  # keeps the PHP job fast (Node 20 only) while still validating the SDK
+  # against every supported Node runtime.
+  sdk-node:
+    name: sdk (node ${{ matrix.node }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ['18', '20', '22']
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node ${{ matrix.node }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: 'npm'
+          cache-dependency-path: packages/front-nav/package-lock.json
+
+      - name: Install SDK deps
+        working-directory: packages/front-nav
+        run: npm ci --no-audit --no-fund
+
+      - name: SDK npm test (core + env + e2e + react + exports)
+        working-directory: packages/front-nav
+        run: npm test
+
+      - name: SDK typecheck
+        working-directory: packages/front-nav
+        run: npm run typecheck

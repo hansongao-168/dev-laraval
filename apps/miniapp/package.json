@@ -21,6 +21,7 @@
   "author": "",
   "dependencies": {
     "@erp/api-client": "file:../../packages/api-client",
+    "@erp/front-nav": "file:../../packages/front-nav",
     "@babel/runtime": "^7.24.4",
     "@tarojs/components": "4.2.1",
     "@tarojs/helper": "4.2.1",

@@ -14,10 +14,12 @@
     }
   },
   "scripts": {
-    "test": "node --test tests/core.test.mjs tests/e2e.test.mjs tests/react.test.mjs",
+    "test": "node --test tests/core.test.mjs tests/core.env.test.mjs tests/e2e.test.mjs tests/react.test.mjs tests/package.exports.test.mjs",
     "test:core": "node --test tests/core.test.mjs",
+    "test:env": "node --test tests/core.env.test.mjs",
     "test:e2e": "node --test tests/e2e.test.mjs",
     "test:react": "node --test tests/react.test.mjs",
+    "test:exports": "node --test tests/package.exports.test.mjs",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {

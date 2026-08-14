@@ -23,7 +23,12 @@
     ],
     "paths": {
       // TS5090 leading './'
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      // moduleResolution:node 不支持 package exports 子路径映射,
+      // 显式把 @erp/front-nav 的子路径指到源码 .d.ts
+      "@erp/front-nav": ["../../packages/front-nav/src/index.d.ts"],
+      "@erp/front-nav/core": ["../../packages/front-nav/src/core/index.d.ts"],
+      "@erp/front-nav/react": ["../../packages/front-nav/src/react/index.d.ts"]
     }
   },
   "include": ["./src", "./types", "./config"],
