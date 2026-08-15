@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c5314bee48fe558fc0b4b3fa9f2aebb4",
+    "content-hash": "986cbad0c865785a5f03a2047a5e1933",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -586,6 +586,83 @@
                 }
             ],
             "time": "2026-06-07T11:47:49+00:00"
+        },
+        {
+            "name": "composer/semver",
+            "version": "3.4.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/composer/semver.git",
+                "reference": "198166618906cb2de69b95d7d47e5fa8aa1b2b95"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/composer/semver/zipball/198166618906cb2de69b95d7d47e5fa8aa1b2b95",
+                "reference": "198166618906cb2de69b95d7d47e5fa8aa1b2b95",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.3.2 || ^7.0 || ^8.0"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^1.11",
+                "symfony/phpunit-bridge": "^3 || ^7"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "3.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Composer\\Semver\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nils Adermann",
+                    "email": "naderman@naderman.de",
+                    "homepage": "http://www.naderman.de"
+                },
+                {
+                    "name": "Jordi Boggiano",
+                    "email": "j.boggiano@seld.be",
+                    "homepage": "http://seld.be"
+                },
+                {
+                    "name": "Rob Bast",
+                    "email": "rob.bast@gmail.com",
+                    "homepage": "http://robbast.nl"
+                }
+            ],
+            "description": "Semver library that offers utilities, version constraint parsing and validation.",
+            "keywords": [
+                "semantic",
+                "semver",
+                "validation",
+                "versioning"
+            ],
+            "support": {
+                "irc": "ircs://irc.libera.chat:6697/composer",
+                "issues": "https://github.com/composer/semver/issues",
+                "source": "https://github.com/composer/semver/tree/3.4.4"
+            },
+            "funding": [
+                {
+                    "url": "https://packagist.com",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/composer",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-08-20T19:15:30+00:00"
         },
         {
             "name": "danharrin/date-format-converter",
@@ -2103,6 +2180,46 @@
             "time": "2026-07-17T13:53:03+00:00"
         },
         {
+            "name": "gz168/address-management",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/AddressManagement",
+                "reference": "f4adcf5a878c8dd500e2a703f4dc7e7ddcb9d425"
+            },
+            "require": {
+                "gz168/filament": "dev-master",
+                "maatwebsite/excel": "^4.0",
+                "php": "^8.2",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\AddressManagement\\Providers\\AddressManagementServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\AddressManagement\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\AddressManagement\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "地址管理模块：国家、省份、城市、区/县四级联动数据，支持文档导入",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
             "name": "gz168/api-auth",
             "version": "dev-master",
             "dist": {
@@ -2300,12 +2417,75 @@
             }
         },
         {
+            "name": "gz168/customer",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/Customer",
+                "reference": "68e587bb410d115b50e1d822b75200294cfc7b83"
+            },
+            "require": {
+                "gz168/common": "dev-master",
+                "gz168/front-nav": "dev-master",
+                "gz168/log-management": "dev-master",
+                "gz168/role-permission": "dev-master",
+                "illuminate/contracts": "^12.0|^13.0",
+                "illuminate/database": "^12.0|^13.0",
+                "illuminate/http": "^12.0|^13.0",
+                "illuminate/support": "^12.0|^13.0",
+                "laravel/sanctum": "^4.0",
+                "php": "^8.3",
+                "spatie/laravel-activitylog": "^4.8",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "require-dev": {
+                "darkaonline/l5-swagger": "^8.6",
+                "orchestra/testbench": "^9.0|^10.0",
+                "phpunit/phpunit": "^11.0|^12.0"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\Customer\\Providers\\CustomerServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\Customer\\": "src/",
+                    "Gz168\\Customer\\Shared\\": "src/Shared/",
+                    "Gz168\\Customer\\Front\\": "src/Front/",
+                    "Gz168\\Customer\\Admin\\": "src/Admin/",
+                    "Gz168\\Customer\\Database\\Factories\\": "database/factories/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\Customer\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Customer domain module: front-end (auth/profile) + back-office (manage customers). Single Composer package, single ServiceProvider, two subtrees (Front + Admin).",
+            "keywords": [
+                "auth",
+                "customer",
+                "filament",
+                "laravel"
+            ],
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
             "name": "gz168/database-backup",
             "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "gz168/DatabaseBackup",
-                "reference": "774832c894c189f766f3ce2b453413c2693db721"
+                "reference": "2bd9fc3945a9c6d98ee5646f81173ed19b7409bd"
             },
             "require": {
                 "gz168/role-permission": "dev-master",
@@ -2323,6 +2503,11 @@
             "autoload": {
                 "psr-4": {
                     "Gz168\\DatabaseBackup\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\DatabaseBackup\\Tests\\": "tests/"
                 }
             },
             "license": [
@@ -2368,17 +2553,117 @@
             }
         },
         {
+            "name": "gz168/demo-consumer",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/DemoConsumer",
+                "reference": "93ea74f58b933f13a0fe97bedbc86ad1e5361771"
+            },
+            "require": {
+                "gz168/common": "dev-master",
+                "gz168/front-nav": "dev-master",
+                "illuminate/contracts": "^12.0|^13.0",
+                "illuminate/support": "^12.0|^13.0",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^11.0|^12.0"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\DemoConsumer\\Providers\\DemoConsumerServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\DemoConsumer\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\DemoConsumer\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "gz168 DemoConsumer — second business module that integrates with gz168/front-nav via push mode. Proves the integration pattern is reproducible.",
+            "keywords": [
+                "demo",
+                "front-nav",
+                "gz168",
+                "laravel",
+                "navigation"
+            ],
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/erp-core",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/ErpCore",
+                "reference": "6810fac451a6fb8ca4159da15f0f9f0b011c6ca3"
+            },
+            "require": {
+                "gz168/address-management": "dev-master",
+                "gz168/filament": "dev-master",
+                "gz168/role-permission": "dev-master",
+                "laravel/framework": "^13.0",
+                "php": "^8.3",
+                "spatie/laravel-activitylog": "^4.0",
+                "spatie/laravel-permission": "^6.0"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\ErpCore\\Providers\\ErpCoreServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\ErpCore\\": "src/",
+                    "Gz168\\Models\\": "src/Models/",
+                    "Gz168\\Enums\\": "src/Enums/",
+                    "Gz168\\Support\\": "src/Support/",
+                    "Gz168\\Events\\": "src/Events/",
+                    "Database\\Factories\\": "database/factories/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\ErpCore\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "ERP core domain for gz168 (shared models, enums, contracts, support, events)",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
             "name": "gz168/export-management",
             "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "gz168/ExportManagement",
-                "reference": "31d38e408f9ff96f4f9dea4a7bdd11efc5b467e0"
+                "reference": "541e4abbc61d6ca1ec22597f60624444aeb24987"
             },
             "require": {
                 "gz168/filament": "dev-master",
                 "php": "^8.2",
-                "phpoffice/phpspreadsheet": "^5.0",
+                "phpoffice/phpspreadsheet": ">=1.30",
                 "spatie/laravel-package-tools": "^1.93"
             },
             "type": "laravel-package",
@@ -2500,6 +2785,58 @@
             }
         },
         {
+            "name": "gz168/front-nav",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/FrontNav",
+                "reference": "276560899eb42d3ca501a18d7ec4f939281285dc"
+            },
+            "require": {
+                "gz168/common": "@dev",
+                "illuminate/contracts": "^12.0|^13.0",
+                "illuminate/http": "^12.0|^13.0",
+                "illuminate/support": "^12.0|^13.0",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^11.0|^12.0"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\FrontNav\\Providers\\FrontNavServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\FrontNav\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\FrontNav\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "gz168 FrontNav module — front-end navigation registry + resolver + HTTP aggregator",
+            "keywords": [
+                "front-nav",
+                "gz168",
+                "laravel",
+                "menu",
+                "navigation"
+            ],
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
             "name": "gz168/git-management",
             "version": "dev-master",
             "dist": {
@@ -2575,6 +2912,67 @@
                 "MIT"
             ],
             "description": "Gmail REST API integration with OAuth2 for Laravel",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/inventory",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/Inventory",
+                "reference": "524065f84aa60762b54e5186ec5a73b95fb42e28"
+            },
+            "require": {
+                "gz168/erp-core": "dev-master",
+                "gz168/filament": "dev-master",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\Inventory\\Providers\\InventoryServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\Inventory\\": "src/",
+                    "Gz168\\Services\\Inventory\\": "src/Services/Inventory/",
+                    "Gz168\\Filament\\Resources\\ChannelListingResource\\": "src/Filament/Resources/ChannelListingResource/",
+                    "Gz168\\Filament\\Resources\\CycleCountResource\\": "src/Filament/Resources/CycleCountResource/",
+                    "Gz168\\Filament\\Resources\\InventoryLedgerResource\\": "src/Filament/Resources/InventoryLedgerResource/",
+                    "Gz168\\Filament\\Resources\\InventoryProductImportJobResource\\": "src/Filament/Resources/InventoryProductImportJobResource/",
+                    "Gz168\\Filament\\Resources\\InventoryProductResource\\": "src/Filament/Resources/InventoryProductResource/",
+                    "Gz168\\Filament\\Resources\\InventoryPushLogResource\\": "src/Filament/Resources/InventoryPushLogResource/",
+                    "Gz168\\Filament\\Resources\\InventoryReconcileAlertResource\\": "src/Filament/Resources/InventoryReconcileAlertResource/",
+                    "Gz168\\Filament\\Resources\\InventoryTransferResource\\": "src/Filament/Resources/InventoryTransferResource/",
+                    "Gz168\\Filament\\Resources\\ListingChangeBatchResource\\": "src/Filament/Resources/ListingChangeBatchResource/",
+                    "Gz168\\Jobs\\Inventory\\": "src/Jobs/Inventory/",
+                    "Gz168\\Console\\Commands\\Inventory\\": "src/Console/Commands/Inventory/",
+                    "Gz168\\Listeners\\Inventory\\": "src/Listeners/Inventory/",
+                    "Gz168\\Observers\\": "src/Observers/",
+                    "Gz168\\Exports\\": "src/Exports/",
+                    "Gz168\\Mail\\": "src/Mail/",
+                    "Gz168\\Filament\\Widgets\\": "src/Filament/Widgets/",
+                    "Gz168\\Filament\\Actions\\": "src/Filament/Actions/"
+                },
+                "classmap": [
+                    "src/Filament/Pages/"
+                ]
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\Inventory\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Inventory management module for gz168 (services, Filament resources, jobs, commands)",
             "transport-options": {
                 "relative": true
             }
@@ -2695,6 +3093,325 @@
             }
         },
         {
+            "name": "gz168/mail-account",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/MailAccount",
+                "reference": "8eb22cae351835b296ebeb17f460628df038bec3"
+            },
+            "require": {
+                "gz168/mail-contracts": "@dev",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\MailAccount\\Providers\\MailAccountServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\MailAccount\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\MailAccount\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "MailAccount module",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/mail-admin",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/MailAdmin",
+                "reference": "52518557e6c8ccc97dbf2023df1a0ffddb69cf28"
+            },
+            "require": {
+                "filament/filament": "^5.0",
+                "gz168/filament": "@dev",
+                "gz168/mail-account": "@dev",
+                "gz168/mail-inbound": "@dev",
+                "gz168/mail-notification": "@dev",
+                "gz168/mail-outbound": "@dev",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\MailAdmin\\Providers\\MailAdminServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\MailAdmin\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\MailAdmin\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "MailAdmin module",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/mail-contracts",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/MailContracts",
+                "reference": "0d7ab05121f2a786dbf89404799f27d649008657"
+            },
+            "require": {
+                "gz168/common": "@dev",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\MailContracts\\Providers\\MailContractsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\MailContracts\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\MailContracts\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "MailContracts module",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/mail-gmail",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/MailGmail",
+                "reference": "0761b7febbd9d8e786d48dad0caa2dc2a71887f7"
+            },
+            "require": {
+                "gz168/mail-contracts": "@dev",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\MailGmail\\Providers\\MailGmailServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\MailGmail\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\MailGmail\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "MailGmail module",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/mail-inbound",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/MailInbound",
+                "reference": "75853d4a569ab82b3364d60f5bd73c6a9882face"
+            },
+            "require": {
+                "gz168/mail-account": "@dev",
+                "gz168/mail-contracts": "@dev",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\MailInbound\\Providers\\MailInboundServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\MailInbound\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\MailInbound\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "MailInbound module",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/mail-notification",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/MailNotification",
+                "reference": "d882950b7b202120d225447966bfbcf3ecd6e61a"
+            },
+            "require": {
+                "gz168/mail-inbound": "@dev",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\MailNotification\\Providers\\MailNotificationServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\MailNotification\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\MailNotification\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "MailNotification module",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/mail-outbound",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/MailOutbound",
+                "reference": "04adef598c249baf326d6223f3e7c1ace586a86e"
+            },
+            "require": {
+                "gz168/mail-account": "@dev",
+                "gz168/mail-contracts": "@dev",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\MailOutbound\\Providers\\MailOutboundServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\MailOutbound\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\MailOutbound\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "MailOutbound module",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/mail-qq",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/MailQq",
+                "reference": "5d52372c49b837dc611c1063c3723bc447b1a0ef"
+            },
+            "require": {
+                "gz168/mail-contracts": "@dev",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\MailQq\\Providers\\MailQqServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\MailQq\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\MailQq\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "MailQq module",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
             "name": "gz168/module-core",
             "version": "dev-master",
             "dist": {
@@ -2782,7 +3499,7 @@
             "dist": {
                 "type": "path",
                 "url": "gz168/PackageRegistration",
-                "reference": "957ca05aa40ec5af7d84b4c68991e9dfb810acee"
+                "reference": "8a5988d081476ac5641c238c1fdd7529477b028e"
             },
             "require": {
                 "php": "^8.2",
@@ -2798,7 +3515,8 @@
             },
             "autoload": {
                 "psr-4": {
-                    "Gz168\\PackageRegistration\\": "src/"
+                    "Gz168\\PackageRegistration\\": "src/",
+                    "Database\\Seeders\\": "database/seeders/"
                 }
             },
             "autoload-dev": {
@@ -2846,6 +3564,47 @@
                 "MIT"
             ],
             "description": "Redis instance management for Filament admin",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/rednote",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/RedNote",
+                "reference": "3106297ac0a49c1fa1271e78157b6bdac300b48d"
+            },
+            "require": {
+                "gz168/erp-core": "@dev",
+                "gz168/filament": "@dev",
+                "gz168/inventory": "@dev",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\RedNote\\Providers\\RedNoteServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\RedNote\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\RedNote\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "RedNote (Xiaohongshu) e-commerce integration for gz168 (models, services, console, Filament, inventory adapter)",
             "transport-options": {
                 "relative": true
             }
@@ -4394,6 +5153,95 @@
                 }
             ],
             "time": "2026-07-31T00:19:18+00:00"
+        },
+        {
+            "name": "maatwebsite/excel",
+            "version": "4.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SpartnerNL/Laravel-Excel.git",
+                "reference": "367e92a78008291684b791b3712d46e6fca77343"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SpartnerNL/Laravel-Excel/zipball/367e92a78008291684b791b3712d46e6fca77343",
+                "reference": "367e92a78008291684b791b3712d46e6fca77343",
+                "shasum": ""
+            },
+            "require": {
+                "composer/semver": "^3.4",
+                "illuminate/support": "^12.0 || ^13.0",
+                "php": "^8.3",
+                "phpoffice/phpspreadsheet": "^5.8",
+                "psr/simple-cache": "^1.0 || ^2.0 || ^3.0"
+            },
+            "require-dev": {
+                "brianium/paratest": "^7.20",
+                "driftingly/rector-laravel": "^2.5",
+                "ext-sqlite3": "*",
+                "larastan/larastan": "^3.10",
+                "laravel/pint": "^1.29",
+                "laravel/scout": "^10.25 || ^11.2",
+                "orchestra/testbench": "^10.11 || ^11.1",
+                "phpstan/extension-installer": "^1.4",
+                "phpstan/phpstan-mockery": "^2.0",
+                "phpunit/phpunit": "^12.5 || ~13.1.14",
+                "predis/predis": "^2.3 || ^3.0",
+                "rector/rector": "^2.4.2"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "Excel": "Maatwebsite\\Excel\\Facades\\Excel"
+                    },
+                    "providers": [
+                        "Maatwebsite\\Excel\\ExcelServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Maatwebsite\\Excel\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Patrick Brouwers",
+                    "email": "patrick@spartner.nl"
+                }
+            ],
+            "description": "Supercharged Excel exports and imports in Laravel",
+            "keywords": [
+                "PHPExcel",
+                "batch",
+                "csv",
+                "excel",
+                "export",
+                "import",
+                "laravel",
+                "php",
+                "phpspreadsheet"
+            ],
+            "support": {
+                "issues": "https://github.com/SpartnerNL/Laravel-Excel/issues",
+                "source": "https://github.com/SpartnerNL/Laravel-Excel/tree/4.0.0"
+            },
+            "funding": [
+                {
+                    "url": "https://laravel-excel.com/commercial-support",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/patrickbrouwers",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-08-13T10:52:49+00:00"
         },
         {
             "name": "maennchen/zipstream-php",
@@ -6535,6 +7383,97 @@
             "time": "2024-05-17T09:06:10+00:00"
         },
         {
+            "name": "spatie/laravel-activitylog",
+            "version": "4.12.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-activitylog.git",
+                "reference": "2a2024fcac05628b0d1bfdbb1b94dda8b0661dc0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-activitylog/zipball/2a2024fcac05628b0d1bfdbb1b94dda8b0661dc0",
+                "reference": "2a2024fcac05628b0d1bfdbb1b94dda8b0661dc0",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/config": "^8.0 || ^9.0 || ^10.0 || ^11.0 || ^12.0 || ^13.0",
+                "illuminate/database": "^8.69 || ^9.27 || ^10.0 || ^11.0 || ^12.0 || ^13.0",
+                "illuminate/support": "^8.0 || ^9.0 || ^10.0 || ^11.0 || ^12.0 || ^13.0",
+                "php": "^8.1",
+                "spatie/laravel-package-tools": "^1.6.3"
+            },
+            "require-dev": {
+                "ext-json": "*",
+                "orchestra/testbench": "^6.23 || ^7.0 || ^8.0 || ^9.6 || ^10.0 || ^11.0",
+                "pestphp/pest": "^1.20 || ^2.0 || ^3.0 || ^4.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Spatie\\Activitylog\\ActivitylogServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Spatie\\Activitylog\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Sebastian De Deyne",
+                    "email": "sebastian@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Tom Witkowski",
+                    "email": "dev.gummibeer@gmail.com",
+                    "homepage": "https://gummibeer.de",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A very simple activity logger to monitor the users of your website or application",
+            "homepage": "https://github.com/spatie/activitylog",
+            "keywords": [
+                "activity",
+                "laravel",
+                "log",
+                "spatie",
+                "user"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/laravel-activitylog/issues",
+                "source": "https://github.com/spatie/laravel-activitylog/tree/4.12.3"
+            },
+            "funding": [
+                {
+                    "url": "https://spatie.be/open-source/support-us",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-03-24T12:33:53+00:00"
+        },
+        {
             "name": "spatie/laravel-package-tools",
             "version": "1.93.1",
             "source": {
@@ -6594,6 +7533,90 @@
                 }
             ],
             "time": "2026-05-19T14:06:37+00:00"
+        },
+        {
+            "name": "spatie/laravel-permission",
+            "version": "6.25.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-permission.git",
+                "reference": "d7d4cb0d58616722f1afc90e0484e4825155b9b3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-permission/zipball/d7d4cb0d58616722f1afc90e0484e4825155b9b3",
+                "reference": "d7d4cb0d58616722f1afc90e0484e4825155b9b3",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/auth": "^8.12|^9.0|^10.0|^11.0|^12.0|^13.0",
+                "illuminate/container": "^8.12|^9.0|^10.0|^11.0|^12.0|^13.0",
+                "illuminate/contracts": "^8.12|^9.0|^10.0|^11.0|^12.0|^13.0",
+                "illuminate/database": "^8.12|^9.0|^10.0|^11.0|^12.0|^13.0",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "laravel/passport": "^11.0|^12.0|^13.0",
+                "laravel/pint": "^1.0",
+                "orchestra/testbench": "^6.23|^7.0|^8.0|^9.0|^10.0|^11.0",
+                "pestphp/pest": "^2.0|^3.0|^4.0",
+                "pestphp/pest-plugin-laravel": "^2.0|^3.0|^4.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Spatie\\Permission\\PermissionServiceProvider"
+                    ]
+                },
+                "branch-alias": {
+                    "dev-main": "6.x-dev",
+                    "dev-master": "6.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Spatie\\Permission\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Permission handling for Laravel 8.0 and up",
+            "homepage": "https://github.com/spatie/laravel-permission",
+            "keywords": [
+                "acl",
+                "laravel",
+                "permission",
+                "permissions",
+                "rbac",
+                "roles",
+                "security",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/laravel-permission/issues",
+                "source": "https://github.com/spatie/laravel-permission/tree/6.25.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-03-17T22:46:46+00:00"
         },
         {
             "name": "spatie/shiki-php",
@@ -12140,26 +13163,41 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "gz168/address-management": 20,
         "gz168/api-auth": 20,
         "gz168/attribute-management": 20,
         "gz168/cache-management": 20,
         "gz168/common": 20,
         "gz168/custom-config": 20,
+        "gz168/customer": 20,
         "gz168/database-backup": 20,
         "gz168/deepseek": 20,
+        "gz168/demo-consumer": 20,
+        "gz168/erp-core": 20,
         "gz168/export-management": 20,
         "gz168/extension-data": 20,
         "gz168/filament": 20,
         "gz168/filament-admin": 20,
+        "gz168/front-nav": 20,
         "gz168/git-management": 20,
         "gz168/gmail-api": 20,
+        "gz168/inventory": 20,
         "gz168/kafka-management": 20,
         "gz168/log-management": 20,
         "gz168/mail": 20,
+        "gz168/mail-account": 20,
+        "gz168/mail-admin": 20,
+        "gz168/mail-contracts": 20,
+        "gz168/mail-gmail": 20,
+        "gz168/mail-inbound": 20,
+        "gz168/mail-notification": 20,
+        "gz168/mail-outbound": 20,
+        "gz168/mail-qq": 20,
         "gz168/module-core": 20,
         "gz168/module-settings": 20,
         "gz168/package-registration": 20,
         "gz168/redis-management": 20,
+        "gz168/rednote": 20,
         "gz168/role-permission": 20,
         "gz168/system-settings": 20,
         "gz168/user-management": 20
