@@ -9,9 +9,9 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.3",
         "filament/filament": "^5.0",
         "gz168/api-auth": "dev-master",
+        "gz168/address-management": "@dev",
         "gz168/attribute-management": "dev-master",
         "gz168/cache-management": "dev-master",
         "gz168/common": "dev-master",
@@ -20,6 +20,7 @@
         "gz168/database-backup": "dev-master",
         "gz168/deepseek": "dev-master",
         "gz168/demo-consumer": "dev-master",
+        "gz168/erp-core": "@dev",
         "gz168/export-management": "dev-master",
         "gz168/extension-data": "dev-master",
         "gz168/filament": "dev-master",
@@ -27,19 +28,30 @@
         "gz168/front-nav": "dev-master",
         "gz168/git-management": "dev-master",
         "gz168/gmail-api": "dev-master",
+        "gz168/inventory": "@dev",
         "gz168/kafka-management": "dev-master",
         "gz168/log-management": "dev-master",
         "gz168/mail": "dev-master",
+        "gz168/mail-account": "@dev",
+        "gz168/mail-admin": "@dev",
+        "gz168/mail-contracts": "@dev",
+        "gz168/mail-gmail": "@dev",
+        "gz168/mail-inbound": "@dev",
+        "gz168/mail-notification": "@dev",
+        "gz168/mail-outbound": "@dev",
+        "gz168/mail-qq": "@dev",
         "gz168/module-core": "dev-master",
         "gz168/module-settings": "dev-master",
         "gz168/package-registration": "dev-master",
         "gz168/redis-management": "dev-master",
+        "gz168/rednote": "@dev",
         "gz168/role-permission": "dev-master",
         "gz168/system-settings": "dev-master",
         "gz168/user-management": "dev-master",
         "laravel/framework": "^13.8",
         "laravel/sanctum": "^4.0",
-        "laravel/tinker": "^3.0"
+        "laravel/tinker": "^3.0",
+        "php": "^8.3"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -133,6 +145,10 @@
     "repositories": [
         {
             "type": "path",
+            "url": "gz168/AddressManagement"
+        },
+        {
+            "type": "path",
             "url": "gz168/ApiAuth"
         },
         {
@@ -145,11 +161,15 @@
         },
         {
             "type": "path",
+            "url": "gz168/CustomConfig"
+        },
+        {
+            "type": "path",
             "url": "gz168/Customer"
         },
         {
             "type": "path",
-            "url": "gz168/CustomConfig"
+            "url": "gz168/DatabaseBackup"
         },
         {
             "type": "path",
@@ -157,7 +177,7 @@
         },
         {
             "type": "path",
-            "url": "gz168/DatabaseBackup"
+            "url": "gz168/ErpCore"
         },
         {
             "type": "path",
@@ -169,11 +189,11 @@
         },
         {
             "type": "path",
-            "url": "gz168/FrontNav"
+            "url": "gz168/Filament"
         },
         {
             "type": "path",
-            "url": "gz168/Filament"
+            "url": "gz168/FrontNav"
         },
         {
             "type": "path",
@@ -182,6 +202,10 @@
         {
             "type": "path",
             "url": "gz168/GmailApi"
+        },
+        {
+            "type": "path",
+            "url": "gz168/Inventory"
         },
         {
             "type": "path",
@@ -197,6 +221,38 @@
         },
         {
             "type": "path",
+            "url": "gz168/MailAccount"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MailAdmin"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MailContracts"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MailGmail"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MailInbound"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MailNotification"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MailOutbound"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MailQq"
+        },
+        {
+            "type": "path",
             "url": "gz168/ModuleSettings"
         },
         {
@@ -206,6 +262,10 @@
         {
             "type": "path",
             "url": "gz168/RedisManagement"
+        },
+        {
+            "type": "path",
+            "url": "gz168/RedNote"
         },
         {
             "type": "path",

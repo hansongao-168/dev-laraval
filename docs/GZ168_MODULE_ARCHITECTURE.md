@@ -94,7 +94,7 @@ flowchart BT
 | `git-management` | `package-registration`, `role-permission` |
 | `gmail-api` | `api-auth` |
 | `kafka-management` | `common`, `filament`, `role-permission` |
-| `log-management-page` | `filament`, `package-registration` |
+| `log-management` | `filament`, `package-registration` |
 | `module-settings` | `common`, `filament`, `module-core`, `role-permission` |
 | `redis-management` | `common`, `filament`, `role-permission` |
 | `user-management` | `common`, `filament`, `role-permission`, `export-management`, `extension-data`, `api-auth` |
