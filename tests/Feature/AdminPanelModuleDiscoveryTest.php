@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use Filament\Facades\Filament;
-use Gz168\AttributeManagement\Filament\Resources\AttributeDefinitionResource\AttributeDefinitionResource;
+use Gz168\AttributeManagement\Filament\Resources\AttributeDefinitionResource;
 use Gz168\GmailApi\Services\GmailApiService;
 use Gz168\KafkaManagement\Filament\Pages\KafkaManagementPage;
 use Gz168\ModuleCore\Data\ModuleDefinition;
@@ -11,7 +11,7 @@ use Gz168\ModuleCore\Support\ModulePathResolver;
 use Gz168\ModuleCore\Support\ModuleScanner;
 use Gz168\ModuleSettings\Filament\Pages\ModuleSettingsPage;
 use Gz168\RedisManagement\Filament\Pages\RedisManagementPage;
-use Gz168\UserManagement\Filament\Resources\UserResource\UserResource;
+use Gz168\UserManagement\Filament\Resources\UserResource;
 use Tests\TestCase;
 
 class AdminPanelModuleDiscoveryTest extends TestCase
@@ -20,7 +20,7 @@ class AdminPanelModuleDiscoveryTest extends TestCase
     {
         $modules = (new ModuleScanner(base_path('gz168')))->scan();
 
-        $this->assertCount(24, $modules);
+        $this->assertCount(27, $modules);
         $this->assertNotContains(false, array_map(
             static fn (ModuleDefinition $module): bool => $module->active,
             $modules,
@@ -47,6 +47,6 @@ class AdminPanelModuleDiscoveryTest extends TestCase
 
     public function test_module_settings_page_lists_every_installed_module(): void
     {
-        $this->assertCount(24, (new ModuleSettingsPage)->getInstalledModules());
+        $this->assertCount(27, (new ModuleSettingsPage)->getInstalledModules());
     }
 }

@@ -18,6 +18,7 @@
         "gz168/custom-config": "dev-master",
         "gz168/customer": "dev-master",
         "gz168/database-backup": "dev-master",
+        "gz168/database-manager": "dev-master",
         "gz168/deepseek": "dev-master",
         "gz168/demo-consumer": "dev-master",
         "gz168/export-management": "dev-master",
@@ -60,7 +61,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "Tests\\": "tests/",
+            "Gz168\\DatabaseManager\\Tests\\": "gz168/DatabaseManager/tests/"
         }
     },
     "scripts": {
@@ -158,6 +160,10 @@
         {
             "type": "path",
             "url": "gz168/DatabaseBackup"
+        },
+        {
+            "type": "path",
+            "url": "gz168/DatabaseManager"
         },
         {
             "type": "path",

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8a9cf14d8efb21ec65275bbeec072614",
+    "content-hash": "21f80ea6774d8f662538ccdff52aee16",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -2368,7 +2368,7 @@
             "dist": {
                 "type": "path",
                 "url": "gz168/DatabaseBackup",
-                "reference": "c9916efa2f6eed784963409deece89aed40641b1"
+                "reference": "2bd9fc3945a9c6d98ee5646f81173ed19b7409bd"
             },
             "require": {
                 "gz168/role-permission": "dev-master",
@@ -2388,10 +2388,55 @@
                     "Gz168\\DatabaseBackup\\": "src/"
                 }
             },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\DatabaseBackup\\Tests\\": "tests/"
+                }
+            },
             "license": [
                 "MIT"
             ],
             "description": "Database Backup Management for Filament",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/database-manager",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/DatabaseManager",
+                "reference": "a7e8d85b9d0a6b7d95ae83bc8f68c1592ce21609"
+            },
+            "require": {
+                "gz168/role-permission": "dev-master",
+                "illuminate/support": "^13.0",
+                "php": "^8.3"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\DatabaseManager\\Providers\\DatabaseManagerServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\DatabaseManager\\": "src/",
+                    "Gz168\\DatabaseManager\\Database\\Seeders\\": "database/seeders/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\DatabaseManager\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Multi-connection database management (connections, multi-table backup/restore, transfer, scheduling) for Filament.",
             "transport-options": {
                 "relative": true
             }
@@ -12662,6 +12707,7 @@
         "gz168/custom-config": 20,
         "gz168/customer": 20,
         "gz168/database-backup": 20,
+        "gz168/database-manager": 20,
         "gz168/deepseek": 20,
         "gz168/demo-consumer": 20,
         "gz168/export-management": 20,
