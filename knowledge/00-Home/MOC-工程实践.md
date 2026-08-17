@@ -38,6 +38,7 @@ flowchart LR
 ## 子主题入口
 
 - [[10-Notes/99-Cheat-Sheets/MOC]]
+  - [[10-Notes/99-Cheat-Sheets/dev-laraval-core-schema]] 仓库默认库的核心表速查
 - [[10-Notes/70-Design-Patterns/MOC]] 设计模式（SOLID + GoF 23，以 gz168 项目为实例）
 
 ## 工程实践相关原子笔记
