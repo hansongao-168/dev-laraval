@@ -55,6 +55,68 @@ AI 助手开始任务前，按 [[00-Home/学习地图]] 与 [[00-Home/AI上下�
 - 数据库结构变更必须使用 migration，不直接手工修改生产表。
 - 破坏性数据库操作和依赖升级必须先获得用户明确许可。
 
+## 模块化设计原则（强约束）
+
+所有开发必须遵循 **模块化、低耦合、高内聚、单向依赖**。违反这些原则的代码不应通过 Review。
+
+### 1. 模块化
+
+- 一个模块 = 一个明确的业务边界，对应一个 `app/Modules/<Name>` 目录或独立的 `packages/<name>` 包。
+- 模块内暴露公共能力（Controller、Action、Service、Repository、Enum、DTO、Contract）作为唯一入口；模块内部实现细节（私有 Helper、Internal Query、缓存策略）不得被外部跨模块直接调用。
+- 每个模块必须有：`README.md`（职责与边界）、`composer.json`（如独立包）或 `module.json`、清晰的 `routes/`、`database/`、`tests/`。
+- 跨模块集成必须走模块公共入口（接口 + 实现，或事件 + 监听器），禁止反向依赖。
+
+### 2. 低耦合
+
+- 通过接口（Contract）而非具体实现进行依赖；Laravel 使用 `app()->bind(Contract::class, Implementation::class)` 注入。
+- 跨模块通信优先使用：领域事件（Event / Listener）、队列任务、API 资源；避免直接调用对方 Service。
+- 禁止循环依赖：A → B → A 在任何层面（命名空间、Composer、容器绑定）都不允许。
+- 替换或重构一个模块时，不应触发其他模块的代码改动（仅可能需要新增绑定或事件订阅）。
+
+### 3. 高内聚
+
+- 一个类只负责一件事；读、写、验证、渲染、副作用分离。
+- 同一业务能力的 Controller、Action、Policy、Repository、Migration 必须位于同一模块内；不要把"用户"相关代码分散到多个模块。
+- 公共工具（Helpers、Traits）按主题归类（如 `Money`、`DateRange`、`Tenancy`），禁止出现全局杂项 `Util` / `Common` 类。
+- 模块内部按 `Domain` / `Application` / `Infrastructure` / `Http` 分层；不同层只允许向下依赖。
+
+### 4. 单向依赖
+
+依赖方向必须严格自上而下：
+
+```
+Http (Controller / Filament / Livewire / API Resources)
+    ↓
+Application (Action / Service / DTO / UseCase)
+    ↓
+Domain (Model / Policy / Event / Enum / Contract)
+    ↓
+Infrastructure (Repository / Cache / Queue / External Adapter)
+```
+
+- 上层不得被下层直接引用。
+- 跨模块只允许"上层模块依赖下层模块"，禁止反向。
+- 基础设施（数据库、缓存、外部 SDK）必须通过 `Domain` 层的接口暴露，业务代码不直接 `new` 第三方客户端。
+- 通用类型（枚举、DTO、事件）可放在共享层 `packages/shared` / `app/Shared`，但共享层不依赖任何业务模块。
+
+### 5. 模块边界检查清单
+
+每次新增或修改跨模块代码前，回答：
+
+1. 这个改动属于哪个模块？是否属于该模块的职责？
+2. 是否需要暴露新接口？接口是否稳定、可替换？
+3. 是否会引入反向依赖或循环依赖？
+4. 是否更新了模块的 `README.md`、接口契约、事件清单？
+5. 是否新增/更新了对应的模块测试与集成测试？
+
+### 6. 命名与目录
+
+- 模块命名使用单数、PascalCase：`app/Modules/Order`、`app/Modules/Inventory`。
+- 命名空间映射：`App\Modules\Order\...`。
+- 跨模块导入使用完整命名空间，禁用 `use ... as ...` 掩盖来源。
+
+违反以上原则的代码视为不符合项目规范，必须在 Review 阶段拒绝合并。
+
 ## 开发方式
 
 - 开始修改前先检查相邻代码与现有命名方式。

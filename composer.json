@@ -31,6 +31,35 @@
         "gz168/kafka-management": "dev-master",
         "gz168/log-management": "dev-master",
         "gz168/mail": "dev-master",
+          "gz168/mall-admin": "dev-master",
+          "gz168/mall-cart": "dev-master",
+          "gz168/mall-catalog": "dev-master",
+          "gz168/mall-core": "dev-master",
+          "gz168/mall-customer": "dev-master",
+          "gz168/mall-fulfillment": "dev-master",
+          "gz168/mall-inventory": "dev-master",
+          "gz168/mall-order": "dev-master",
+          "gz168/mall-payment": "dev-master",
+          "gz168/mall-pricing": "dev-master",
+          "gz168/mall-storefront-api": "dev-master",
+            "gz168/mall-after-sales": "dev-master",
+            "gz168/mall-content": "dev-master",
+            "gz168/mall-media": "dev-master",
+            "gz168/mall-notification": "dev-master",
+            "gz168/mall-promotion": "dev-master",
+            "gz168/mall-review": "dev-master",
+              "gz168/mall-mode-o2o": "dev-master",
+              "gz168/mall-store": "dev-master",
+              "gz168/mall-merchant-portal-api": "dev-master",
+                "gz168/mall-mode-c2c": "dev-master",
+                "gz168/mall-seller": "dev-master",
+                "gz168/mall-settlement": "dev-master",
+                  "gz168/mall-b2b-portal-api": "dev-master",
+                  "gz168/mall-business-client": "dev-master",
+                  "gz168/mall-mode-b2b": "dev-master",
+                  "gz168/mall-quote": "dev-master",
+                    "gz168/mall-mode-b2c": "dev-master",
+                    "gz168/mall-search": "dev-master",
         "gz168/module-core": "dev-master",
         "gz168/module-settings": "dev-master",
         "gz168/package-registration": "dev-master",
@@ -200,6 +229,126 @@
         {
             "type": "path",
             "url": "gz168/Mail"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MallAdmin"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MallCart"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MallCatalog"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MallCore"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MallCustomer"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MallFulfillment"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MallInventory"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MallOrder"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MallPayment"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MallPricing"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MallStorefrontApi"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MallAfterSales"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MallContent"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MallMedia"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MallNotification"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MallPromotion"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MallReview"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MallModeO2O"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MallStore"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MallMerchantPortalApi"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MallModeC2C"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MallSeller"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MallSettlement"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MallB2bPortalApi"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MallBusinessClient"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MallModeB2B"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MallQuote"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MallModeB2C"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MallSearch"
+        },
+        {
+            "type": "path",
+            "url": "gz168/deepseek"
         },
         {
             "type": "path",
