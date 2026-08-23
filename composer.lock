@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "986cbad0c865785a5f03a2047a5e1933",
+    "content-hash": "cd20d283ca44024789343f1a4f414f94",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
-            "version": "1.3.10",
+            "version": "1.3.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/AnourValar/eloquent-serialize.git",
-                "reference": "2be26f176b764a2d6f20118bfa4b125f71fa88f8"
+                "reference": "abd890c4d1ad8e90dd454d01283fbf342f80f1e5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/AnourValar/eloquent-serialize/zipball/2be26f176b764a2d6f20118bfa4b125f71fa88f8",
-                "reference": "2be26f176b764a2d6f20118bfa4b125f71fa88f8",
+                "url": "https://api.github.com/repos/AnourValar/eloquent-serialize/zipball/abd890c4d1ad8e90dd454d01283fbf342f80f1e5",
+                "reference": "abd890c4d1ad8e90dd454d01283fbf342f80f1e5",
                 "shasum": ""
             },
             "require": {
@@ -67,9 +67,9 @@
             ],
             "support": {
                 "issues": "https://github.com/AnourValar/eloquent-serialize/issues",
-                "source": "https://github.com/AnourValar/eloquent-serialize/tree/1.3.10"
+                "source": "https://github.com/AnourValar/eloquent-serialize/tree/1.3.11"
             },
-            "time": "2026-06-20T14:30:25+00:00"
+            "time": "2026-08-07T06:14:19+00:00"
         },
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -588,83 +588,6 @@
             "time": "2026-06-07T11:47:49+00:00"
         },
         {
-            "name": "composer/semver",
-            "version": "3.4.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/composer/semver.git",
-                "reference": "198166618906cb2de69b95d7d47e5fa8aa1b2b95"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/composer/semver/zipball/198166618906cb2de69b95d7d47e5fa8aa1b2b95",
-                "reference": "198166618906cb2de69b95d7d47e5fa8aa1b2b95",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^5.3.2 || ^7.0 || ^8.0"
-            },
-            "require-dev": {
-                "phpstan/phpstan": "^1.11",
-                "symfony/phpunit-bridge": "^3 || ^7"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-main": "3.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Composer\\Semver\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nils Adermann",
-                    "email": "naderman@naderman.de",
-                    "homepage": "http://www.naderman.de"
-                },
-                {
-                    "name": "Jordi Boggiano",
-                    "email": "j.boggiano@seld.be",
-                    "homepage": "http://seld.be"
-                },
-                {
-                    "name": "Rob Bast",
-                    "email": "rob.bast@gmail.com",
-                    "homepage": "http://robbast.nl"
-                }
-            ],
-            "description": "Semver library that offers utilities, version constraint parsing and validation.",
-            "keywords": [
-                "semantic",
-                "semver",
-                "validation",
-                "versioning"
-            ],
-            "support": {
-                "irc": "ircs://irc.libera.chat:6697/composer",
-                "issues": "https://github.com/composer/semver/issues",
-                "source": "https://github.com/composer/semver/tree/3.4.4"
-            },
-            "funding": [
-                {
-                    "url": "https://packagist.com",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/composer",
-                    "type": "github"
-                }
-            ],
-            "time": "2025-08-20T19:15:30+00:00"
-        },
-        {
             "name": "danharrin/date-format-converter",
             "version": "v0.3.1",
             "source": {
@@ -717,16 +640,16 @@
         },
         {
             "name": "danharrin/livewire-rate-limiting",
-            "version": "v2.2.0",
+            "version": "v2.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/danharrin/livewire-rate-limiting.git",
-                "reference": "c03e649220089f6e5a52d422e24e3f98c73e456d"
+                "reference": "69436717dc70e30f80d7f8fd02504c22992a9ad5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/danharrin/livewire-rate-limiting/zipball/c03e649220089f6e5a52d422e24e3f98c73e456d",
-                "reference": "c03e649220089f6e5a52d422e24e3f98c73e456d",
+                "url": "https://api.github.com/repos/danharrin/livewire-rate-limiting/zipball/69436717dc70e30f80d7f8fd02504c22992a9ad5",
+                "reference": "69436717dc70e30f80d7f8fd02504c22992a9ad5",
                 "shasum": ""
             },
             "require": {
@@ -734,7 +657,7 @@
                 "php": "^8.0"
             },
             "require-dev": {
-                "livewire/livewire": "^3.0",
+                "livewire/livewire": "^3.0|^4.0",
                 "livewire/volt": "^1.3",
                 "orchestra/testbench": "^7.0|^8.0|^9.0|^10.0|^11.0",
                 "phpunit/phpunit": "^9.0|^10.0|^11.5.3|^12.5.12"
@@ -767,7 +690,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-03-16T11:29:23+00:00"
+            "time": "2026-08-06T08:41:51+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
@@ -1144,16 +1067,16 @@
         },
         {
             "name": "filament/actions",
-            "version": "v5.7.5",
+            "version": "v5.7.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/actions.git",
-                "reference": "995b58bf41f26bad5d457fca0246fbb07820c3b4"
+                "reference": "da3ed6cc03bd604b8b875ea03d4e9ef02c279eb2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/actions/zipball/995b58bf41f26bad5d457fca0246fbb07820c3b4",
-                "reference": "995b58bf41f26bad5d457fca0246fbb07820c3b4",
+                "url": "https://api.github.com/repos/filamentphp/actions/zipball/da3ed6cc03bd604b8b875ea03d4e9ef02c279eb2",
+                "reference": "da3ed6cc03bd604b8b875ea03d4e9ef02c279eb2",
                 "shasum": ""
             },
             "require": {
@@ -1189,20 +1112,20 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2026-07-29T13:13:50+00:00"
+            "time": "2026-08-05T20:45:04+00:00"
         },
         {
             "name": "filament/filament",
-            "version": "v5.7.5",
+            "version": "v5.7.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/panels.git",
-                "reference": "81100c0692e684fc1950173dd60d7947f4d235f5"
+                "reference": "7e75d8da9b907ead7d618ce8237228316d08ae43"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/panels/zipball/81100c0692e684fc1950173dd60d7947f4d235f5",
-                "reference": "81100c0692e684fc1950173dd60d7947f4d235f5",
+                "url": "https://api.github.com/repos/filamentphp/panels/zipball/7e75d8da9b907ead7d618ce8237228316d08ae43",
+                "reference": "7e75d8da9b907ead7d618ce8237228316d08ae43",
                 "shasum": ""
             },
             "require": {
@@ -1246,20 +1169,20 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2026-07-31T03:39:19+00:00"
+            "time": "2026-08-05T20:52:57+00:00"
         },
         {
             "name": "filament/forms",
-            "version": "v5.7.5",
+            "version": "v5.7.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/forms.git",
-                "reference": "5b4e193bf6b4e86a51e20db3db33a734d0a28f11"
+                "reference": "3295b3acfe81dc75faa3a6dbbfea551e4df10887"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/forms/zipball/5b4e193bf6b4e86a51e20db3db33a734d0a28f11",
-                "reference": "5b4e193bf6b4e86a51e20db3db33a734d0a28f11",
+                "url": "https://api.github.com/repos/filamentphp/forms/zipball/3295b3acfe81dc75faa3a6dbbfea551e4df10887",
+                "reference": "3295b3acfe81dc75faa3a6dbbfea551e4df10887",
                 "shasum": ""
             },
             "require": {
@@ -1296,20 +1219,20 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2026-07-31T03:39:08+00:00"
+            "time": "2026-08-05T20:51:04+00:00"
         },
         {
             "name": "filament/infolists",
-            "version": "v5.7.5",
+            "version": "v5.7.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/infolists.git",
-                "reference": "fba46bc691a120a3251326b77cdafe758b41386a"
+                "reference": "dca2f115006b716f2293e29042f9c9b410fc3548"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/infolists/zipball/fba46bc691a120a3251326b77cdafe758b41386a",
-                "reference": "fba46bc691a120a3251326b77cdafe758b41386a",
+                "url": "https://api.github.com/repos/filamentphp/infolists/zipball/dca2f115006b716f2293e29042f9c9b410fc3548",
+                "reference": "dca2f115006b716f2293e29042f9c9b410fc3548",
                 "shasum": ""
             },
             "require": {
@@ -1341,20 +1264,20 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2026-07-29T13:09:16+00:00"
+            "time": "2026-08-05T20:44:03+00:00"
         },
         {
             "name": "filament/notifications",
-            "version": "v5.7.5",
+            "version": "v5.7.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/notifications.git",
-                "reference": "c0c90201667a2fa64293be8af4a4baf565c00879"
+                "reference": "f188823f2e681883e1fa419af7e2f2a17d4c63c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/notifications/zipball/c0c90201667a2fa64293be8af4a4baf565c00879",
-                "reference": "c0c90201667a2fa64293be8af4a4baf565c00879",
+                "url": "https://api.github.com/repos/filamentphp/notifications/zipball/f188823f2e681883e1fa419af7e2f2a17d4c63c5",
+                "reference": "f188823f2e681883e1fa419af7e2f2a17d4c63c5",
                 "shasum": ""
             },
             "require": {
@@ -1388,20 +1311,20 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2026-07-29T13:13:39+00:00"
+            "time": "2026-08-05T20:49:13+00:00"
         },
         {
             "name": "filament/query-builder",
-            "version": "v5.7.5",
+            "version": "v5.7.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/query-builder.git",
-                "reference": "30ecea7c77c0066ee09c5902e820c62f816f8837"
+                "reference": "d658205b135ef364c992f5d5d518e9463099aab4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/query-builder/zipball/30ecea7c77c0066ee09c5902e820c62f816f8837",
-                "reference": "30ecea7c77c0066ee09c5902e820c62f816f8837",
+                "url": "https://api.github.com/repos/filamentphp/query-builder/zipball/d658205b135ef364c992f5d5d518e9463099aab4",
+                "reference": "d658205b135ef364c992f5d5d518e9463099aab4",
                 "shasum": ""
             },
             "require": {
@@ -1434,20 +1357,20 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2026-07-29T13:13:35+00:00"
+            "time": "2026-08-05T20:44:12+00:00"
         },
         {
             "name": "filament/schemas",
-            "version": "v5.7.5",
+            "version": "v5.7.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/schemas.git",
-                "reference": "53d4346cf0d7abbfc5f7157c761365766153a080"
+                "reference": "3e191f49090645685a34560f5a3e1ba28ed3e7bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/schemas/zipball/53d4346cf0d7abbfc5f7157c761365766153a080",
-                "reference": "53d4346cf0d7abbfc5f7157c761365766153a080",
+                "url": "https://api.github.com/repos/filamentphp/schemas/zipball/3e191f49090645685a34560f5a3e1ba28ed3e7bc",
+                "reference": "3e191f49090645685a34560f5a3e1ba28ed3e7bc",
                 "shasum": ""
             },
             "require": {
@@ -1479,20 +1402,20 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2026-07-31T03:39:26+00:00"
+            "time": "2026-08-05T20:51:01+00:00"
         },
         {
             "name": "filament/support",
-            "version": "v5.7.5",
+            "version": "v5.7.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/support.git",
-                "reference": "37aee7759b9ef434c246c28aef87d0f17bb88fd7"
+                "reference": "b6a33dd2af46160abe73226d671b1bc490a84a27"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/support/zipball/37aee7759b9ef434c246c28aef87d0f17bb88fd7",
-                "reference": "37aee7759b9ef434c246c28aef87d0f17bb88fd7",
+                "url": "https://api.github.com/repos/filamentphp/support/zipball/b6a33dd2af46160abe73226d671b1bc490a84a27",
+                "reference": "b6a33dd2af46160abe73226d671b1bc490a84a27",
                 "shasum": ""
             },
             "require": {
@@ -1537,20 +1460,20 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2026-07-29T13:09:20+00:00"
+            "time": "2026-08-05T20:51:57+00:00"
         },
         {
             "name": "filament/tables",
-            "version": "v5.7.5",
+            "version": "v5.7.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/tables.git",
-                "reference": "c412d9ab38c0e77bbd6be0527b8c6dd026bea082"
+                "reference": "be471ed4a9f2e7dcbbb134db622a03d4e89f7a21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/tables/zipball/c412d9ab38c0e77bbd6be0527b8c6dd026bea082",
-                "reference": "c412d9ab38c0e77bbd6be0527b8c6dd026bea082",
+                "url": "https://api.github.com/repos/filamentphp/tables/zipball/be471ed4a9f2e7dcbbb134db622a03d4e89f7a21",
+                "reference": "be471ed4a9f2e7dcbbb134db622a03d4e89f7a21",
                 "shasum": ""
             },
             "require": {
@@ -1583,20 +1506,20 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2026-07-29T13:11:13+00:00"
+            "time": "2026-08-05T20:51:25+00:00"
         },
         {
             "name": "filament/widgets",
-            "version": "v5.7.5",
+            "version": "v5.7.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/widgets.git",
-                "reference": "917a6fd81577512bb1e586664e6e40bc0c668d58"
+                "reference": "e500c98debe26112008398933fcf3ed50ee103f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/widgets/zipball/917a6fd81577512bb1e586664e6e40bc0c668d58",
-                "reference": "917a6fd81577512bb1e586664e6e40bc0c668d58",
+                "url": "https://api.github.com/repos/filamentphp/widgets/zipball/e500c98debe26112008398933fcf3ed50ee103f7",
+                "reference": "e500c98debe26112008398933fcf3ed50ee103f7",
                 "shasum": ""
             },
             "require": {
@@ -1627,7 +1550,7 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2026-07-29T13:14:03+00:00"
+            "time": "2026-08-05T20:49:46+00:00"
         },
         {
             "name": "fruitcake/php-cors",
@@ -1764,21 +1687,21 @@
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "7.15.2",
+            "version": "7.15.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "744101956d78b7c1384d0cbf379db13e859167bf"
+                "reference": "ae311b8f045ea93ce7b1c9cdb7cec06c53f944bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/744101956d78b7c1384d0cbf379db13e859167bf",
-                "reference": "744101956d78b7c1384d0cbf379db13e859167bf",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/ae311b8f045ea93ce7b1c9cdb7cec06c53f944bc",
+                "reference": "ae311b8f045ea93ce7b1c9cdb7cec06c53f944bc",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "guzzlehttp/promises": "^2.5.1",
+                "guzzlehttp/promises": "^2.5.2",
                 "guzzlehttp/psr7": "^2.13",
                 "php": "^7.2.5 || ^8.0",
                 "psr/http-client": "^1.0",
@@ -1872,7 +1795,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/guzzle/issues",
-                "source": "https://github.com/guzzle/guzzle/tree/7.15.2"
+                "source": "https://github.com/guzzle/guzzle/tree/7.15.3"
             },
             "funding": [
                 {
@@ -1888,20 +1811,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-07-26T23:23:20+00:00"
+            "time": "2026-08-05T19:48:21+00:00"
         },
         {
             "name": "guzzlehttp/promises",
-            "version": "2.5.1",
+            "version": "2.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/promises.git",
-                "reference": "9ad1e4fc607446a055b95870c7f668e93b5cff29"
+                "reference": "2823687acff28b2dbe67b2508a6b300e2c3fa4ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/promises/zipball/9ad1e4fc607446a055b95870c7f668e93b5cff29",
-                "reference": "9ad1e4fc607446a055b95870c7f668e93b5cff29",
+                "url": "https://api.github.com/repos/guzzle/promises/zipball/2823687acff28b2dbe67b2508a6b300e2c3fa4ce",
+                "reference": "2823687acff28b2dbe67b2508a6b300e2c3fa4ce",
                 "shasum": ""
             },
             "require": {
@@ -1956,7 +1879,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/promises/issues",
-                "source": "https://github.com/guzzle/promises/tree/2.5.1"
+                "source": "https://github.com/guzzle/promises/tree/2.5.2"
             },
             "funding": [
                 {
@@ -1972,7 +1895,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-07-08T15:48:39+00:00"
+            "time": "2026-08-05T19:30:54+00:00"
         },
         {
             "name": "guzzlehttp/psr7",
@@ -2095,26 +2018,26 @@
         },
         {
             "name": "guzzlehttp/uri-template",
-            "version": "v1.0.10",
+            "version": "v2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/uri-template.git",
-                "reference": "f6c24c21f42b990e9a58912b332d0874df6ba839"
+                "reference": "516c3bf2af176c532d5b59b3430292f7e9ecccb1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/uri-template/zipball/f6c24c21f42b990e9a58912b332d0874df6ba839",
-                "reference": "f6c24c21f42b990e9a58912b332d0874df6ba839",
+                "url": "https://api.github.com/repos/guzzle/uri-template/zipball/516c3bf2af176c532d5b59b3430292f7e9ecccb1",
+                "reference": "516c3bf2af176c532d5b59b3430292f7e9ecccb1",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.2.5 || ^8.0",
+                "php": "^7.4 || ^8.0",
                 "symfony/polyfill-php80": "^1.25"
             },
             "require-dev": {
                 "bamarni/composer-bin-plugin": "^1.8.2",
-                "phpunit/phpunit": "^8.5.52 || ^9.6.34",
-                "uri-template/tests": "1.0.0"
+                "phpunit/phpunit": "^9.6.34",
+                "uri-template/tests": "1.0.2"
             },
             "type": "library",
             "extra": {
@@ -2161,7 +2084,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/uri-template/issues",
-                "source": "https://github.com/guzzle/uri-template/tree/v1.0.10"
+                "source": "https://github.com/guzzle/uri-template/tree/v2.0.0"
             },
             "funding": [
                 {
@@ -2177,47 +2100,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-07-17T13:53:03+00:00"
-        },
-        {
-            "name": "gz168/address-management",
-            "version": "dev-master",
-            "dist": {
-                "type": "path",
-                "url": "gz168/AddressManagement",
-                "reference": "f4adcf5a878c8dd500e2a703f4dc7e7ddcb9d425"
-            },
-            "require": {
-                "gz168/filament": "dev-master",
-                "maatwebsite/excel": "^4.0",
-                "php": "^8.2",
-                "spatie/laravel-package-tools": "^1.93"
-            },
-            "type": "laravel-package",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Gz168\\AddressManagement\\Providers\\AddressManagementServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Gz168\\AddressManagement\\": "src/"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Gz168\\AddressManagement\\Tests\\": "tests/"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "description": "地址管理模块：国家、省份、城市、区/县四级联动数据，支持文档导入",
-            "transport-options": {
-                "relative": true
-            }
+            "time": "2026-07-20T13:40:43+00:00"
         },
         {
             "name": "gz168/api-auth",
@@ -2225,7 +2108,7 @@
             "dist": {
                 "type": "path",
                 "url": "gz168/ApiAuth",
-                "reference": "377b5616a019d04adc54474f79c6867f071a929f"
+                "reference": "0b7972096118620112cd1117f1047dfb083d6e11"
             },
             "require": {
                 "gz168/common": "dev-master",
@@ -2266,7 +2149,7 @@
             "dist": {
                 "type": "path",
                 "url": "gz168/AttributeManagement",
-                "reference": "cb3373024001bd674528276d413b63300f1031e5"
+                "reference": "9fefbf5261da7831a61462cf5e425d1eaeb5e302"
             },
             "require": {
                 "gz168/common": "dev-master",
@@ -2306,7 +2189,7 @@
             "dist": {
                 "type": "path",
                 "url": "gz168/CacheManagement",
-                "reference": "b0cc57adffa7f7406849c1cc337a0b2c80a7b2fe"
+                "reference": "d1d4c0d619fb5c569ff6bc4e5d48e81b38ea74ea"
             },
             "require": {
                 "illuminate/support": "^13.0",
@@ -2339,7 +2222,7 @@
             "dist": {
                 "type": "path",
                 "url": "gz168/common",
-                "reference": "80a98a48444ff26019d167669e2c47bab47f3ae7"
+                "reference": "7c673f9d0996b5655854963d8dbd8951d70f5c05"
             },
             "require": {
                 "php": "^8.2",
@@ -2377,7 +2260,7 @@
             "dist": {
                 "type": "path",
                 "url": "gz168/CustomConfig",
-                "reference": "091a83084f7d591e3ef1675a9013df5dd619c69f"
+                "reference": "462f1fd1e169b35792867c1b2c51cbe3c6764167"
             },
             "require": {
                 "gz168/common": "dev-master",
@@ -2485,9 +2368,10 @@
             "dist": {
                 "type": "path",
                 "url": "gz168/DatabaseBackup",
-                "reference": "2bd9fc3945a9c6d98ee5646f81173ed19b7409bd"
+                "reference": "2324fda93376dc8182067940f3579f16598382ed"
             },
             "require": {
+                "gz168/common": "dev-master",
                 "gz168/role-permission": "dev-master",
                 "illuminate/support": "^13.0",
                 "php": "^8.2"
@@ -2519,12 +2403,52 @@
             }
         },
         {
+            "name": "gz168/database-manager",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/DatabaseManager",
+                "reference": "6eb250cdd39cc4a74f9bd085ff91bbb16e6f4dc5"
+            },
+            "require": {
+                "gz168/common": "dev-master",
+                "gz168/role-permission": "dev-master",
+                "illuminate/support": "^13.0",
+                "php": "^8.3"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\DatabaseManager\\Providers\\DatabaseManagerServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\DatabaseManager\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\DatabaseManager\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Multi-connection database management (connections, multi-table backup/restore, transfer, scheduling) for Filament.",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
             "name": "gz168/deepseek",
             "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "gz168/deepseek",
-                "reference": "5395f8a43728b79856070f744be1f154090e4b04"
+                "reference": "049ceb770d1acdfb9b5ef1a347481a50027365aa"
             },
             "require": {
                 "gz168/filament": "dev-master",
@@ -2605,60 +2529,12 @@
             }
         },
         {
-            "name": "gz168/erp-core",
-            "version": "dev-master",
-            "dist": {
-                "type": "path",
-                "url": "gz168/ErpCore",
-                "reference": "6810fac451a6fb8ca4159da15f0f9f0b011c6ca3"
-            },
-            "require": {
-                "gz168/address-management": "dev-master",
-                "gz168/filament": "dev-master",
-                "gz168/role-permission": "dev-master",
-                "laravel/framework": "^13.0",
-                "php": "^8.3",
-                "spatie/laravel-activitylog": "^4.0",
-                "spatie/laravel-permission": "^6.0"
-            },
-            "type": "laravel-package",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Gz168\\ErpCore\\Providers\\ErpCoreServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Gz168\\ErpCore\\": "src/",
-                    "Gz168\\Models\\": "src/Models/",
-                    "Gz168\\Enums\\": "src/Enums/",
-                    "Gz168\\Support\\": "src/Support/",
-                    "Gz168\\Events\\": "src/Events/",
-                    "Database\\Factories\\": "database/factories/"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Gz168\\ErpCore\\Tests\\": "tests/"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "description": "ERP core domain for gz168 (shared models, enums, contracts, support, events)",
-            "transport-options": {
-                "relative": true
-            }
-        },
-        {
             "name": "gz168/export-management",
             "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "gz168/ExportManagement",
-                "reference": "541e4abbc61d6ca1ec22597f60624444aeb24987"
+                "reference": "76f15f4b2c03ba52793ef6f6053856c2afff178d"
             },
             "require": {
                 "gz168/filament": "dev-master",
@@ -2693,7 +2569,7 @@
             "dist": {
                 "type": "path",
                 "url": "gz168/ExtensionData",
-                "reference": "d6728c7293f03595284cd14c15bb5b54ebfeeb66"
+                "reference": "a2aafcb1fae76f6c1153a9bab23d2e08a3909a7d"
             },
             "require": {
                 "gz168/filament": "dev-master",
@@ -2732,7 +2608,7 @@
             "dist": {
                 "type": "path",
                 "url": "gz168/Filament",
-                "reference": "ee27a08dc5e0cffec8e943dd41e9751e69fc46ce"
+                "reference": "4472c8202e9c4886eaea5546602f432d71d94cf0"
             },
             "require": {
                 "php": "^8.2"
@@ -2757,7 +2633,7 @@
             "dist": {
                 "type": "path",
                 "url": "gz168/filament-admin",
-                "reference": "577ad2c1bf621448d2b4d0e9e4d288dde5d6156b"
+                "reference": "533c0f9058830479c20b239bb9e129a09ef749a7"
             },
             "require": {
                 "gz168/module-core": "dev-master",
@@ -2842,7 +2718,7 @@
             "dist": {
                 "type": "path",
                 "url": "gz168/GitManagement",
-                "reference": "061b79be3bc91c6d6bfe0c8bd9573b50fc7c2548"
+                "reference": "110b505783a654b917ee996763638efe4034c842"
             },
             "require": {
                 "gz168/package-registration": "dev-master",
@@ -2883,7 +2759,7 @@
             "dist": {
                 "type": "path",
                 "url": "gz168/GmailApi",
-                "reference": "90ba35bad02931ad59e3e9a07184dbfb36f40578"
+                "reference": "f53f3c99aed36e49490e8a175b7cd3c92aaaada3"
             },
             "require": {
                 "gz168/api-auth": "dev-master",
@@ -2917,73 +2793,12 @@
             }
         },
         {
-            "name": "gz168/inventory",
-            "version": "dev-master",
-            "dist": {
-                "type": "path",
-                "url": "gz168/Inventory",
-                "reference": "524065f84aa60762b54e5186ec5a73b95fb42e28"
-            },
-            "require": {
-                "gz168/erp-core": "dev-master",
-                "gz168/filament": "dev-master",
-                "php": "^8.3",
-                "spatie/laravel-package-tools": "^1.93"
-            },
-            "type": "laravel-package",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Gz168\\Inventory\\Providers\\InventoryServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Gz168\\Inventory\\": "src/",
-                    "Gz168\\Services\\Inventory\\": "src/Services/Inventory/",
-                    "Gz168\\Filament\\Resources\\ChannelListingResource\\": "src/Filament/Resources/ChannelListingResource/",
-                    "Gz168\\Filament\\Resources\\CycleCountResource\\": "src/Filament/Resources/CycleCountResource/",
-                    "Gz168\\Filament\\Resources\\InventoryLedgerResource\\": "src/Filament/Resources/InventoryLedgerResource/",
-                    "Gz168\\Filament\\Resources\\InventoryProductImportJobResource\\": "src/Filament/Resources/InventoryProductImportJobResource/",
-                    "Gz168\\Filament\\Resources\\InventoryProductResource\\": "src/Filament/Resources/InventoryProductResource/",
-                    "Gz168\\Filament\\Resources\\InventoryPushLogResource\\": "src/Filament/Resources/InventoryPushLogResource/",
-                    "Gz168\\Filament\\Resources\\InventoryReconcileAlertResource\\": "src/Filament/Resources/InventoryReconcileAlertResource/",
-                    "Gz168\\Filament\\Resources\\InventoryTransferResource\\": "src/Filament/Resources/InventoryTransferResource/",
-                    "Gz168\\Filament\\Resources\\ListingChangeBatchResource\\": "src/Filament/Resources/ListingChangeBatchResource/",
-                    "Gz168\\Jobs\\Inventory\\": "src/Jobs/Inventory/",
-                    "Gz168\\Console\\Commands\\Inventory\\": "src/Console/Commands/Inventory/",
-                    "Gz168\\Listeners\\Inventory\\": "src/Listeners/Inventory/",
-                    "Gz168\\Observers\\": "src/Observers/",
-                    "Gz168\\Exports\\": "src/Exports/",
-                    "Gz168\\Mail\\": "src/Mail/",
-                    "Gz168\\Filament\\Widgets\\": "src/Filament/Widgets/",
-                    "Gz168\\Filament\\Actions\\": "src/Filament/Actions/"
-                },
-                "classmap": [
-                    "src/Filament/Pages/"
-                ]
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Gz168\\Inventory\\Tests\\": "tests/"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "description": "Inventory management module for gz168 (services, Filament resources, jobs, commands)",
-            "transport-options": {
-                "relative": true
-            }
-        },
-        {
             "name": "gz168/kafka-management",
             "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "gz168/KafkaManagement",
-                "reference": "3847d55c86576b8efab0be2c79562ae41395f9d8"
+                "reference": "1e0656c12fff04516abd5d660388120e3b387e2b"
             },
             "require": {
                 "gz168/common": "dev-master",
@@ -3020,7 +2835,7 @@
             "dist": {
                 "type": "path",
                 "url": "gz168/LogManagement",
-                "reference": "6b2866e9b5b86d76dac8ba7a5e9d48fd70fc1796"
+                "reference": "cfe6bd6f710421890bee4313db86051da4917eb3"
             },
             "require": {
                 "gz168/filament": "dev-master",
@@ -3055,7 +2870,7 @@
             "dist": {
                 "type": "path",
                 "url": "gz168/Mail",
-                "reference": "ad85d07ed25a00865c2830dcb26b360e9af9a7fe"
+                "reference": "76796f697a121a6e18e3d99f76e6309ededb0981"
             },
             "require": {
                 "gz168/api-auth": "dev-master",
@@ -3093,15 +2908,28 @@
             }
         },
         {
-            "name": "gz168/mail-account",
+            "name": "gz168/mall-admin",
             "version": "dev-master",
             "dist": {
                 "type": "path",
-                "url": "gz168/MailAccount",
-                "reference": "8eb22cae351835b296ebeb17f460628df038bec3"
+                "url": "gz168/MallAdmin",
+                "reference": "56220a5886882533335ff6a1bee1310c86e81b19"
             },
             "require": {
-                "gz168/mail-contracts": "@dev",
+                "gz168/common": "dev-master",
+                "gz168/filament": "dev-master",
+                "gz168/filament-admin": "dev-master",
+                "gz168/mall-cart": "dev-master",
+                "gz168/mall-catalog": "dev-master",
+                "gz168/mall-core": "dev-master",
+                "gz168/mall-customer": "dev-master",
+                "gz168/mall-fulfillment": "dev-master",
+                "gz168/mall-inventory": "dev-master",
+                "gz168/mall-order": "dev-master",
+                "gz168/mall-payment": "dev-master",
+                "gz168/mall-pricing": "dev-master",
+                "gz168/role-permission": "dev-master",
+                "illuminate/support": "^12.0|^13.0",
                 "php": "^8.3",
                 "spatie/laravel-package-tools": "^1.93"
             },
@@ -3109,43 +2937,42 @@
             "extra": {
                 "laravel": {
                     "providers": [
-                        "Gz168\\MailAccount\\Providers\\MailAccountServiceProvider"
+                        "Gz168\\MallAdmin\\Providers\\MallAdminServiceProvider"
                     ]
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Gz168\\MailAccount\\": "src/"
+                    "Gz168\\MallAdmin\\": "src/"
                 }
             },
             "autoload-dev": {
                 "psr-4": {
-                    "Gz168\\MailAccount\\Tests\\": "tests/"
+                    "Gz168\\MallAdmin\\Tests\\": "tests/"
                 }
             },
             "license": [
                 "MIT"
             ],
-            "description": "MailAccount module",
+            "description": "Multi-mode marketplace admin composition layer: dashboard and cross-module navigation.",
             "transport-options": {
                 "relative": true
             }
         },
         {
-            "name": "gz168/mail-admin",
+            "name": "gz168/mall-after-sales",
             "version": "dev-master",
             "dist": {
                 "type": "path",
-                "url": "gz168/MailAdmin",
-                "reference": "52518557e6c8ccc97dbf2023df1a0ffddb69cf28"
+                "url": "gz168/MallAfterSales",
+                "reference": "33afd0d792f16f6fc4651ce26168d0458beb8c19"
             },
             "require": {
-                "filament/filament": "^5.0",
-                "gz168/filament": "@dev",
-                "gz168/mail-account": "@dev",
-                "gz168/mail-inbound": "@dev",
-                "gz168/mail-notification": "@dev",
-                "gz168/mail-outbound": "@dev",
+                "gz168/common": "dev-master",
+                "gz168/filament": "dev-master",
+                "gz168/mall-core": "dev-master",
+                "gz168/role-permission": "dev-master",
+                "illuminate/support": "^12.0|^13.0",
                 "php": "^8.3",
                 "spatie/laravel-package-tools": "^1.93"
             },
@@ -3153,38 +2980,42 @@
             "extra": {
                 "laravel": {
                     "providers": [
-                        "Gz168\\MailAdmin\\Providers\\MailAdminServiceProvider"
+                        "Gz168\\MallAfterSales\\Providers\\MallAfterSalesServiceProvider"
                     ]
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Gz168\\MailAdmin\\": "src/"
+                    "Gz168\\MallAfterSales\\": "src/"
                 }
             },
             "autoload-dev": {
                 "psr-4": {
-                    "Gz168\\MailAdmin\\Tests\\": "tests/"
+                    "Gz168\\MallAfterSales\\Tests\\": "tests/"
                 }
             },
             "license": [
                 "MIT"
             ],
-            "description": "MailAdmin module",
+            "description": "Multi-mode marketplace after-sales domain: refund, return and exchange flows.",
             "transport-options": {
                 "relative": true
             }
         },
         {
-            "name": "gz168/mail-contracts",
+            "name": "gz168/mall-b2b-portal-api",
             "version": "dev-master",
             "dist": {
                 "type": "path",
-                "url": "gz168/MailContracts",
-                "reference": "0d7ab05121f2a786dbf89404799f27d649008657"
+                "url": "gz168/MallB2bPortalApi",
+                "reference": "28dbeb0d5ab536ce0ccd87641ded33c23fac3276"
             },
             "require": {
-                "gz168/common": "@dev",
+                "gz168/api-auth": "dev-master",
+                "gz168/common": "dev-master",
+                "gz168/mall-core": "dev-master",
+                "gz168/mall-quote": "dev-master",
+                "illuminate/support": "^12.0|^13.0",
                 "php": "^8.3",
                 "spatie/laravel-package-tools": "^1.93"
             },
@@ -3192,38 +3023,42 @@
             "extra": {
                 "laravel": {
                     "providers": [
-                        "Gz168\\MailContracts\\Providers\\MailContractsServiceProvider"
+                        "Gz168\\MallB2bPortalApi\\Providers\\MallB2bPortalApiServiceProvider"
                     ]
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Gz168\\MailContracts\\": "src/"
+                    "Gz168\\MallB2bPortalApi\\": "src/"
                 }
             },
             "autoload-dev": {
                 "psr-4": {
-                    "Gz168\\MailContracts\\Tests\\": "tests/"
+                    "Gz168\\MallB2bPortalApi\\Tests\\": "tests/"
                 }
             },
             "license": [
                 "MIT"
             ],
-            "description": "MailContracts module",
+            "description": "Multi-mode marketplace B2B procurement portal API: quotes and credit-term orders.",
             "transport-options": {
                 "relative": true
             }
         },
         {
-            "name": "gz168/mail-gmail",
+            "name": "gz168/mall-business-client",
             "version": "dev-master",
             "dist": {
                 "type": "path",
-                "url": "gz168/MailGmail",
-                "reference": "0761b7febbd9d8e786d48dad0caa2dc2a71887f7"
+                "url": "gz168/MallBusinessClient",
+                "reference": "d8a0d62ab35d4c9c182ad03c5e66ad3eb06df2f2"
             },
             "require": {
-                "gz168/mail-contracts": "@dev",
+                "gz168/common": "dev-master",
+                "gz168/filament": "dev-master",
+                "gz168/mall-core": "dev-master",
+                "gz168/role-permission": "dev-master",
+                "illuminate/support": "^12.0|^13.0",
                 "php": "^8.3",
                 "spatie/laravel-package-tools": "^1.93"
             },
@@ -3231,39 +3066,41 @@
             "extra": {
                 "laravel": {
                     "providers": [
-                        "Gz168\\MailGmail\\Providers\\MailGmailServiceProvider"
+                        "Gz168\\MallBusinessClient\\Providers\\MallBusinessClientServiceProvider"
                     ]
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Gz168\\MailGmail\\": "src/"
+                    "Gz168\\MallBusinessClient\\": "src/"
                 }
             },
             "autoload-dev": {
                 "psr-4": {
-                    "Gz168\\MailGmail\\Tests\\": "tests/"
+                    "Gz168\\MallBusinessClient\\Tests\\": "tests/"
                 }
             },
             "license": [
                 "MIT"
             ],
-            "description": "MailGmail module",
+            "description": "Multi-mode marketplace B2B buyer domain: enterprise profile, organisation, approval rules and credit limit.",
             "transport-options": {
                 "relative": true
             }
         },
         {
-            "name": "gz168/mail-inbound",
+            "name": "gz168/mall-cart",
             "version": "dev-master",
             "dist": {
                 "type": "path",
-                "url": "gz168/MailInbound",
-                "reference": "75853d4a569ab82b3364d60f5bd73c6a9882face"
+                "url": "gz168/MallCart",
+                "reference": "9a9aee05bfd43692275ee0f0da6d13db331ddc0a"
             },
             "require": {
-                "gz168/mail-account": "@dev",
-                "gz168/mail-contracts": "@dev",
+                "gz168/api-auth": "dev-master",
+                "gz168/common": "dev-master",
+                "gz168/mall-core": "dev-master",
+                "illuminate/support": "^12.0|^13.0",
                 "php": "^8.3",
                 "spatie/laravel-package-tools": "^1.93"
             },
@@ -3271,38 +3108,42 @@
             "extra": {
                 "laravel": {
                     "providers": [
-                        "Gz168\\MailInbound\\Providers\\MailInboundServiceProvider"
+                        "Gz168\\MallCart\\Providers\\MallCartServiceProvider"
                     ]
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Gz168\\MailInbound\\": "src/"
+                    "Gz168\\MallCart\\": "src/"
                 }
             },
             "autoload-dev": {
                 "psr-4": {
-                    "Gz168\\MailInbound\\Tests\\": "tests/"
+                    "Gz168\\MallCart\\Tests\\": "tests/"
                 }
             },
             "license": [
                 "MIT"
             ],
-            "description": "MailInbound module",
+            "description": "Multi-mode marketplace cart domain: persisted carts with mode isolation.",
             "transport-options": {
                 "relative": true
             }
         },
         {
-            "name": "gz168/mail-notification",
+            "name": "gz168/mall-catalog",
             "version": "dev-master",
             "dist": {
                 "type": "path",
-                "url": "gz168/MailNotification",
-                "reference": "d882950b7b202120d225447966bfbcf3ecd6e61a"
+                "url": "gz168/MallCatalog",
+                "reference": "99186d09849f4427752f2bbf54fb43711ff3eb67"
             },
             "require": {
-                "gz168/mail-inbound": "@dev",
+                "gz168/common": "dev-master",
+                "gz168/filament": "dev-master",
+                "gz168/mall-core": "dev-master",
+                "gz168/role-permission": "dev-master",
+                "illuminate/support": "^12.0|^13.0",
                 "php": "^8.3",
                 "spatie/laravel-package-tools": "^1.93"
             },
@@ -3310,39 +3151,42 @@
             "extra": {
                 "laravel": {
                     "providers": [
-                        "Gz168\\MailNotification\\Providers\\MailNotificationServiceProvider"
+                        "Gz168\\MallCatalog\\Providers\\MallCatalogServiceProvider"
                     ]
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Gz168\\MailNotification\\": "src/"
+                    "Gz168\\MallCatalog\\": "src/"
                 }
             },
             "autoload-dev": {
                 "psr-4": {
-                    "Gz168\\MailNotification\\Tests\\": "tests/"
+                    "Gz168\\MallCatalog\\Tests\\": "tests/"
                 }
             },
             "license": [
                 "MIT"
             ],
-            "description": "MailNotification module",
+            "description": "Multi-mode marketplace catalog domain: products, SKUs, categories and brands.",
             "transport-options": {
                 "relative": true
             }
         },
         {
-            "name": "gz168/mail-outbound",
+            "name": "gz168/mall-content",
             "version": "dev-master",
             "dist": {
                 "type": "path",
-                "url": "gz168/MailOutbound",
-                "reference": "04adef598c249baf326d6223f3e7c1ace586a86e"
+                "url": "gz168/MallContent",
+                "reference": "367e72b5e6faab6878e2afb09bc1a9942499a7bd"
             },
             "require": {
-                "gz168/mail-account": "@dev",
-                "gz168/mail-contracts": "@dev",
+                "gz168/common": "dev-master",
+                "gz168/filament": "dev-master",
+                "gz168/mall-core": "dev-master",
+                "gz168/role-permission": "dev-master",
+                "illuminate/support": "^12.0|^13.0",
                 "php": "^8.3",
                 "spatie/laravel-package-tools": "^1.93"
             },
@@ -3350,38 +3194,88 @@
             "extra": {
                 "laravel": {
                     "providers": [
-                        "Gz168\\MailOutbound\\Providers\\MailOutboundServiceProvider"
+                        "Gz168\\MallContent\\Providers\\MallContentServiceProvider"
                     ]
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Gz168\\MailOutbound\\": "src/"
+                    "Gz168\\MallContent\\": "src/"
                 }
             },
             "autoload-dev": {
                 "psr-4": {
-                    "Gz168\\MailOutbound\\Tests\\": "tests/"
+                    "Gz168\\MallContent\\Tests\\": "tests/"
                 }
             },
             "license": [
                 "MIT"
             ],
-            "description": "MailOutbound module",
+            "description": "Multi-mode marketplace content domain: banners, articles and FAQs.",
             "transport-options": {
                 "relative": true
             }
         },
         {
-            "name": "gz168/mail-qq",
+            "name": "gz168/mall-core",
             "version": "dev-master",
             "dist": {
                 "type": "path",
-                "url": "gz168/MailQq",
-                "reference": "5d52372c49b837dc611c1063c3723bc447b1a0ef"
+                "url": "gz168/MallCore",
+                "reference": "55c6e5214196043a9018a64602d5436d339bc57a"
             },
             "require": {
-                "gz168/mail-contracts": "@dev",
+                "gz168/common": "dev-master",
+                "gz168/module-core": "dev-master",
+                "illuminate/database": "^12.0|^13.0",
+                "illuminate/support": "^12.0|^13.0",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^9.0|^10.0",
+                "phpunit/phpunit": "^11.0|^12.0"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\MallCore\\Providers\\MallCoreServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\MallCore\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\MallCore\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Multi-mode marketplace base: contracts, domain events, enums, value objects, state machines, strategy registry, outbox and idempotency support.",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/mall-customer",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/MallCustomer",
+                "reference": "a25d27d853c149bdab5074e28416315c78d637a7"
+            },
+            "require": {
+                "gz168/common": "dev-master",
+                "gz168/filament": "dev-master",
+                "gz168/mall-core": "dev-master",
+                "gz168/role-permission": "dev-master",
+                "illuminate/support": "^12.0|^13.0",
                 "php": "^8.3",
                 "spatie/laravel-package-tools": "^1.93"
             },
@@ -3389,24 +3283,878 @@
             "extra": {
                 "laravel": {
                     "providers": [
-                        "Gz168\\MailQq\\Providers\\MailQqServiceProvider"
+                        "Gz168\\MallCustomer\\Providers\\MallCustomerServiceProvider"
                     ]
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Gz168\\MailQq\\": "src/"
+                    "Gz168\\MallCustomer\\": "src/"
                 }
             },
             "autoload-dev": {
                 "psr-4": {
-                    "Gz168\\MailQq\\Tests\\": "tests/"
+                    "Gz168\\MallCustomer\\Tests\\": "tests/"
                 }
             },
             "license": [
                 "MIT"
             ],
-            "description": "MailQq module",
+            "description": "Multi-mode marketplace customer domain: customer profile, address book and member levels.",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/mall-fulfillment",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/MallFulfillment",
+                "reference": "e38163a42a3913e28747e3b2ff4e1c182971ce30"
+            },
+            "require": {
+                "gz168/common": "dev-master",
+                "gz168/filament": "dev-master",
+                "gz168/mall-core": "dev-master",
+                "gz168/role-permission": "dev-master",
+                "illuminate/support": "^12.0|^13.0",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\MallFulfillment\\Providers\\MallFulfillmentServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\MallFulfillment\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\MallFulfillment\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Multi-mode marketplace fulfillment domain: shipments, tracking events and carriers.",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/mall-inventory",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/MallInventory",
+                "reference": "85c85a30ee7ddeab955ba0334c63221483bfaea7"
+            },
+            "require": {
+                "gz168/common": "dev-master",
+                "gz168/filament": "dev-master",
+                "gz168/mall-core": "dev-master",
+                "gz168/role-permission": "dev-master",
+                "illuminate/support": "^12.0|^13.0",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\MallInventory\\Providers\\MallInventoryServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\MallInventory\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\MallInventory\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Multi-mode marketplace inventory domain: stock levels, reservations and movements.",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/mall-media",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/MallMedia",
+                "reference": "643803f0653303d0b206c9dbda8c2b2e2c17ddbd"
+            },
+            "require": {
+                "gz168/common": "dev-master",
+                "gz168/filament": "dev-master",
+                "gz168/mall-core": "dev-master",
+                "illuminate/support": "^12.0|^13.0",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\MallMedia\\Providers\\MallMediaServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\MallMedia\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\MallMedia\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Multi-mode marketplace media domain: asset metadata and storage abstraction.",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/mall-merchant-portal-api",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/MallMerchantPortalApi",
+                "reference": "6cd5f7ba6352d18c7ac02a0edaed128581fb6712"
+            },
+            "require": {
+                "gz168/api-auth": "dev-master",
+                "gz168/common": "dev-master",
+                "gz168/mall-core": "dev-master",
+                "gz168/mall-fulfillment": "dev-master",
+                "gz168/mall-order": "dev-master",
+                "gz168/mall-store": "dev-master",
+                "illuminate/support": "^12.0|^13.0",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\MallMerchantPortalApi\\Providers\\MallMerchantPortalApiServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\MallMerchantPortalApi\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\MallMerchantPortalApi\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Multi-mode marketplace merchant portal API: store orders and O2O pickup verification.",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/mall-mode-b2b",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/MallModeB2B",
+                "reference": "a9703fbaaf48aaa9faf4a87b290d8401df381398"
+            },
+            "require": {
+                "gz168/mall-core": "dev-master",
+                "illuminate/support": "^12.0|^13.0",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\MallModeB2B\\Providers\\MallModeB2BServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\MallModeB2B\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\MallModeB2B\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "B2B mode strategy: tiered pricing, enterprise eligibility, approval flow, credit term settlement and bulk fulfillment.",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/mall-mode-b2c",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/MallModeB2C",
+                "reference": "a7df383ac97e490815e83bde08f33ddb15838e13"
+            },
+            "require": {
+                "gz168/mall-core": "dev-master",
+                "illuminate/support": "^12.0|^13.0",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\MallModeB2C\\Providers\\MallModeB2CServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\MallModeB2C\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\MallModeB2C\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "B2C mode strategy: retail pricing, login-only eligibility, instant settlement and express fulfillment.",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/mall-mode-c2c",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/MallModeC2C",
+                "reference": "791820bed23c70cf73b89ca9f54d79342dbce1af"
+            },
+            "require": {
+                "gz168/mall-core": "dev-master",
+                "illuminate/support": "^12.0|^13.0",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\MallModeC2C\\Providers\\MallModeC2CServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\MallModeC2C\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\MallModeC2C\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "C2C mode strategy: seller pricing, escrow settlement, seller shipping and verified seller listing.",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/mall-mode-o2o",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/MallModeO2O",
+                "reference": "c1875920da260a832fde4efc84fd1535a1fb083a"
+            },
+            "require": {
+                "gz168/mall-core": "dev-master",
+                "illuminate/support": "^12.0|^13.0",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\MallModeO2O\\Providers\\MallModeO2OServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\MallModeO2O\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\MallModeO2O\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "O2O mode strategy: store pricing, service radius eligibility, pickup/local delivery fulfillment.",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/mall-notification",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/MallNotification",
+                "reference": "040da5bb4c63ed3c7ed1190bf6bdd5184989b86c"
+            },
+            "require": {
+                "gz168/common": "dev-master",
+                "gz168/filament": "dev-master",
+                "gz168/mall-core": "dev-master",
+                "gz168/role-permission": "dev-master",
+                "illuminate/support": "^12.0|^13.0",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\MallNotification\\Providers\\MallNotificationServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\MallNotification\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\MallNotification\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Multi-mode marketplace notification domain: templates, channels and send logs.",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/mall-order",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/MallOrder",
+                "reference": "91f7f5690e3669346f00752bfe497f56d9a41981"
+            },
+            "require": {
+                "gz168/common": "dev-master",
+                "gz168/filament": "dev-master",
+                "gz168/mall-core": "dev-master",
+                "gz168/role-permission": "dev-master",
+                "illuminate/support": "^12.0|^13.0",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\MallOrder\\Providers\\MallOrderServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\MallOrder\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\MallOrder\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Multi-mode marketplace order domain: order aggregate, checkout saga and order state machine.",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/mall-payment",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/MallPayment",
+                "reference": "f25e7c0880552f153b42fda29a780468f1bf24db"
+            },
+            "require": {
+                "gz168/common": "dev-master",
+                "gz168/filament": "dev-master",
+                "gz168/mall-core": "dev-master",
+                "gz168/role-permission": "dev-master",
+                "illuminate/support": "^12.0|^13.0",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\MallPayment\\Providers\\MallPaymentServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\MallPayment\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\MallPayment\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Multi-mode marketplace payment domain: gateway abstraction, payment intents and refunds.",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/mall-pricing",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/MallPricing",
+                "reference": "2419c873e553146055c465dbd3579e792b7ac77f"
+            },
+            "require": {
+                "gz168/common": "dev-master",
+                "gz168/filament": "dev-master",
+                "gz168/mall-core": "dev-master",
+                "illuminate/support": "^12.0|^13.0",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\MallPricing\\Providers\\MallPricingServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\MallPricing\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\MallPricing\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Multi-mode marketplace pricing domain: base prices, tiered prices, customer and store prices.",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/mall-promotion",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/MallPromotion",
+                "reference": "601d82e851290e38ab6111360d1c34024799760d"
+            },
+            "require": {
+                "gz168/common": "dev-master",
+                "gz168/filament": "dev-master",
+                "gz168/mall-core": "dev-master",
+                "gz168/role-permission": "dev-master",
+                "illuminate/support": "^12.0|^13.0",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\MallPromotion\\Providers\\MallPromotionServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\MallPromotion\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\MallPromotion\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Multi-mode marketplace promotion domain: coupons, full reduction and time-limited discounts.",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/mall-quote",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/MallQuote",
+                "reference": "1687f782326d6271834377c3ea63382ab79edf47"
+            },
+            "require": {
+                "gz168/common": "dev-master",
+                "gz168/filament": "dev-master",
+                "gz168/mall-core": "dev-master",
+                "gz168/role-permission": "dev-master",
+                "illuminate/support": "^12.0|^13.0",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\MallQuote\\Providers\\MallQuoteServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\MallQuote\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\MallQuote\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Multi-mode marketplace B2B quote domain: RFQ, quotes, validity and order conversion.",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/mall-review",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/MallReview",
+                "reference": "0b9cc585391297cd074c249c2243a232e59be839"
+            },
+            "require": {
+                "gz168/common": "dev-master",
+                "gz168/filament": "dev-master",
+                "gz168/mall-core": "dev-master",
+                "gz168/role-permission": "dev-master",
+                "illuminate/support": "^12.0|^13.0",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\MallReview\\Providers\\MallReviewServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\MallReview\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\MallReview\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Multi-mode marketplace review domain: product/seller/store reviews and ratings.",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/mall-search",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/MallSearch",
+                "reference": "56e164c632daa2dee010e93b67e2ab5177e50c03"
+            },
+            "require": {
+                "gz168/common": "dev-master",
+                "gz168/mall-core": "dev-master",
+                "illuminate/support": "^12.0|^13.0",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\MallSearch\\Providers\\MallSearchServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\MallSearch\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\MallSearch\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Multi-mode marketplace search domain: product index and keyword search.",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/mall-seller",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/MallSeller",
+                "reference": "880eca659aa95dbe12370285b7263cb09f967def"
+            },
+            "require": {
+                "gz168/common": "dev-master",
+                "gz168/filament": "dev-master",
+                "gz168/mall-core": "dev-master",
+                "gz168/role-permission": "dev-master",
+                "illuminate/support": "^12.0|^13.0",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\MallSeller\\Providers\\MallSellerServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\MallSeller\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\MallSeller\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Multi-mode marketplace C2C seller domain: onboarding, qualifications, shops and audit.",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/mall-settlement",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/MallSettlement",
+                "reference": "bfebae0a6deda1326fe66a822001bf9e6e87855e"
+            },
+            "require": {
+                "gz168/common": "dev-master",
+                "gz168/filament": "dev-master",
+                "gz168/mall-core": "dev-master",
+                "gz168/role-permission": "dev-master",
+                "illuminate/support": "^12.0|^13.0",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\MallSettlement\\Providers\\MallSettlementServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\MallSettlement\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\MallSettlement\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Multi-mode marketplace settlement domain: escrow commission split, receivables and reconciliation.",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/mall-store",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/MallStore",
+                "reference": "7ba9c6138cd0cd8d4b8e3bf87d2a39a5a50d2df1"
+            },
+            "require": {
+                "gz168/common": "dev-master",
+                "gz168/filament": "dev-master",
+                "gz168/mall-core": "dev-master",
+                "gz168/role-permission": "dev-master",
+                "illuminate/support": "^12.0|^13.0",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\MallStore\\Providers\\MallStoreServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\MallStore\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\MallStore\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Multi-mode marketplace O2O store domain: store profile, service radius, staff and pickup points.",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/mall-storefront-api",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/MallStorefrontApi",
+                "reference": "77fc716215d208346467cde0ff1b772af30ffbff"
+            },
+            "require": {
+                "gz168/api-auth": "dev-master",
+                "gz168/common": "dev-master",
+                "gz168/mall-cart": "dev-master",
+                "gz168/mall-catalog": "dev-master",
+                "gz168/mall-core": "dev-master",
+                "gz168/mall-customer": "dev-master",
+                "gz168/mall-fulfillment": "dev-master",
+                "gz168/mall-inventory": "dev-master",
+                "gz168/mall-order": "dev-master",
+                "gz168/mall-payment": "dev-master",
+                "gz168/mall-pricing": "dev-master",
+                "gz168/mall-search": "dev-master",
+                "illuminate/support": "^12.0|^13.0",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\MallStorefrontApi\\Providers\\MallStorefrontApiServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\MallStorefrontApi\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\MallStorefrontApi\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Multi-mode marketplace storefront REST API entry: products, cart, checkout and orders.",
             "transport-options": {
                 "relative": true
             }
@@ -3417,7 +4165,7 @@
             "dist": {
                 "type": "path",
                 "url": "gz168/module-core",
-                "reference": "be1243f0876b5a7db3340e8b3170d52c2af04a5b"
+                "reference": "96e4a2a7b003377b65ccf641d6c2b6233025b1eb"
             },
             "require": {
                 "illuminate/support": "^13.0",
@@ -3456,7 +4204,7 @@
             "dist": {
                 "type": "path",
                 "url": "gz168/ModuleSettings",
-                "reference": "c6bed4043622248751d42d0fa7c9370e2cb2e86d"
+                "reference": "0934e3af34b8d7851aa5cccf5a97a9b2a8be407e"
             },
             "require": {
                 "gz168/common": "dev-master",
@@ -3499,7 +4247,7 @@
             "dist": {
                 "type": "path",
                 "url": "gz168/PackageRegistration",
-                "reference": "8a5988d081476ac5641c238c1fdd7529477b028e"
+                "reference": "4f89f1289b358672d7a9a9b581713ce5d138648d"
             },
             "require": {
                 "php": "^8.2",
@@ -3538,7 +4286,7 @@
             "dist": {
                 "type": "path",
                 "url": "gz168/RedisManagement",
-                "reference": "f771ede7ef5bb1deaf5996f2fa270257704e71ae"
+                "reference": "b1945a8e096176d1bebf20f54b50285d5ddf1363"
             },
             "require": {
                 "gz168/common": "dev-master",
@@ -3569,53 +4317,12 @@
             }
         },
         {
-            "name": "gz168/rednote",
-            "version": "dev-master",
-            "dist": {
-                "type": "path",
-                "url": "gz168/RedNote",
-                "reference": "3106297ac0a49c1fa1271e78157b6bdac300b48d"
-            },
-            "require": {
-                "gz168/erp-core": "@dev",
-                "gz168/filament": "@dev",
-                "gz168/inventory": "@dev",
-                "php": "^8.3",
-                "spatie/laravel-package-tools": "^1.93"
-            },
-            "type": "laravel-package",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Gz168\\RedNote\\Providers\\RedNoteServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Gz168\\RedNote\\": "src/"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Gz168\\RedNote\\Tests\\": "tests/"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "description": "RedNote (Xiaohongshu) e-commerce integration for gz168 (models, services, console, Filament, inventory adapter)",
-            "transport-options": {
-                "relative": true
-            }
-        },
-        {
             "name": "gz168/role-permission",
             "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "gz168/RolePermission",
-                "reference": "3f0df323d76d6566bf83e44f8ce8fb649f721f9b"
+                "reference": "07379374f899a2ead348048a75aa145ab802c0a6"
             },
             "require": {
                 "illuminate/support": "^13.0",
@@ -3653,7 +4360,7 @@
             "dist": {
                 "type": "path",
                 "url": "gz168/SystemSettings",
-                "reference": "64fde99e00adffeec671c90283f61fef0bd3bdf9"
+                "reference": "75841527312fdae4ce8d2b078d32003712a7042e"
             },
             "require": {
                 "php": "^8.2",
@@ -3690,7 +4397,7 @@
             "dist": {
                 "type": "path",
                 "url": "gz168/UserManagement",
-                "reference": "8f6a319dd718f5b149f2f4e602b7b3175709e730"
+                "reference": "7b357c0d91ec146b11d3e6f417ba1edaa4d4a9a6"
             },
             "require": {
                 "gz168/api-auth": "dev-master",
@@ -3794,20 +4501,20 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v13.23.0",
+            "version": "v13.26.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "92a707229148e57f08a249211c8a5a194159c619"
+                "reference": "e4a1bc52ef551d52e60244bb004256d6861da7ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/92a707229148e57f08a249211c8a5a194159c619",
-                "reference": "92a707229148e57f08a249211c8a5a194159c619",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/e4a1bc52ef551d52e60244bb004256d6861da7ab",
+                "reference": "e4a1bc52ef551d52e60244bb004256d6861da7ab",
                 "shasum": ""
             },
             "require": {
-                "brick/math": "^0.14.2 || ^0.15 || ^0.16 || ^0.17 || ^0.18",
+                "brick/math": "^0.14.2 || ^0.15 || ^0.16 || ^0.17 || ^0.18 || ^0.19",
                 "composer-runtime-api": "^2.2",
                 "doctrine/inflector": "^2.0.5",
                 "dragonmantank/cron-expression": "^3.4",
@@ -3820,10 +4527,11 @@
                 "ext-session": "*",
                 "ext-tokenizer": "*",
                 "fruitcake/php-cors": "^1.3",
-                "guzzlehttp/guzzle": "^7.8.2",
-                "guzzlehttp/promises": "^2.0.3",
-                "guzzlehttp/uri-template": "^1.0",
-                "laravel/prompts": "^0.3.0",
+                "guzzlehttp/guzzle": "^7.8.2 || ^8.0",
+                "guzzlehttp/promises": "^2.0.3 || ^3.0",
+                "guzzlehttp/psr7": "^2.9 || ^3.0",
+                "guzzlehttp/uri-template": "^1.0 || ^2.0",
+                "laravel/prompts": "^0.3.11",
                 "laravel/serializable-closure": "^2.0.10",
                 "league/commonmark": "^2.8.1",
                 "league/flysystem": "^3.25.1",
@@ -3834,6 +4542,7 @@
                 "nunomaduro/termwind": "^2.0",
                 "php": "^8.3",
                 "psr/container": "^1.1.1 || ^2.0.1",
+                "psr/http-message": "^1.0 || ^2.0",
                 "psr/log": "^1.0 || ^2.0 || ^3.0",
                 "psr/simple-cache": "^1.0 || ^2.0 || ^3.0",
                 "ramsey/uuid": "^4.7",
@@ -3908,7 +4617,6 @@
                 "aws/aws-sdk-php": "^3.322.9",
                 "ext-gmp": "*",
                 "fakerphp/faker": "^1.24",
-                "guzzlehttp/psr7": "^2.9",
                 "intervention/image": "^4.0",
                 "laravel/pint": "^1.18",
                 "league/flysystem-aws-s3-v3": "^3.25.1",
@@ -3958,7 +4666,6 @@
                 "php-http/discovery": "Required to use PSR-7 bridging features (^1.15).",
                 "phpunit/phpunit": "Required to use assertions and run tests (^11.5.50 || ^12.5.8 || ^13.0.3).",
                 "predis/predis": "Required to use the predis connector (^2.3 || ^3.0).",
-                "psr/http-message": "Required to allow Storage::put to accept a StreamInterface (^1.0).",
                 "pusher/pusher-php-server": "Required to use the Pusher broadcast driver (^6.0 || ^7.0).",
                 "resend/resend-php": "Required to enable support for the Resend mail transport (^0.10.0 || ^1.0).",
                 "spatie/fork": "Required to use the 'fork' concurrency driver (^1.2).",
@@ -4017,20 +4724,20 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2026-07-27T14:48:58+00:00"
+            "time": "2026-08-18T20:31:28+00:00"
         },
         {
             "name": "laravel/prompts",
-            "version": "v0.3.21",
+            "version": "v0.3.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/prompts.git",
-                "reference": "7753c65c281c2550c7c183f14e18062073b7d821"
+                "reference": "b7b4c35e5bc47450f6b6238c6cc9c47ba19b2221"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/prompts/zipball/7753c65c281c2550c7c183f14e18062073b7d821",
-                "reference": "7753c65c281c2550c7c183f14e18062073b7d821",
+                "url": "https://api.github.com/repos/laravel/prompts/zipball/b7b4c35e5bc47450f6b6238c6cc9c47ba19b2221",
+                "reference": "b7b4c35e5bc47450f6b6238c6cc9c47ba19b2221",
                 "shasum": ""
             },
             "require": {
@@ -4074,9 +4781,9 @@
             "description": "Add beautiful and user-friendly forms to your command-line applications.",
             "support": {
                 "issues": "https://github.com/laravel/prompts/issues",
-                "source": "https://github.com/laravel/prompts/tree/v0.3.21"
+                "source": "https://github.com/laravel/prompts/tree/v0.3.23"
             },
-            "time": "2026-06-26T00:11:25+00:00"
+            "time": "2026-08-11T18:58:24+00:00"
         },
         {
             "name": "laravel/sanctum",
@@ -4346,16 +5053,16 @@
         },
         {
             "name": "league/commonmark",
-            "version": "2.8.3",
+            "version": "2.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
-                "reference": "1902f60f984235023acbe03db6ad614a37b3c3e7"
+                "reference": "d2d1aa8b35e072966c89bc0c66cf926e56767dc4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/1902f60f984235023acbe03db6ad614a37b3c3e7",
-                "reference": "1902f60f984235023acbe03db6ad614a37b3c3e7",
+                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/d2d1aa8b35e072966c89bc0c66cf926e56767dc4",
+                "reference": "d2d1aa8b35e072966c89bc0c66cf926e56767dc4",
                 "shasum": ""
             },
             "require": {
@@ -4392,7 +5099,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "2.9-dev"
+                    "dev-main": "2.11-dev"
                 }
             },
             "autoload": {
@@ -4449,7 +5156,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-07-12T15:29:16+00:00"
+            "time": "2026-08-11T16:06:25+00:00"
         },
         {
             "name": "league/config",
@@ -5080,16 +5787,16 @@
         },
         {
             "name": "livewire/livewire",
-            "version": "v4.3.4",
+            "version": "v4.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/livewire/livewire.git",
-                "reference": "e6c8d631e9687fbdd5c2bb7be9d7a5d699cce0e2"
+                "reference": "514b29d5a23594d4e4846494f580268b20c2f11e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/livewire/livewire/zipball/e6c8d631e9687fbdd5c2bb7be9d7a5d699cce0e2",
-                "reference": "e6c8d631e9687fbdd5c2bb7be9d7a5d699cce0e2",
+                "url": "https://api.github.com/repos/livewire/livewire/zipball/514b29d5a23594d4e4846494f580268b20c2f11e",
+                "reference": "514b29d5a23594d4e4846494f580268b20c2f11e",
                 "shasum": ""
             },
             "require": {
@@ -5144,7 +5851,7 @@
             "description": "A front-end framework for Laravel.",
             "support": {
                 "issues": "https://github.com/livewire/livewire/issues",
-                "source": "https://github.com/livewire/livewire/tree/v4.3.4"
+                "source": "https://github.com/livewire/livewire/tree/v4.4.0"
             },
             "funding": [
                 {
@@ -5152,96 +5859,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-07-31T00:19:18+00:00"
-        },
-        {
-            "name": "maatwebsite/excel",
-            "version": "4.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/SpartnerNL/Laravel-Excel.git",
-                "reference": "367e92a78008291684b791b3712d46e6fca77343"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/SpartnerNL/Laravel-Excel/zipball/367e92a78008291684b791b3712d46e6fca77343",
-                "reference": "367e92a78008291684b791b3712d46e6fca77343",
-                "shasum": ""
-            },
-            "require": {
-                "composer/semver": "^3.4",
-                "illuminate/support": "^12.0 || ^13.0",
-                "php": "^8.3",
-                "phpoffice/phpspreadsheet": "^5.8",
-                "psr/simple-cache": "^1.0 || ^2.0 || ^3.0"
-            },
-            "require-dev": {
-                "brianium/paratest": "^7.20",
-                "driftingly/rector-laravel": "^2.5",
-                "ext-sqlite3": "*",
-                "larastan/larastan": "^3.10",
-                "laravel/pint": "^1.29",
-                "laravel/scout": "^10.25 || ^11.2",
-                "orchestra/testbench": "^10.11 || ^11.1",
-                "phpstan/extension-installer": "^1.4",
-                "phpstan/phpstan-mockery": "^2.0",
-                "phpunit/phpunit": "^12.5 || ~13.1.14",
-                "predis/predis": "^2.3 || ^3.0",
-                "rector/rector": "^2.4.2"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "aliases": {
-                        "Excel": "Maatwebsite\\Excel\\Facades\\Excel"
-                    },
-                    "providers": [
-                        "Maatwebsite\\Excel\\ExcelServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Maatwebsite\\Excel\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Patrick Brouwers",
-                    "email": "patrick@spartner.nl"
-                }
-            ],
-            "description": "Supercharged Excel exports and imports in Laravel",
-            "keywords": [
-                "PHPExcel",
-                "batch",
-                "csv",
-                "excel",
-                "export",
-                "import",
-                "laravel",
-                "php",
-                "phpspreadsheet"
-            ],
-            "support": {
-                "issues": "https://github.com/SpartnerNL/Laravel-Excel/issues",
-                "source": "https://github.com/SpartnerNL/Laravel-Excel/tree/4.0.0"
-            },
-            "funding": [
-                {
-                    "url": "https://laravel-excel.com/commercial-support",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/patrickbrouwers",
-                    "type": "github"
-                }
-            ],
-            "time": "2026-08-13T10:52:49+00:00"
+            "time": "2026-08-10T15:24:22+00:00"
         },
         {
             "name": "maennchen/zipstream-php",
@@ -5429,6 +6047,73 @@
             "time": "2022-12-02T22:17:43+00:00"
         },
         {
+            "name": "masterminds/html5",
+            "version": "2.10.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Masterminds/html5-php.git",
+                "reference": "fd5018f6815fff903946d0564977b44ce8010e29"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Masterminds/html5-php/zipball/fd5018f6815fff903946d0564977b44ce8010e29",
+                "reference": "fd5018f6815fff903946d0564977b44ce8010e29",
+                "shasum": ""
+            },
+            "require": {
+                "ext-dom": "*",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8.35 || ^5.7.21 || ^6 || ^7 || ^8 || ^9 || ^10"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.7-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Masterminds\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Matt Butcher",
+                    "email": "technosophos@gmail.com"
+                },
+                {
+                    "name": "Matt Farina",
+                    "email": "matt@mattfarina.com"
+                },
+                {
+                    "name": "Asmir Mustafic",
+                    "email": "goetas@gmail.com"
+                }
+            ],
+            "description": "An HTML5 parser and serializer.",
+            "homepage": "http://masterminds.github.io/html5-php",
+            "keywords": [
+                "HTML5",
+                "dom",
+                "html",
+                "parser",
+                "querypath",
+                "serializer",
+                "xml"
+            ],
+            "support": {
+                "issues": "https://github.com/Masterminds/html5-php/issues",
+                "source": "https://github.com/Masterminds/html5-php/tree/2.10.1"
+            },
+            "time": "2026-06-23T18:43:15+00:00"
+        },
+        {
             "name": "monolog/monolog",
             "version": "3.10.0",
             "source": {
@@ -5533,16 +6218,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "3.13.1",
+            "version": "3.13.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/CarbonPHP/carbon.git",
-                "reference": "2937ad3d1d2c506fd2bc97d571438a95641f44e2"
+                "reference": "a1c54919f5fff9800cd03c32bd01defd5a4061cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CarbonPHP/carbon/zipball/2937ad3d1d2c506fd2bc97d571438a95641f44e2",
-                "reference": "2937ad3d1d2c506fd2bc97d571438a95641f44e2",
+                "url": "https://api.github.com/repos/CarbonPHP/carbon/zipball/a1c54919f5fff9800cd03c32bd01defd5a4061cb",
+                "reference": "a1c54919f5fff9800cd03c32bd01defd5a4061cb",
                 "shasum": ""
             },
             "require": {
@@ -5634,7 +6319,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-07-09T18:23:49+00:00"
+            "time": "2026-08-08T11:40:35+00:00"
         },
         {
             "name": "nette/php-generator",
@@ -5712,16 +6397,16 @@
         },
         {
             "name": "nette/schema",
-            "version": "v1.3.5",
+            "version": "v1.3.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/schema.git",
-                "reference": "f0ab1a3cda782dbc5da270d28545236aa80c4002"
+                "reference": "c54350438cd6914616f790a49cb424605f421562"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/schema/zipball/f0ab1a3cda782dbc5da270d28545236aa80c4002",
-                "reference": "f0ab1a3cda782dbc5da270d28545236aa80c4002",
+                "url": "https://api.github.com/repos/nette/schema/zipball/c54350438cd6914616f790a49cb424605f421562",
+                "reference": "c54350438cd6914616f790a49cb424605f421562",
                 "shasum": ""
             },
             "require": {
@@ -5773,9 +6458,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nette/schema/issues",
-                "source": "https://github.com/nette/schema/tree/v1.3.5"
+                "source": "https://github.com/nette/schema/tree/v1.3.6"
             },
-            "time": "2026-02-23T03:47:12+00:00"
+            "time": "2026-08-16T21:58:41+00:00"
         },
         {
             "name": "nette/utils",
@@ -7535,90 +8220,6 @@
             "time": "2026-05-19T14:06:37+00:00"
         },
         {
-            "name": "spatie/laravel-permission",
-            "version": "6.25.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/spatie/laravel-permission.git",
-                "reference": "d7d4cb0d58616722f1afc90e0484e4825155b9b3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-permission/zipball/d7d4cb0d58616722f1afc90e0484e4825155b9b3",
-                "reference": "d7d4cb0d58616722f1afc90e0484e4825155b9b3",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/auth": "^8.12|^9.0|^10.0|^11.0|^12.0|^13.0",
-                "illuminate/container": "^8.12|^9.0|^10.0|^11.0|^12.0|^13.0",
-                "illuminate/contracts": "^8.12|^9.0|^10.0|^11.0|^12.0|^13.0",
-                "illuminate/database": "^8.12|^9.0|^10.0|^11.0|^12.0|^13.0",
-                "php": "^8.0"
-            },
-            "require-dev": {
-                "laravel/passport": "^11.0|^12.0|^13.0",
-                "laravel/pint": "^1.0",
-                "orchestra/testbench": "^6.23|^7.0|^8.0|^9.0|^10.0|^11.0",
-                "pestphp/pest": "^2.0|^3.0|^4.0",
-                "pestphp/pest-plugin-laravel": "^2.0|^3.0|^4.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Spatie\\Permission\\PermissionServiceProvider"
-                    ]
-                },
-                "branch-alias": {
-                    "dev-main": "6.x-dev",
-                    "dev-master": "6.x-dev"
-                }
-            },
-            "autoload": {
-                "files": [
-                    "src/helpers.php"
-                ],
-                "psr-4": {
-                    "Spatie\\Permission\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Freek Van der Herten",
-                    "email": "freek@spatie.be",
-                    "homepage": "https://spatie.be",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Permission handling for Laravel 8.0 and up",
-            "homepage": "https://github.com/spatie/laravel-permission",
-            "keywords": [
-                "acl",
-                "laravel",
-                "permission",
-                "permissions",
-                "rbac",
-                "roles",
-                "security",
-                "spatie"
-            ],
-            "support": {
-                "issues": "https://github.com/spatie/laravel-permission/issues",
-                "source": "https://github.com/spatie/laravel-permission/tree/6.25.0"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/spatie",
-                    "type": "github"
-                }
-            ],
-            "time": "2026-03-17T22:46:46+00:00"
-        },
-        {
             "name": "spatie/shiki-php",
             "version": "2.4.0",
             "source": {
@@ -7762,16 +8363,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v8.1.2",
+            "version": "v8.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "535e18a1b8925f6c01a55b171d157ab66c2ace15"
+                "reference": "68efa2ebfd9a362951eb5a8b09fd177c66ddec24"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/535e18a1b8925f6c01a55b171d157ab66c2ace15",
-                "reference": "535e18a1b8925f6c01a55b171d157ab66c2ace15",
+                "url": "https://api.github.com/repos/symfony/console/zipball/68efa2ebfd9a362951eb5a8b09fd177c66ddec24",
+                "reference": "68efa2ebfd9a362951eb5a8b09fd177c66ddec24",
                 "shasum": ""
             },
             "require": {
@@ -7838,7 +8439,7 @@
                 "terminal"
             ],
             "support": {
-                "source": "https://github.com/symfony/console/tree/v8.1.2"
+                "source": "https://github.com/symfony/console/tree/v8.1.4"
             },
             "funding": [
                 {
@@ -7858,7 +8459,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-07-27T13:58:19+00:00"
+            "time": "2026-07-31T12:43:13+00:00"
         },
         {
             "name": "symfony/css-selector",
@@ -8317,22 +8918,24 @@
         },
         {
             "name": "symfony/html-sanitizer",
-            "version": "v8.1.1",
+            "version": "v7.4.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/html-sanitizer.git",
-                "reference": "09e1f2f9a3c8dcdca072587dc71999c1921c07cb"
+                "reference": "c328df69f5b6f44a0d031d757903d955bebb23b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/html-sanitizer/zipball/09e1f2f9a3c8dcdca072587dc71999c1921c07cb",
-                "reference": "09e1f2f9a3c8dcdca072587dc71999c1921c07cb",
+                "url": "https://api.github.com/repos/symfony/html-sanitizer/zipball/c328df69f5b6f44a0d031d757903d955bebb23b3",
+                "reference": "c328df69f5b6f44a0d031d757903d955bebb23b3",
                 "shasum": ""
             },
             "require": {
                 "ext-dom": "*",
                 "league/uri": "^6.5|^7.0",
-                "php": ">=8.4.1"
+                "masterminds/html5": "^2.7.2",
+                "php": ">=8.2",
+                "symfony/deprecation-contracts": "^2.5|^3"
             },
             "type": "library",
             "autoload": {
@@ -8365,7 +8968,7 @@
                 "sanitizer"
             ],
             "support": {
-                "source": "https://github.com/symfony/html-sanitizer/tree/v8.1.1"
+                "source": "https://github.com/symfony/html-sanitizer/tree/v7.4.14"
             },
             "funding": [
                 {
@@ -8385,20 +8988,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-06-06T11:11:44+00:00"
+            "time": "2026-06-06T11:10:32+00:00"
         },
         {
             "name": "symfony/http-foundation",
-            "version": "v8.1.2",
+            "version": "v8.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-foundation.git",
-                "reference": "9943adbf5a64e2951a8d9eb0485310d55624f0e8"
+                "reference": "57e712b75f2d0bc8844edbdb18a81dab6f9d55c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/9943adbf5a64e2951a8d9eb0485310d55624f0e8",
-                "reference": "9943adbf5a64e2951a8d9eb0485310d55624f0e8",
+                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/57e712b75f2d0bc8844edbdb18a81dab6f9d55c2",
+                "reference": "57e712b75f2d0bc8844edbdb18a81dab6f9d55c2",
                 "shasum": ""
             },
             "require": {
@@ -8446,7 +9049,7 @@
             "description": "Defines an object-oriented layer for the HTTP specification",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/http-foundation/tree/v8.1.2"
+                "source": "https://github.com/symfony/http-foundation/tree/v8.1.4"
             },
             "funding": [
                 {
@@ -8466,20 +9069,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-07-29T07:22:54+00:00"
+            "time": "2026-08-07T15:02:39+00:00"
         },
         {
             "name": "symfony/http-kernel",
-            "version": "v8.1.2",
+            "version": "v8.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-kernel.git",
-                "reference": "c7bb08dc26a7a7da68fb7ac1ce9de925e6464dbc"
+                "reference": "69d81d8a5dac32a5d94e4eb063b7d97dc42c792a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-kernel/zipball/c7bb08dc26a7a7da68fb7ac1ce9de925e6464dbc",
-                "reference": "c7bb08dc26a7a7da68fb7ac1ce9de925e6464dbc",
+                "url": "https://api.github.com/repos/symfony/http-kernel/zipball/69d81d8a5dac32a5d94e4eb063b7d97dc42c792a",
+                "reference": "69d81d8a5dac32a5d94e4eb063b7d97dc42c792a",
                 "shasum": ""
             },
             "require": {
@@ -8556,7 +9159,7 @@
             "description": "Provides a structured process for converting a Request into a Response",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/http-kernel/tree/v8.1.2"
+                "source": "https://github.com/symfony/http-kernel/tree/v8.1.4"
             },
             "funding": [
                 {
@@ -8576,7 +9179,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-07-29T11:54:54+00:00"
+            "time": "2026-08-07T18:04:54+00:00"
         },
         {
             "name": "symfony/mailer",
@@ -8660,16 +9263,16 @@
         },
         {
             "name": "symfony/mime",
-            "version": "v8.1.2",
+            "version": "v8.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/mime.git",
-                "reference": "75f4779d4ec2e13f24a3a7e5d0347c340c7ca627"
+                "reference": "8f8ac859d369fe3d18e3837998b1c992bbee92c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/mime/zipball/75f4779d4ec2e13f24a3a7e5d0347c340c7ca627",
-                "reference": "75f4779d4ec2e13f24a3a7e5d0347c340c7ca627",
+                "url": "https://api.github.com/repos/symfony/mime/zipball/8f8ac859d369fe3d18e3837998b1c992bbee92c9",
+                "reference": "8f8ac859d369fe3d18e3837998b1c992bbee92c9",
                 "shasum": ""
             },
             "require": {
@@ -8722,7 +9325,7 @@
                 "mime-type"
             ],
             "support": {
-                "source": "https://github.com/symfony/mime/tree/v8.1.2"
+                "source": "https://github.com/symfony/mime/tree/v8.1.4"
             },
             "funding": [
                 {
@@ -8742,7 +9345,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-07-29T08:00:47+00:00"
+            "time": "2026-08-07T15:02:39+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -9897,16 +10500,16 @@
         },
         {
             "name": "symfony/translation",
-            "version": "v8.1.1",
+            "version": "v8.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "342b4218630dc2cf284cedcb2080c80b13404014"
+                "reference": "c0955eb4aa417a110e65c8162237b8a5c7d910bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/342b4218630dc2cf284cedcb2080c80b13404014",
-                "reference": "342b4218630dc2cf284cedcb2080c80b13404014",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/c0955eb4aa417a110e65c8162237b8a5c7d910bf",
+                "reference": "c0955eb4aa417a110e65c8162237b8a5c7d910bf",
                 "shasum": ""
             },
             "require": {
@@ -9966,7 +10569,7 @@
             "description": "Provides tools to internationalize your application",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/translation/tree/v8.1.1"
+                "source": "https://github.com/symfony/translation/tree/v8.1.4"
             },
             "funding": [
                 {
@@ -9986,7 +10589,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-06-06T11:11:44+00:00"
+            "time": "2026-07-30T12:40:56+00:00"
         },
         {
             "name": "symfony/translation-contracts",
@@ -10072,16 +10675,16 @@
         },
         {
             "name": "symfony/uid",
-            "version": "v8.1.0",
+            "version": "v8.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/uid.git",
-                "reference": "7393f157a55f7e70a4de0334435c55a5a8fe749a"
+                "reference": "50e98f8bc4c3fcdaf925545a65150fb42cf0caf2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/uid/zipball/7393f157a55f7e70a4de0334435c55a5a8fe749a",
-                "reference": "7393f157a55f7e70a4de0334435c55a5a8fe749a",
+                "url": "https://api.github.com/repos/symfony/uid/zipball/50e98f8bc4c3fcdaf925545a65150fb42cf0caf2",
+                "reference": "50e98f8bc4c3fcdaf925545a65150fb42cf0caf2",
                 "shasum": ""
             },
             "require": {
@@ -10126,7 +10729,7 @@
                 "uuid"
             ],
             "support": {
-                "source": "https://github.com/symfony/uid/tree/v8.1.0"
+                "source": "https://github.com/symfony/uid/tree/v8.1.4"
             },
             "funding": [
                 {
@@ -10146,7 +10749,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-05-29T05:06:50+00:00"
+            "time": "2026-08-02T11:29:46+00:00"
         },
         {
             "name": "symfony/var-dumper",
@@ -10598,6 +11201,83 @@
     ],
     "packages-dev": [
         {
+            "name": "composer/semver",
+            "version": "3.4.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/composer/semver.git",
+                "reference": "198166618906cb2de69b95d7d47e5fa8aa1b2b95"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/composer/semver/zipball/198166618906cb2de69b95d7d47e5fa8aa1b2b95",
+                "reference": "198166618906cb2de69b95d7d47e5fa8aa1b2b95",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.3.2 || ^7.0 || ^8.0"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^1.11",
+                "symfony/phpunit-bridge": "^3 || ^7"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "3.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Composer\\Semver\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nils Adermann",
+                    "email": "naderman@naderman.de",
+                    "homepage": "http://www.naderman.de"
+                },
+                {
+                    "name": "Jordi Boggiano",
+                    "email": "j.boggiano@seld.be",
+                    "homepage": "http://seld.be"
+                },
+                {
+                    "name": "Rob Bast",
+                    "email": "rob.bast@gmail.com",
+                    "homepage": "http://robbast.nl"
+                }
+            ],
+            "description": "Semver library that offers utilities, version constraint parsing and validation.",
+            "keywords": [
+                "semantic",
+                "semver",
+                "validation",
+                "versioning"
+            ],
+            "support": {
+                "irc": "ircs://irc.libera.chat:6697/composer",
+                "issues": "https://github.com/composer/semver/issues",
+                "source": "https://github.com/composer/semver/tree/3.4.4"
+            },
+            "funding": [
+                {
+                    "url": "https://packagist.com",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/composer",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-08-20T19:15:30+00:00"
+        },
+        {
             "name": "fakerphp/faker",
             "version": "v1.24.1",
             "source": {
@@ -10733,19 +11413,21 @@
         },
         {
             "name": "hamcrest/hamcrest-php",
-            "version": "v2.1.1",
+            "version": "v3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hamcrest/hamcrest-php.git",
-                "reference": "f8b1c0173b22fa6ec77a81fe63e5b01eba7e6487"
+                "reference": "b61cd040da1a4925bc90a51c074f5297e7c0fa52"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hamcrest/hamcrest-php/zipball/f8b1c0173b22fa6ec77a81fe63e5b01eba7e6487",
-                "reference": "f8b1c0173b22fa6ec77a81fe63e5b01eba7e6487",
+                "url": "https://api.github.com/repos/hamcrest/hamcrest-php/zipball/b61cd040da1a4925bc90a51c074f5297e7c0fa52",
+                "reference": "b61cd040da1a4925bc90a51c074f5297e7c0fa52",
                 "shasum": ""
             },
             "require": {
+                "ext-ctype": "*",
+                "ext-dom": "*",
                 "php": "^7.4|^8.0"
             },
             "replace": {
@@ -10754,13 +11436,15 @@
                 "kodova/hamcrest-php": "*"
             },
             "require-dev": {
+                "phpstan/phpstan": "^2.1",
+                "phpstan/phpstan-phpunit": "^2.0",
                 "phpunit/php-file-iterator": "^1.4 || ^2.0 || ^3.0",
                 "phpunit/phpunit": "^4.8.36 || ^5.7 || ^6.5 || ^7.0 || ^8.0 || ^9.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.1-dev"
+                    "dev-master": "3.0-dev"
                 }
             },
             "autoload": {
@@ -10778,9 +11462,9 @@
             ],
             "support": {
                 "issues": "https://github.com/hamcrest/hamcrest-php/issues",
-                "source": "https://github.com/hamcrest/hamcrest-php/tree/v2.1.1"
+                "source": "https://github.com/hamcrest/hamcrest-php/tree/v3.0.0"
             },
-            "time": "2025-04-30T06:54:44+00:00"
+            "time": "2026-03-17T11:56:53+00:00"
         },
         {
             "name": "laravel/agent-detector",
@@ -10846,16 +11530,16 @@
         },
         {
             "name": "laravel/boost",
-            "version": "v2.4.13",
+            "version": "v2.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/boost.git",
-                "reference": "f55e08f5afa89ac72f23f574175005b67878f466"
+                "reference": "f5f9297225aba9857d014b3140f55a7c50cb1a92"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/boost/zipball/f55e08f5afa89ac72f23f574175005b67878f466",
-                "reference": "f55e08f5afa89ac72f23f574175005b67878f466",
+                "url": "https://api.github.com/repos/laravel/boost/zipball/f5f9297225aba9857d014b3140f55a7c50cb1a92",
+                "reference": "f5f9297225aba9857d014b3140f55a7c50cb1a92",
                 "shasum": ""
             },
             "require": {
@@ -10866,7 +11550,7 @@
                 "illuminate/support": "^11.45.3|^12.41.1|^13.0",
                 "laravel/mcp": "^0.7.1|^0.8.0|^0.9.0",
                 "laravel/prompts": "^0.3.10",
-                "laravel/roster": "^0.5.0",
+                "laravel/roster": "^1.0.0",
                 "php": "^8.2"
             },
             "require-dev": {
@@ -10908,20 +11592,20 @@
                 "issues": "https://github.com/laravel/boost/issues",
                 "source": "https://github.com/laravel/boost"
             },
-            "time": "2026-07-17T14:28:57+00:00"
+            "time": "2026-08-07T05:46:02+00:00"
         },
         {
             "name": "laravel/mcp",
-            "version": "v0.9.1",
+            "version": "v0.9.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/mcp.git",
-                "reference": "a08884d79a95c5143498507aec5badf751cdbec4"
+                "reference": "534b29f18418673033ec918c5a840b6ce9c08327"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/mcp/zipball/a08884d79a95c5143498507aec5badf751cdbec4",
-                "reference": "a08884d79a95c5143498507aec5badf751cdbec4",
+                "url": "https://api.github.com/repos/laravel/mcp/zipball/534b29f18418673033ec918c5a840b6ce9c08327",
+                "reference": "534b29f18418673033ec918c5a840b6ce9c08327",
                 "shasum": ""
             },
             "require": {
@@ -10982,7 +11666,7 @@
                 "issues": "https://github.com/laravel/mcp/issues",
                 "source": "https://github.com/laravel/mcp"
             },
-            "time": "2026-07-21T13:23:52+00:00"
+            "time": "2026-08-10T18:01:31+00:00"
         },
         {
             "name": "laravel/pail",
@@ -11066,16 +11750,16 @@
         },
         {
             "name": "laravel/pao",
-            "version": "v1.1.3",
+            "version": "v1.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/pao.git",
-                "reference": "322f22095f3639551b64db9a13dfd8ab09c8206b"
+                "reference": "5aee99c8c37565e9c457c33f4d36aa363a389dc8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/pao/zipball/322f22095f3639551b64db9a13dfd8ab09c8206b",
-                "reference": "322f22095f3639551b64db9a13dfd8ab09c8206b",
+                "url": "https://api.github.com/repos/laravel/pao/zipball/5aee99c8c37565e9c457c33f4d36aa363a389dc8",
+                "reference": "5aee99c8c37565e9c457c33f4d36aa363a389dc8",
                 "shasum": ""
             },
             "require": {
@@ -11089,15 +11773,15 @@
                 "phpunit/phpunit": "<12.5.23 || >=13.0.0 <13.1.7 || >=14.0.0"
             },
             "require-dev": {
-                "brianium/paratest": "^7.23.0",
-                "laravel/pint": "^1.30.0",
+                "brianium/paratest": "^7.20.0",
+                "laravel/pint": "^1.30.5",
                 "orchestra/testbench": "^10.11.0 || ^11.1.0",
-                "pestphp/pest": "^4.7.2 || ^5.0.1",
-                "pestphp/pest-plugin-type-coverage": "^4.0.4 || ^5.0.0",
-                "phpstan/phpstan": "^2.2.7",
-                "rector/rector": "^2.5.8",
-                "symfony/process": "^7.4.8 || ^8.1.0",
-                "symfony/var-dumper": "^7.4.8 || ^8.1.2"
+                "pestphp/pest": "^4.7.8 || ^5.1.0",
+                "pestphp/pest-plugin-type-coverage": "^4.0.4 || ^5.0.2",
+                "phpstan/phpstan": "^2.2.8",
+                "rector/rector": "^2.6.1",
+                "symfony/process": "^7.4.13 || ^8.1.0",
+                "symfony/var-dumper": "^7.4.15 || ^8.1.2"
             },
             "type": "library",
             "extra": {
@@ -11147,20 +11831,20 @@
                 "issues": "https://github.com/laravel/pao/issues",
                 "source": "https://github.com/laravel/pao"
             },
-            "time": "2026-07-29T18:38:14+00:00"
+            "time": "2026-08-10T23:45:44+00:00"
         },
         {
             "name": "laravel/pint",
-            "version": "v1.30.2",
+            "version": "v1.30.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/pint.git",
-                "reference": "de440809cb86055b43e7ae979bed3baf8d29ef5a"
+                "reference": "fe4148c503a0e266353d61396b79bbf7f35122df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/pint/zipball/de440809cb86055b43e7ae979bed3baf8d29ef5a",
-                "reference": "de440809cb86055b43e7ae979bed3baf8d29ef5a",
+                "url": "https://api.github.com/repos/laravel/pint/zipball/fe4148c503a0e266353d61396b79bbf7f35122df",
+                "reference": "fe4148c503a0e266353d61396b79bbf7f35122df",
                 "shasum": ""
             },
             "require": {
@@ -11168,19 +11852,19 @@
                 "ext-mbstring": "*",
                 "ext-tokenizer": "*",
                 "ext-xml": "*",
-                "php": "^8.2.0"
+                "php": "^8.3.0"
             },
             "require-dev": {
                 "composer/semver": "^3.4.4",
                 "friendsofphp/php-cs-fixer": "^3.95.18",
-                "illuminate/view": "^12.64.0",
+                "illuminate/view": "^13.24.0",
                 "larastan/larastan": "^3.10.0",
-                "laravel-zero/framework": "^12.1.0",
+                "laravel-zero/framework": "^13.0.0",
                 "laravel/agent-detector": "^2.0.2",
-                "laravel/prompts": "^0.3.21",
+                "laravel/prompts": "^0.3.22",
                 "mockery/mockery": "^1.6.12",
                 "nunomaduro/termwind": "^2.4.0",
-                "pestphp/pest": "^3.8.7"
+                "pestphp/pest": "^4.7.8"
             },
             "bin": [
                 "builds/pint"
@@ -11217,36 +11901,37 @@
                 "issues": "https://github.com/laravel/pint/issues",
                 "source": "https://github.com/laravel/pint"
             },
-            "time": "2026-08-01T01:14:35+00:00"
+            "time": "2026-08-10T15:35:50+00:00"
         },
         {
             "name": "laravel/roster",
-            "version": "v0.5.1",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/roster.git",
-                "reference": "5089de7615f72f78e831590ff9d0435fed0102bb"
+                "reference": "89e518bd88ae98ff50f6082f6b517c8d8e8245fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/roster/zipball/5089de7615f72f78e831590ff9d0435fed0102bb",
-                "reference": "5089de7615f72f78e831590ff9d0435fed0102bb",
+                "url": "https://api.github.com/repos/laravel/roster/zipball/89e518bd88ae98ff50f6082f6b517c8d8e8245fa",
+                "reference": "89e518bd88ae98ff50f6082f6b517c8d8e8245fa",
                 "shasum": ""
             },
             "require": {
+                "composer/semver": "^3.0",
                 "illuminate/console": "^11.0|^12.0|^13.0",
                 "illuminate/contracts": "^11.0|^12.0|^13.0",
-                "illuminate/routing": "^11.0|^12.0|^13.0",
                 "illuminate/support": "^11.0|^12.0|^13.0",
                 "php": "^8.2",
                 "symfony/yaml": "^7.2|^8.0"
             },
             "require-dev": {
-                "laravel/pint": "^1.14",
+                "laravel/pint": "^1.29",
                 "mockery/mockery": "^1.6",
                 "orchestra/testbench": "^9.0|^10.0|^11.0",
                 "pestphp/pest": "^3.0|^4.1",
-                "phpstan/phpstan": "^2.0"
+                "phpstan/phpstan": "^2.0",
+                "rector/rector": "^2.0"
             },
             "type": "library",
             "extra": {
@@ -11278,33 +11963,32 @@
                 "issues": "https://github.com/laravel/roster/issues",
                 "source": "https://github.com/laravel/roster"
             },
-            "time": "2026-03-05T07:58:43+00:00"
+            "time": "2026-07-18T17:53:15+00:00"
         },
         {
             "name": "mockery/mockery",
-            "version": "1.6.12",
+            "version": "1.6.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mockery/mockery.git",
-                "reference": "1f4efdd7d3beafe9807b08156dfcb176d18f1699"
+                "reference": "967a801bd188989a5669bd280f252d51c0fdc9ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mockery/mockery/zipball/1f4efdd7d3beafe9807b08156dfcb176d18f1699",
-                "reference": "1f4efdd7d3beafe9807b08156dfcb176d18f1699",
+                "url": "https://api.github.com/repos/mockery/mockery/zipball/967a801bd188989a5669bd280f252d51c0fdc9ee",
+                "reference": "967a801bd188989a5669bd280f252d51c0fdc9ee",
                 "shasum": ""
             },
             "require": {
-                "hamcrest/hamcrest-php": "^2.0.1",
-                "lib-pcre": ">=7.0",
+                "hamcrest/hamcrest-php": "^2.0 || ^3.0",
                 "php": ">=7.3"
             },
             "conflict": {
                 "phpunit/phpunit": "<8.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^8.5 || ^9.6.17",
-                "symplify/easy-coding-standard": "^12.1.14"
+                "phpunit/phpunit": "^9.6.36",
+                "symplify/easy-coding-standard": "^13.2.17"
             },
             "type": "library",
             "autoload": {
@@ -11361,24 +12045,24 @@
                 "security": "https://github.com/mockery/mockery/security/advisories",
                 "source": "https://github.com/mockery/mockery"
             },
-            "time": "2024-05-16T03:13:13+00:00"
+            "time": "2026-08-19T19:37:52+00:00"
         },
         {
             "name": "myclabs/deep-copy",
-            "version": "1.13.4",
+            "version": "1.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/myclabs/DeepCopy.git",
-                "reference": "07d290f0c47959fd5eed98c95ee5602db07e0b6a"
+                "reference": "8680aa248f8e07bc8fb43f56f0f5fc77a0c96aae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/07d290f0c47959fd5eed98c95ee5602db07e0b6a",
-                "reference": "07d290f0c47959fd5eed98c95ee5602db07e0b6a",
+                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/8680aa248f8e07bc8fb43f56f0f5fc77a0c96aae",
+                "reference": "8680aa248f8e07bc8fb43f56f0f5fc77a0c96aae",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1 || ^8.0"
+                "php": "^8.0"
             },
             "conflict": {
                 "doctrine/collections": "<1.6.8",
@@ -11413,15 +12097,15 @@
             ],
             "support": {
                 "issues": "https://github.com/myclabs/DeepCopy/issues",
-                "source": "https://github.com/myclabs/DeepCopy/tree/1.13.4"
+                "source": "https://github.com/myclabs/DeepCopy/tree/1.14.0"
             },
             "funding": [
                 {
-                    "url": "https://tidelift.com/funding/github/packagist/myclabs/deep-copy",
-                    "type": "tidelift"
+                    "url": "https://github.com/mnapoli",
+                    "type": "github"
                 }
             ],
-            "time": "2025-08-01T08:46:24+00:00"
+            "time": "2026-08-11T10:17:44+00:00"
         },
         {
             "name": "nunomaduro/collision",
@@ -13035,28 +13719,28 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v8.1.2",
+            "version": "v7.4.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "faabdbe998e8c5c599dceffa27aa265b185c0736"
+                "reference": "e101850ded5d2c0d44bf32abb8996404afec2dec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/faabdbe998e8c5c599dceffa27aa265b185c0736",
-                "reference": "faabdbe998e8c5c599dceffa27aa265b185c0736",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/e101850ded5d2c0d44bf32abb8996404afec2dec",
+                "reference": "e101850ded5d2c0d44bf32abb8996404afec2dec",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.4.1",
+                "php": ">=8.2",
+                "symfony/deprecation-contracts": "^2.5|^3",
                 "symfony/polyfill-ctype": "^1.8"
             },
             "conflict": {
-                "symfony/console": "<7.4"
+                "symfony/console": "<6.4"
             },
             "require-dev": {
-                "symfony/console": "^7.4|^8.0",
-                "yaml/yaml-test-suite": "*"
+                "symfony/console": "^6.4|^7.0|^8.0"
             },
             "bin": [
                 "Resources/bin/yaml-lint"
@@ -13087,7 +13771,7 @@
             "description": "Loads and dumps YAML files",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/yaml/tree/v8.1.2"
+                "source": "https://github.com/symfony/yaml/tree/v7.4.15"
             },
             "funding": [
                 {
@@ -13107,7 +13791,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-07-22T15:42:13+00:00"
+            "time": "2026-07-21T15:13:06+00:00"
         },
         {
             "name": "theseer/tokenizer",
@@ -13163,7 +13847,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "gz168/address-management": 20,
         "gz168/api-auth": 20,
         "gz168/attribute-management": 20,
         "gz168/cache-management": 20,
@@ -13171,9 +13854,9 @@
         "gz168/custom-config": 20,
         "gz168/customer": 20,
         "gz168/database-backup": 20,
+        "gz168/database-manager": 20,
         "gz168/deepseek": 20,
         "gz168/demo-consumer": 20,
-        "gz168/erp-core": 20,
         "gz168/export-management": 20,
         "gz168/extension-data": 20,
         "gz168/filament": 20,
@@ -13181,23 +13864,42 @@
         "gz168/front-nav": 20,
         "gz168/git-management": 20,
         "gz168/gmail-api": 20,
-        "gz168/inventory": 20,
         "gz168/kafka-management": 20,
         "gz168/log-management": 20,
         "gz168/mail": 20,
-        "gz168/mail-account": 20,
-        "gz168/mail-admin": 20,
-        "gz168/mail-contracts": 20,
-        "gz168/mail-gmail": 20,
-        "gz168/mail-inbound": 20,
-        "gz168/mail-notification": 20,
-        "gz168/mail-outbound": 20,
-        "gz168/mail-qq": 20,
+        "gz168/mall-admin": 20,
+        "gz168/mall-after-sales": 20,
+        "gz168/mall-b2b-portal-api": 20,
+        "gz168/mall-business-client": 20,
+        "gz168/mall-cart": 20,
+        "gz168/mall-catalog": 20,
+        "gz168/mall-content": 20,
+        "gz168/mall-core": 20,
+        "gz168/mall-customer": 20,
+        "gz168/mall-fulfillment": 20,
+        "gz168/mall-inventory": 20,
+        "gz168/mall-media": 20,
+        "gz168/mall-merchant-portal-api": 20,
+        "gz168/mall-mode-b2b": 20,
+        "gz168/mall-mode-b2c": 20,
+        "gz168/mall-mode-c2c": 20,
+        "gz168/mall-mode-o2o": 20,
+        "gz168/mall-notification": 20,
+        "gz168/mall-order": 20,
+        "gz168/mall-payment": 20,
+        "gz168/mall-pricing": 20,
+        "gz168/mall-promotion": 20,
+        "gz168/mall-quote": 20,
+        "gz168/mall-review": 20,
+        "gz168/mall-search": 20,
+        "gz168/mall-seller": 20,
+        "gz168/mall-settlement": 20,
+        "gz168/mall-store": 20,
+        "gz168/mall-storefront-api": 20,
         "gz168/module-core": 20,
         "gz168/module-settings": 20,
         "gz168/package-registration": 20,
         "gz168/redis-management": 20,
-        "gz168/rednote": 20,
         "gz168/role-permission": 20,
         "gz168/system-settings": 20,
         "gz168/user-management": 20

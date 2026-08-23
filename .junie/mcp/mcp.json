@@ -1,9 +1,9 @@
 {
     "mcpServers": {
         "laravel-boost": {
-            "command": "/usr/local/Cellar/php/8.5.5/bin/php",
+            "command": "D:\\laragon\\bin\\php\\php-8.5.8-Win32-vs17-x64\\php.exe",
             "args": [
-                "/Users/37user/Documents/erp/artisan",
+                "D:\\www2\\dev-laraval\\artisan",
                 "boost:mcp"
             ]
         }

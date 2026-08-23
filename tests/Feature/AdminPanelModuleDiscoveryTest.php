@@ -20,7 +20,7 @@ class AdminPanelModuleDiscoveryTest extends TestCase
     {
         $modules = (new ModuleScanner(base_path('gz168')))->scan();
 
-        $this->assertCount(24, $modules);
+        $this->assertCount(27, $modules);
         $this->assertNotContains(false, array_map(
             static fn (ModuleDefinition $module): bool => $module->active,
             $modules,
@@ -47,6 +47,6 @@ class AdminPanelModuleDiscoveryTest extends TestCase
 
     public function test_module_settings_page_lists_every_installed_module(): void
     {
-        $this->assertCount(24, (new ModuleSettingsPage)->getInstalledModules());
+        $this->assertCount(27, (new ModuleSettingsPage)->getInstalledModules());
     }
 }

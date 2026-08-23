@@ -22,6 +22,7 @@ tags:
 - Git 速查（合流 / 急救 / 工作流）
 - Docker 速查（compose / network）
 - Vim/Nvim 速查
+- [[dev-laraval-core-schema]] —— `dev-laraval` 仓库默认库 `dev_laravel` 的核心表速查（`users` / `cache` / `jobs` / `personal_access_tokens` 等）
 
 ## 内容
 
