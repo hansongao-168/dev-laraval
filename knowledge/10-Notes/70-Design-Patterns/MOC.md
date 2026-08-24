@@ -107,7 +107,7 @@ flowchart TD
 ## 参考资料
 
 - 《深入设计模式》Dive Into Design Patterns（Alexander Shvets / Refactoring.Guru，中文版 v2020-1.20）→ 书摘：[[30-Resources/books/深入设计模式/书评]]、[[30-Resources/books/深入设计模式/章节/装饰器-Decorator-精读]]、[[30-Resources/books/深入设计模式/章节/SOLID五原则-精读]]、[[30-Resources/books/深入设计模式/章节/工厂方法与抽象工厂-精读]]
-- 《装饰模式实战精讲》（同书 p.182–198 的精讲讲义）
+- 《装饰模式实战精讲》（《深入设计模式》p.182–198 的精讲讲义）→ 书摘：[[30-Resources/books/装饰模式实战精讲/书评]]、[[30-Resources/books/装饰模式实战精讲/章节/PART4-重构从if-else到装饰链]]、[[30-Resources/books/装饰模式实战精讲/章节/PART5-装饰链实现PriceCalculator]]、[[30-Resources/books/装饰模式实战精讲/章节/PART6-反模式与最终结论]]
 - 项目代码：`gz168/FrontNav`、`gz168/module-core`、`gz168/common`、`gz168/RolePermission`、`gz168/Inventory`、`gz168/Purchase`、`gz168/LabelPrinting`、`gz168/Amazon`、`gz168/Shopify`、`gz168/KafkaManagement`、`gz168/ExportManagement`、`gz168/DatabaseBackup`、`packages/front-nav`
 
 ## 关联
