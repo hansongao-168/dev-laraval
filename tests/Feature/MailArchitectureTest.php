@@ -89,9 +89,9 @@ class MailArchitectureTest extends TestCase
         $dispatchedCount = app(DispatchMailSyncAction::class)->handle(onlyDue: false);
 
         $this->assertSame(2, $dispatchedCount);
-        $this->assertDatabaseCount('mail_sync_runs', 2);
-        $this->assertDatabaseHas('mail_sync_runs', ['mail_account_id' => $dueAccount->id, 'status' => 'queued']);
-        $this->assertDatabaseHas('mail_sync_runs', ['mail_account_id' => $notDueAccount->id, 'status' => 'queued']);
+        $this->assertDatabaseCount('mail_inbound_sync_runs', 2);
+        $this->assertDatabaseHas('mail_inbound_sync_runs', ['mail_account_id' => $dueAccount->id, 'status' => 'queued']);
+        $this->assertDatabaseHas('mail_inbound_sync_runs', ['mail_account_id' => $notDueAccount->id, 'status' => 'queued']);
         Queue::assertPushed(SyncMailAccountJob::class, 2);
         Queue::assertPushed(fn (SyncMailAccountJob $job): bool => $job->accountId === $dueAccount->id);
         Queue::assertPushed(fn (SyncMailAccountJob $job): bool => $job->accountId === $notDueAccount->id);
@@ -114,7 +114,7 @@ class MailArchitectureTest extends TestCase
         $this->assertNotNull($job);
         $job->failed(new RuntimeException('IMAP authentication failed'));
 
-        $this->assertDatabaseHas('mail_sync_runs', [
+        $this->assertDatabaseHas('mail_inbound_sync_runs', [
             'id' => $job->syncRunId,
             'status' => 'failed',
             'error' => 'IMAP authentication failed',
@@ -133,7 +133,7 @@ class MailArchitectureTest extends TestCase
             dateTo: '2026-08-15',
         );
 
-        $this->assertDatabaseHas('mail_sync_runs', [
+        $this->assertDatabaseHas('mail_inbound_sync_runs', [
             'mail_account_id' => $account->id,
             'sync_mode' => 'date_range',
             'status' => 'queued',

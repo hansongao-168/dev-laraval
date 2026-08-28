@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3c0cce1a4abebdf270ca42150b3d23a4",
+    "content-hash": "973a6f73eb976a5ea90ec1214df2de5d",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -3116,6 +3116,325 @@
                 "MIT"
             ],
             "description": "Multi-account Gmail & QQ Mail management with Filament and API",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/mail-account",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/MailAccount",
+                "reference": "8eb22cae351835b296ebeb17f460628df038bec3"
+            },
+            "require": {
+                "gz168/mail-contracts": "@dev",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\MailAccount\\Providers\\MailAccountServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\MailAccount\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\MailAccount\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "MailAccount module",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/mail-admin",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/MailAdmin",
+                "reference": "52518557e6c8ccc97dbf2023df1a0ffddb69cf28"
+            },
+            "require": {
+                "filament/filament": "^5.0",
+                "gz168/filament": "@dev",
+                "gz168/mail-account": "@dev",
+                "gz168/mail-inbound": "@dev",
+                "gz168/mail-notification": "@dev",
+                "gz168/mail-outbound": "@dev",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\MailAdmin\\Providers\\MailAdminServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\MailAdmin\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\MailAdmin\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "MailAdmin module",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/mail-contracts",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/MailContracts",
+                "reference": "0d7ab05121f2a786dbf89404799f27d649008657"
+            },
+            "require": {
+                "gz168/common": "@dev",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\MailContracts\\Providers\\MailContractsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\MailContracts\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\MailContracts\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "MailContracts module",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/mail-gmail",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/MailGmail",
+                "reference": "0761b7febbd9d8e786d48dad0caa2dc2a71887f7"
+            },
+            "require": {
+                "gz168/mail-contracts": "@dev",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\MailGmail\\Providers\\MailGmailServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\MailGmail\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\MailGmail\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "MailGmail module",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/mail-inbound",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/MailInbound",
+                "reference": "75853d4a569ab82b3364d60f5bd73c6a9882face"
+            },
+            "require": {
+                "gz168/mail-account": "@dev",
+                "gz168/mail-contracts": "@dev",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\MailInbound\\Providers\\MailInboundServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\MailInbound\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\MailInbound\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "MailInbound module",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/mail-notification",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/MailNotification",
+                "reference": "d882950b7b202120d225447966bfbcf3ecd6e61a"
+            },
+            "require": {
+                "gz168/mail-inbound": "@dev",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\MailNotification\\Providers\\MailNotificationServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\MailNotification\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\MailNotification\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "MailNotification module",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/mail-outbound",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/MailOutbound",
+                "reference": "04adef598c249baf326d6223f3e7c1ace586a86e"
+            },
+            "require": {
+                "gz168/mail-account": "@dev",
+                "gz168/mail-contracts": "@dev",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\MailOutbound\\Providers\\MailOutboundServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\MailOutbound\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\MailOutbound\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "MailOutbound module",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/mail-qq",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/MailQq",
+                "reference": "5d52372c49b837dc611c1063c3723bc447b1a0ef"
+            },
+            "require": {
+                "gz168/mail-contracts": "@dev",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\MailQq\\Providers\\MailQqServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\MailQq\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\MailQq\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "MailQq module",
             "transport-options": {
                 "relative": true
             }
@@ -14301,6 +14620,14 @@
         "gz168/kafka-management": 20,
         "gz168/log-management": 20,
         "gz168/mail": 20,
+        "gz168/mail-account": 20,
+        "gz168/mail-admin": 20,
+        "gz168/mail-contracts": 20,
+        "gz168/mail-gmail": 20,
+        "gz168/mail-inbound": 20,
+        "gz168/mail-notification": 20,
+        "gz168/mail-outbound": 20,
+        "gz168/mail-qq": 20,
         "gz168/mall-admin": 20,
         "gz168/mall-after-sales": 20,
         "gz168/mall-b2b-portal-api": 20,

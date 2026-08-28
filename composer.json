@@ -33,6 +33,14 @@
         "gz168/kafka-management": "dev-master",
         "gz168/log-management": "dev-master",
         "gz168/mail": "dev-master",
+        "gz168/mail-account": "@dev",
+        "gz168/mail-admin": "@dev",
+        "gz168/mail-contracts": "@dev",
+        "gz168/mail-gmail": "@dev",
+        "gz168/mail-inbound": "@dev",
+        "gz168/mail-notification": "@dev",
+        "gz168/mail-outbound": "@dev",
+        "gz168/mail-qq": "@dev",
         "gz168/mall-admin": "dev-master",
         "gz168/mall-after-sales": "dev-master",
         "gz168/mall-b2b-portal-api": "dev-master",
@@ -410,6 +418,38 @@
         {
             "type": "path",
             "url": "gz168/RedNote"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MailAccount"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MailAdmin"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MailContracts"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MailGmail"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MailInbound"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MailNotification"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MailOutbound"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MailQq"
         }
     ]
 }
