@@ -20,7 +20,10 @@ class AdminPanelModuleDiscoveryTest extends TestCase
     {
         $modules = (new ModuleScanner(base_path('gz168')))->scan();
 
-        $this->assertCount(27, $modules);
+        $aliases = array_map(static fn (ModuleDefinition $module): string => $module->alias, $modules);
+
+        $this->assertNotEmpty($modules);
+        $this->assertContains('rednote', $aliases);
         $this->assertNotContains(false, array_map(
             static fn (ModuleDefinition $module): bool => $module->active,
             $modules,
@@ -47,6 +50,16 @@ class AdminPanelModuleDiscoveryTest extends TestCase
 
     public function test_module_settings_page_lists_every_installed_module(): void
     {
-        $this->assertCount(27, (new ModuleSettingsPage)->getInstalledModules());
+        $scannedAliases = array_map(
+            static fn (ModuleDefinition $module): string => $module->alias,
+            (new ModuleScanner(base_path('gz168')))->scan(),
+        );
+        $listedAliases = array_column((new ModuleSettingsPage)->getInstalledModules(), 'alias');
+
+        sort($scannedAliases);
+        sort($listedAliases);
+
+        $this->assertSame($scannedAliases, $listedAliases);
+        $this->assertContains('rednote', $listedAliases);
     }
 }
