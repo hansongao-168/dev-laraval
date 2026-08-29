@@ -29,6 +29,10 @@
     "./domain/customer": {
       "types": "./src/domain/customer/index.d.ts",
       "default": "./src/domain/customer/index.js"
+    },
+    "./domain/mail": {
+      "types": "./src/domain/mail/index.d.ts",
+      "default": "./src/domain/mail/index.js"
     }
   }
 }

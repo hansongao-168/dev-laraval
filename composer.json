@@ -29,7 +29,6 @@
         "gz168/filament-admin": "dev-master",
         "gz168/front-nav": "dev-master",
         "gz168/git-management": "dev-master",
-        "gz168/gmail-api": "dev-master",
         "gz168/inventory": "@dev",
         "gz168/kafka-management": "dev-master",
         "gz168/log-management": "dev-master",
@@ -79,6 +78,14 @@
         "gz168/role-permission": "dev-master",
         "gz168/system-settings": "dev-master",
         "gz168/user-management": "dev-master",
+        "gz168/wechat-app": "@dev",
+        "gz168/wechat-contracts": "@dev",
+        "gz168/wechat-mall-pay": "@dev",
+        "gz168/wechat-official-account": "@dev",
+        "gz168/wechat-mini-program": "@dev",
+        "gz168/wechat-notify": "@dev",
+        "gz168/wechat-open-platform": "@dev",
+        "gz168/wechat-pay": "@dev",
         "laravel/framework": "^13.8",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^3.0",
@@ -105,7 +112,8 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/",
-            "Gz168\\DatabaseManager\\Tests\\": "gz168/DatabaseManager/tests/"
+            "Gz168\\DatabaseManager\\Tests\\": "gz168/DatabaseManager/tests/",
+            "Gz168\\Customer\\Tests\\": "gz168/Customer/tests/"
         }
     },
     "scripts": {
@@ -122,7 +130,7 @@
         ],
         "dev": [
             "Composer\\Config::disableProcessTimeout",
-            "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --queue=mail-sync,default --tries=1 --timeout=0\" \"php artisan pail --timeout=0\" \"npm run dev\" --names=server,queue,logs,vite --kill-others"
+            "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --queue=mail-sync,wechat,default --tries=1 --timeout=0\" \"php artisan pail --timeout=0\" \"npm run dev\" --names=server,queue,logs,vite --kill-others"
         ],
         "test": [
             "@php artisan config:clear --ansi @no_additional_args",
@@ -227,10 +235,6 @@
         {
             "type": "path",
             "url": "gz168/GitManagement"
-        },
-        {
-            "type": "path",
-            "url": "gz168/GmailApi"
         },
         {
             "type": "path",
@@ -455,6 +459,38 @@
         {
             "type": "path",
             "url": "gz168/Crm"
+        },
+        {
+            "type": "path",
+            "url": "gz168/WechatApp"
+        },
+        {
+            "type": "path",
+            "url": "gz168/WechatContracts"
+        },
+        {
+            "type": "path",
+            "url": "gz168/WechatMallPay"
+        },
+        {
+            "type": "path",
+            "url": "gz168/WechatMiniProgram"
+        },
+        {
+            "type": "path",
+            "url": "gz168/WechatNotify"
+        },
+        {
+            "type": "path",
+            "url": "gz168/WechatOpenPlatform"
+        },
+        {
+            "type": "path",
+            "url": "gz168/WechatOfficialAccount"
+        },
+        {
+            "type": "path",
+            "url": "gz168/WechatPay"
         }
     ]
 }

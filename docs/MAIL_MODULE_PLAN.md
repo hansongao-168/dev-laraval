@@ -197,6 +197,7 @@ GET    /api/admin/mail/accounts/{id}/status      查询配置/连接状态
 | `mail.edit` | 编辑邮箱账户 | MailAccountResource |
 | `mail.delete` | 删除邮箱账户 | MailAccountResource |
 | `mail.authorize` | 配置邮箱授权 | MailAccountResource |
+| `mail.send` | 发送邮件 | MailAccountResource |
 
 > 阶段 1 **不**修改 `RolePermission/src/Database/Seeders/PermissionSeeder.php`(集中维护,遵循现状)。新权限先在文档列出,等种子重跑或手工插入;待阶段 3 完成后再统一追加到 seeder。
 
@@ -541,13 +542,100 @@ composer validate --no-check-publish
 2. 关闭 `system-settings` 的 `mail.sync.auto_enabled` → scheduler:list 中 `mail:sync` 标记 `skipped`
 3. 临时改坏 QQ 授权码再触发同步 → 账户 `status=error`,`last_error` 不含明文授权码
 
-### 阶段 3 — 发送
+### 阶段 3 — 发送(已落地)
 
-- `GmailSender` 委托给 `GmailApi` service,按账户取 token
-- `QqMailer` 走 Symfony Mailer + SMTP,授权码从 credentials 解密
-- 统一发送接口 `MailSenderInterface::send(MailAccount $from, ...)`
-- API:`POST /api/admin/mail/send`(根据 account_id 选择 provider)
-- 评估是否将 `GmailApi` 标记为 deprecated
+- `MailSenderInterface::send(MailAccount $from, array $data)` 统一发送契约
+- `MailSendService` 按 provider 路由;发送前校验 `isAuthorized()`
+- `GmailSender`:Gmail REST API(`gmail/v1/users/me/messages/send`),access token 由 `GmailTokenService`(与 IMAP 共享)按账户 refresh token 换取;**未委托** `GmailApi` 模块(该模块读 `config('gmail-api.*')` 单发件人,与多账户模型不兼容,保持不变)
+- `QqMailer`:Symfony Mailer `EsmtpTransport`(smtp.qq.com:465/SSL,可配 `QQ_SMTP_*`),授权码取 `smtp_password`(回退 `imap_password`),解密后仅用于传输层,不落日志
+- API:`POST /api/admin/mail/send`(account_id + to/subject/body/html/cc)
+- Filament:行级「发送测试邮件」Action(需 `mail.send` 权限)
+- `GmailApi` 模块保留不变;是否标记 deprecated 由用户后续决定
+
+验证:模块测试 59/59(224 断言)通过;Mail 模块 0 边界违规;pint / composer validate 通过。
+
+### 懒加载与增量同步(2026-08-29 第二批)
+
+- **正文懒加载**:`MailImapClientInterface` 拆分 header-only 拉取(列表同步不再拉正文,`setFetchBody(false)`)与 `fetchBody(folder, uid)` 按需取正文;重复逻辑收敛到 `AbstractWebklexImapClient` 基类,Gmail/Qq 子类只提供连接配置
+- **增量游标**:`mail_accounts.sync_cursors` JSON 列按 folder 记录 `last_uid`,同步时 `sinceUid` 增量拉取(注意:未处理 IMAP UIDVALIDITY 变化,v2 的 `mail_sync_states` 表已覆盖该场景)
+- **body 保护**:header 同步 upsert 时不覆盖已懒加载的正文
+- **后台阅读界面**:只读 `MailMessageResource`(列表 + 详情);正文 HTML 属不可信内容,详情页用 `sandbox=""` iframe 渲染(无脚本/表单/导航);View 页与 API `GET /mail/messages/{id}` 首次查看时自动懒拉正文(失败降级为已存内容)
+- 与 MailAccountResource 现状一致,`MailMessageResource` 不注册导航,入口为账户行级「收件箱」Action
+
+### API Client SDK 同步(2026-08-29 第六批)
+
+- `packages/api-client` 新增 `domain/mail` 子域(`createMailApi(http, { getToken })`),覆盖 v1 全部 admin API:账户 CRUD/默认/状态、Gmail OAuth URL、QQ 授权码、同步触发与历史、消息列表/详情/标记已读、附件下载 URL、JSON 发送与 FormData 附件上传
+- 认证与 customer 域不同:mail 走 `admin_user` JWT,`getToken()` 由调用方注入,每请求自动附加 `Authorization: Bearer`
+- 手写 `.d.ts` 类型(与 API 响应一一对应),主入口 `createApiClient({ baseUrl, getToken })` 挂载 `client.mail`;`package.json` exports 增加 `@erp/api-client/domain/mail`
+- smoke 验证:Bearer 注入、路径拼接、无 token 不加头、主入口挂载;tsc `--noEmit` 通过
+
+### 附件(2026-08-29 第五批)
+
+- **收件附件**:`mail_message_attachments` 表(message 级 cascade,`(message_id, filename)` 唯一);`fetchAttachments(folder, uid)` 按需拉取,`fetchAndStoreAttachments` 幂等下载到 `MAIL_ATTACHMENTS_DISK`(默认 local 的 `mail-attachments/{message_id}/`);打开详情页时随正文一并懒拉
+- **下载路由**:API `GET /api/admin/mail/attachments/{id}/download`(JWT admin)+ web `/mail/attachments/{id}/download`(session + 服务端 `mail.view` 权限校验);详情页附件区带下载链接
+- **发件附件**:API `attachments[]` 文件上传(≤5 个、单个 ≤10MB);Gmail 走 `multipart/mixed` raw 构造,QQ 走 Symfony `Email::attach()`;发送成功后附件元数据随 Sent 记录归档(`has_attachments` + 附件行;归档行为元数据,不支持再下载)
+- 附件正文下载属重操作,仅在打开详情时按需执行,列表同步保持 header-only
+
+### Token 缓存、设置落盘与失败告警(2026-08-29 第四批)
+
+- **access token 缓存**:`GmailTokenService` 以 `mail_gmail_token:{credential_id}` 缓存 access token,TTL = `expires_in - 60s`(安全窗口);IMAP 同步与 Gmail 发送共用,减少 token 端点配额消耗;`forget()` 供授权变更时主动失效
+- **#11 调度开关落盘**:`MailSyncSettingsRepository`(参照 DatabaseBackup 模式,模块自治 JSON 文件 `storage/app/mail/settings.json`),Provider boot 时覆盖 `mail.sync.auto_enabled`;后台列表页 Header「自动同步:开/关」Action 可切换
+- **#12 连续失败告警**:同一账户连续失败达 `MAIL_SYNC_ALERT_CONSECUTIVE_FAILURES`(默认 3)次时,向持有 `mail.view` 权限的用户发送 database 通知(后台铃铛可见,`via('database')` + queue);仅在达到阈值的**那一次**发送,后续失败不重复;告警判定在 sync run 落库之后执行以保证计数准确;用户模型经 `config('auth.providers.users.model')` 解析,不硬依赖宿主 User
+
+### 发件归档、标记同步与限流(2026-08-29 第三批)
+
+- **发件记录落库(#5)**:发送成功后归档到 `mail_messages`(folder=`Sent`),`message_id` 存 Gmail 返回 ID;QQ 无远端 ID。复用现有邮件表与阅读界面,无新迁移;失败不归档
+- **标记已读双向同步(#9)**:`markSeen(folder, uid)` 走 webklex `setFlag('Seen')` 回写 IMAP 服务器,本地 `is_read` 在服务器成功后才更新;API `POST /mail/messages/{id}/seen` + 详情页「标记已读」按钮
+- **发送限流(#10)**:命名限流器 `mail-send`(默认 30 次/分钟/IP,`MAIL_SEND_RATE_LIMIT` 可配,0 关闭),`POST /api/admin/mail/send` 已挂 `throttle:mail-send`
+- 后台账户行级新增「已发送」入口(按账户 + folder=Sent 过滤)
+
+### 关键修复(2026-08-29)
+
+1. **Gmail IMAP OAuth scope 更正**:授权 scope 由 `gmail.send + gmail.readonly` 改为 `https://mail.google.com/`(Google 仅接受此全量 scope 用于 IMAP XOAUTH2;granular scope 会在 IMAP 认证时报 `AUTHENTICATE failed`)。**已有 Gmail 授权的账户需重新走一次「配置 Gmail 授权」**。
+2. **dev 队列监听**:`composer dev` 的 worker 由 `queue:listen` 改为 `queue:listen --queue=mail-sync,default`,否则后台手动同步派发的 Job 永远 pending。
+3. **权限落库**:`mail.*` 6 条权限进入 `PermissionSeeder` 并已对 dev 库执行;宿主新增 `tests/Feature/MailPermissionsSeederTest.php`(落库/幂等/admin 角色授予)。
+
+## 4.5 部署与配置清单(阶段 1-3 汇总)
+
+### 迁移与权限
+
+```shell
+php artisan migrate                                                  # mail_accounts / credentials / messages / sync_runs / attachments
+php artisan db:seed --class="Gz168\\RolePermission\\Database\\Seeders\\PermissionSeeder"  # mail.* 6 条权限(幂等)
+```
+
+### 环境变量(全部可选,括号为默认值)
+
+| 变量 | 说明 |
+| --- | --- |
+| `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` | Google OAuth 客户端凭据(收发共用) |
+| `GOOGLE_MAIL_REDIRECT_URI` | OAuth 回调(默认 `APP_URL/api/mail/gmail/oauth/callback`) |
+| `QQ_SMTP_HOST` / `QQ_SMTP_PORT` / `QQ_SMTP_ENCRYPTION` | QQ 发送(默认 smtp.qq.com:465/ssl) |
+| `MAIL_SYNC_AUTO_ENABLED` | 自动同步初始开关(false;后台「自动同步」开关覆盖并持久化) |
+| `MAIL_SYNC_INTERVAL_MINUTES` | 全局默认间隔(5 分钟;账户可覆盖) |
+| `MAIL_SYNC_FOLDERS` | 同步文件夹(默认 INBOX,逗号分隔) |
+| `MAIL_SYNC_BATCH_SIZE` / `MAIL_SYNC_TIMEOUT` | 批量(50)/ 连接超时(30s) |
+| `MAIL_SYNC_RUNS_RETENTION_DAYS` | 同步历史保留天数(30) |
+| `MAIL_SYNC_ALERT_CONSECUTIVE_FAILURES` | 连续失败告警阈值(3;0 关闭) |
+| `MAIL_SEND_RATE_LIMIT` | 发送限流 次/分钟/IP(30;0 关闭) |
+| `MAIL_ATTACHMENTS_DISK` / `MAIL_ATTACHMENTS_DIR` | 附件存储盘/目录(local / mail-attachments) |
+
+### 运行要求
+
+- 队列 worker 必须消费 `mail-sync` 队列:`php artisan queue:listen --queue=mail-sync,default`(composer dev 已含)
+- 调度器:`php artisan schedule:run`(cron 每分钟);自动同步开关在后台「邮箱账户」页 Header
+- Gmail 账户授权 scope 为 `https://mail.google.com/`(IMAP XOAUTH2 唯一可用),已授权账户换 scope 后需重新授权
+
+## 4.8 v1/v2 双轨收敛(2026-08-29)
+
+已确认分工共存:**v2 拆分包(gz168/MailAdmin 等)主管后台 UI 与自动同步;v1(gz168/Mail)主管 API + SDK**。
+
+落地变更:
+
+1. **v1 Filament 资源默认退出**:三个资源(账户/收件/同步历史)挂 `GateFilamentAccess`,`mail.filament_resources_enabled`(env `MAIL_FILAMENT_RESOURCES_ENABLED`)默认 false 时全部拒绝访问;slug 改为 `v1-mail-accounts` / `v1-mail-messages` / `v1-mail-sync-runs`,与 v2 的 `mail-center-accounts` 等入口彻底错开
+2. **v1 自动调度默认关闭**:`mail.v1_scheduler_enabled`(env `MAIL_V1_SCHEDULER_ENABLED`,默认 false)总闸;自动同步由 v2 的调度负责
+3. **v1 保留**:全部 REST API、`packages/api-client` SDK、附件、手动同步、失败告警、`mail:sync` 命令(手动可用)
+4. 事实澄清:v2 账户资源 slug 为 `mail-center-accounts`,与 v1 之间从未发生路由 slug 冲突;收敛主要消除的是"双调度器可能对同一账户重复拉取"与入口歧义
 
 ## 5. 安全要点
 
@@ -599,7 +687,7 @@ composer validate --no-check-publish
 1. **模块命名**:`gz168/Mail`(Composer 包 `gz168/mail`,命名空间 `Gz168\Mail`,alias `mail`)。
 2. **Gmail OAuth 凭据**:迁移到模块自有 `config/mail.php`(读 `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` / `GOOGLE_MAIL_REDIRECT_URI`)。`GmailApi` 模块**不变**,继续读 `config('gmail-api.*')`;两者共用同一对 `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` 环境变量,但分别持久化到自己的 config key。
 3. **`is_default` 全局唯一**:service 层事务 + 条件 UPDATE,DB 不加特殊索引(`MailAccountService::setDefault`)。
-4. **权限 slug**:`mail.view` / `mail.create` / `mail.edit` / `mail.delete` / `mail.authorize`(共 5 条)。阶段 1 不写 `PermissionSeeder`,待阶段 3 统一追加或手工 grant。
+4. **权限 slug**:`mail.view` / `mail.create` / `mail.edit` / `mail.delete` / `mail.authorize` / `mail.send`(共 6 条)。**已加入** `RolePermission` 的 `PermissionSeeder`(`syncAdminRolePermissions` 会同步授予 `admin` 角色),dev 库已执行落库。
 5. **凭据加密**:使用 Laravel 内置 `encrypted` cast(`oauth_refresh_token` / `imap_password` / `smtp_password`)。响应统一返回掩码(`********1234`),不返回明文。
 6. **Gmail `state` key 命名空间**:`mail_oauth_state:{account_id}:{state}`,按账户隔离,避免跨账户重放。
 

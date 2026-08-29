@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fe8d6ed286479a2c05ff61f505c06da5",
+    "content-hash": "2c0f1ef2d2c0505c67e2b05f46c9c864",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -2462,13 +2462,15 @@
             "dist": {
                 "type": "path",
                 "url": "gz168/Customer",
-                "reference": "68e587bb410d115b50e1d822b75200294cfc7b83"
+                "reference": "5e141b499b3ffbd3aaeb42ae70b26c5c426ad526"
             },
             "require": {
                 "gz168/common": "dev-master",
                 "gz168/front-nav": "dev-master",
                 "gz168/log-management": "dev-master",
                 "gz168/role-permission": "dev-master",
+                "gz168/wechat-contracts": "@dev",
+                "gz168/wechat-mini-program": "@dev",
                 "illuminate/contracts": "^12.0|^13.0",
                 "illuminate/database": "^12.0|^13.0",
                 "illuminate/http": "^12.0|^13.0",
@@ -2954,45 +2956,6 @@
                 "MIT"
             ],
             "description": "Git webhook, sync, and management for Laravel Filament",
-            "transport-options": {
-                "relative": true
-            }
-        },
-        {
-            "name": "gz168/gmail-api",
-            "version": "dev-master",
-            "dist": {
-                "type": "path",
-                "url": "gz168/GmailApi",
-                "reference": "90ba35bad02931ad59e3e9a07184dbfb36f40578"
-            },
-            "require": {
-                "gz168/api-auth": "dev-master",
-                "php": "^8.2",
-                "spatie/laravel-package-tools": "^1.93"
-            },
-            "type": "laravel-package",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Gz168\\GmailApi\\Providers\\GmailApiServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Gz168\\GmailApi\\": "src/"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Gz168\\GmailApi\\Tests\\": "tests/"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "description": "Gmail REST API integration with OAuth2 for Laravel",
             "transport-options": {
                 "relative": true
             }
@@ -5045,6 +5008,294 @@
                 "MIT"
             ],
             "description": "Filament user management for admin users, customers and addresses",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/wechat-app",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/WechatApp",
+                "reference": "b6bedfb8e2caa7411949ec0bf44f58bebb556107"
+            },
+            "require": {
+                "gz168/api-auth": "@dev",
+                "gz168/common": "@dev",
+                "gz168/filament": "@dev",
+                "gz168/role-permission": "@dev",
+                "gz168/wechat-contracts": "@dev",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\WechatApp\\Providers\\WechatAppServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\WechatApp\\": "src/",
+                    "Gz168\\WechatApp\\Database\\Factories\\": "database/factories/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "WechatApp module: WeChat application account management (multi-appid), credential encryption, stable access_token provider, admin API and Filament resource.",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/wechat-contracts",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/WechatContracts",
+                "reference": "a1872463f4d96bb994d9b8da36da24160d7c608c"
+            },
+            "require": {
+                "gz168/common": "@dev",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\WechatContracts\\Providers\\WechatContractsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\WechatContracts\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "WechatContracts module: shared contracts, DTOs and enums for the gz168 WeChat module family.",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/wechat-mall-pay",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/WechatMallPay",
+                "reference": "3fc48839f58f35dfff3c282a3eca563834a42966"
+            },
+            "require": {
+                "gz168/mall-core": "dev-master",
+                "gz168/mall-payment": "dev-master",
+                "gz168/wechat-contracts": "@dev",
+                "gz168/wechat-pay": "@dev",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\WechatMallPay\\Providers\\WechatMallPayServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\WechatMallPay\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "WechatMallPay module: Mall payment gateway bridge — implements MallCore PaymentGatewayContract on top of gz168/wechat-pay.",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/wechat-mini-program",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/WechatMiniProgram",
+                "reference": "b5876319befd2b7a6c8720a2600b44f3554ac48b"
+            },
+            "require": {
+                "gz168/wechat-app": "@dev",
+                "gz168/wechat-contracts": "@dev",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\WechatMiniProgram\\Providers\\WechatMiniProgramServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\WechatMiniProgram\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "WechatMiniProgram module: mini program server APIs (code2session auth, phone number) as gz168 contracts.",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/wechat-notify",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/WechatNotify",
+                "reference": "44d296f27390fd865fb1384bef6b75208b957b72"
+            },
+            "require": {
+                "gz168/wechat-app": "@dev",
+                "gz168/wechat-contracts": "@dev",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\WechatNotify\\Providers\\WechatNotifyServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\WechatNotify\\": "src/",
+                    "Gz168\\WechatNotify\\Database\\Factories\\": "database/factories/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "WechatNotify module: cross-channel WeChat notification orchestration (subscribe grants, notify router, queue retry, send logs, prune).",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/wechat-official-account",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/WechatOfficialAccount",
+                "reference": "923da16657fdb3cd9f48b2221d83222362e87ca4"
+            },
+            "require": {
+                "gz168/wechat-app": "@dev",
+                "gz168/wechat-contracts": "@dev",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\WechatOfficialAccount\\Providers\\WechatOfficialAccountServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\WechatOfficialAccount\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "WechatOfficialAccount module: web OAuth, users/tags, custom menu, template/customer/mass messages, media, qrcode, JS-SDK signing and encrypted message callbacks.",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/wechat-open-platform",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/WechatOpenPlatform",
+                "reference": "7a8b2eca2a1bed0b2cd05d8b7643f9fa8e408a98"
+            },
+            "require": {
+                "gz168/wechat-app": "@dev",
+                "gz168/wechat-contracts": "@dev",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\WechatOpenPlatform\\Providers\\WechatOpenPlatformServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\WechatOpenPlatform\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "WechatOpenPlatform module: PC QR-connect login and mobile app login (openid + unionid), dispatches WechatUserAuthorized.",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/wechat-pay",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/WechatPay",
+                "reference": "36f782bbd2c786c12b5dfdc1e0d75aa19137d2f9"
+            },
+            "require": {
+                "ext-openssl": "*",
+                "gz168/wechat-app": "@dev",
+                "gz168/wechat-contracts": "@dev",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\WechatPay\\Providers\\WechatPayServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\WechatPay\\": "src/",
+                    "Gz168\\WechatPay\\Database\\Factories\\": "database/factories/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "WechatPay module: WeChat Pay v3 client (order/query/close/refund/bill), signed callbacks, merchant config, transaction records, admin API and Filament resources.",
             "transport-options": {
                 "relative": true
             }
@@ -14656,7 +14907,6 @@
         "gz168/filament-admin": 20,
         "gz168/front-nav": 20,
         "gz168/git-management": 20,
-        "gz168/gmail-api": 20,
         "gz168/inventory": 20,
         "gz168/kafka-management": 20,
         "gz168/log-management": 20,
@@ -14705,7 +14955,15 @@
         "gz168/rednote": 20,
         "gz168/role-permission": 20,
         "gz168/system-settings": 20,
-        "gz168/user-management": 20
+        "gz168/user-management": 20,
+        "gz168/wechat-app": 20,
+        "gz168/wechat-contracts": 20,
+        "gz168/wechat-mall-pay": 20,
+        "gz168/wechat-mini-program": 20,
+        "gz168/wechat-notify": 20,
+        "gz168/wechat-official-account": 20,
+        "gz168/wechat-open-platform": 20,
+        "gz168/wechat-pay": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

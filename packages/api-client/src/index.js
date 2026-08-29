@@ -10,8 +10,9 @@
 
 import { createHttp } from './core/http.js'
 import { createCustomerApi } from './domain/customer/auth.js'
+import { createMailApi } from './domain/mail/index.js'
 
-export function createApiClient({ baseUrl, request } = {}) {
+export function createApiClient({ baseUrl, request, getToken } = {}) {
   const http = createHttp({ baseUrl, fetchImpl: typeof fetch !== 'undefined' ? fetch : null })
   const wrapped = {
     url(path) {
@@ -29,9 +30,11 @@ export function createApiClient({ baseUrl, request } = {}) {
   // 暴露新 API 给现有 call site
   wrapped.http = http
   wrapped.customer = createCustomerApi(http)
+  wrapped.mail = createMailApi(http, { getToken })
   return wrapped
 }
 
 // 重新导出，方便业务模块一次性 import
 export { createHttp } from './core/http.js'
 export { createCustomerApi } from './domain/customer/auth.js'
+export { createMailApi } from './domain/mail/index.js'

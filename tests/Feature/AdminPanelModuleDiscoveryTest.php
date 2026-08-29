@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use Filament\Facades\Filament;
 use Gz168\AttributeManagement\Filament\Resources\AttributeDefinitionResource;
-use Gz168\GmailApi\Services\GmailApiService;
 use Gz168\KafkaManagement\Filament\Pages\KafkaManagementPage;
 use Gz168\ModuleCore\Data\ModuleDefinition;
 use Gz168\ModuleCore\Support\ModulePathResolver;
@@ -28,7 +27,6 @@ class AdminPanelModuleDiscoveryTest extends TestCase
             static fn (ModuleDefinition $module): bool => $module->active,
             $modules,
         ));
-        $this->assertTrue(app()->bound(GmailApiService::class));
     }
 
     public function test_module_infrastructure_is_resolved_as_shared_services(): void
