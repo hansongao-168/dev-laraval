@@ -3,15 +3,18 @@
 namespace Tests\Feature;
 
 use App\Models\User;
+use Gz168\Crm\Enums\CustomerStatus;
 use Gz168\Crm\Enums\FollowUpType;
 use Gz168\Crm\Enums\OpportunityStage;
 use Gz168\Crm\Models\CrmContact;
 use Gz168\Crm\Models\CrmCustomer;
+use Gz168\Crm\Models\CrmFollowUp;
 use Gz168\Crm\Models\CrmOpportunity;
 use Gz168\Crm\Services\CrmContactService;
 use Gz168\Crm\Services\CrmCustomerService;
 use Gz168\Crm\Services\CrmFollowUpService;
 use Gz168\Crm\Services\CrmOpportunityService;
+use Gz168\Crm\Services\CrmStatsService;
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
@@ -142,5 +145,30 @@ class CrmModuleTest extends TestCase
         }
 
         $this->assertSame(10, DB::table('permissions')->where('slug', 'like', 'crm.%')->count());
+    }
+
+    public function test_stats_service_aggregates_customers_opportunities_and_follow_ups(): void
+    {
+        $customer = CrmCustomer::factory()->create(['status' => CustomerStatus::Potential->value]);
+        CrmCustomer::factory()->create(['status' => CustomerStatus::Active->value]);
+        CrmOpportunity::factory()->for($customer, 'customer')->create(['amount' => 1000.50]);
+        CrmOpportunity::factory()->for($customer, 'customer')->create(['amount' => 999.50]);
+        CrmOpportunity::factory()->for($customer, 'customer')->create([
+            'amount' => 5000.00,
+            'stage' => OpportunityStage::Won->value,
+        ]);
+        CrmFollowUp::factory()->for($customer, 'customer')->create(['followed_at' => now()]);
+        CrmFollowUp::factory()->for($customer, 'customer')->create(['followed_at' => now()->subDays(45)]);
+
+        $stats = app(CrmStatsService::class);
+
+        $this->assertSame(2, $stats->customersTotal());
+        $this->assertSame(1, $stats->potentialCustomers());
+
+        $open = $stats->openOpportunities();
+        $this->assertSame(2, $open['count'], '已成交/已输单商机不计入进行中。');
+        $this->assertEquals(2000.0, $open['amount']);
+
+        $this->assertSame(1, $stats->followUpsLast30Days(), '仅统计近 30 天跟进。');
     }
 }
