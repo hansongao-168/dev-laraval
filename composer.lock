@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "973a6f73eb976a5ea90ec1214df2de5d",
+    "content-hash": "fe8d6ed286479a2c05ff61f505c06da5",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -2367,6 +2367,46 @@
                 "MIT"
             ],
             "description": "Shared utilities and helpers for gz168 Laravel packages",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/crm",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/Crm",
+                "reference": "b7a8281bf76c61f3c1cc21340534a10715fbfcc0"
+            },
+            "require": {
+                "filament/filament": "^5.0",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\Crm\\Providers\\CrmServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\Crm\\": "src/",
+                    "Gz168\\Crm\\Database\\Factories\\": "database/factories/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\Crm\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Crm module - 客户CRM(客户档案/联系人/跟进记录/商机)",
             "transport-options": {
                 "relative": true
             }
@@ -14602,6 +14642,7 @@
         "gz168/attribute-management": 20,
         "gz168/cache-management": 20,
         "gz168/common": 20,
+        "gz168/crm": 20,
         "gz168/custom-config": 20,
         "gz168/customer": 20,
         "gz168/database-backup": 20,
