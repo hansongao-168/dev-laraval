@@ -870,7 +870,7 @@ composer validate --no-check-publish
 1. **SDK 选型**：✅ 全家族以 `Illuminate\Support\Facades\Http` 自研实现（规避依赖审批与 PHP 8.5 兼容风险）；接口契约稳定，后续可整体替换为 EasyWeChat 6.x Infrastructure，不影响业务代码。
 2. **权限落地**：✅ 12 条 `wechat.*` 权限已直接进 `PermissionSeeder`（`tests/Feature/WechatPermissionsSeederTest.php` 覆盖落库/幂等/admin 授予）。
 3. **公众号粉丝同步**：✅ 维持按需实时调 API、不落粉丝表；运营侧需要离线筛选时再增加 `wechat_oa_users` 同步表（独立迁移，不影响现设计）。
-4. **Mall 事件 → 通知接线**：✅ 维持不改 Mall 代码；宿主或后续桥接模块监听 Mall 事件并调用 `WechatNotifyRouter` 即可。
+4. **Mall 事件 → 通知接线**：✅ 维持不改 Mall 代码。**已核实无法直接实施**（2026-08-30）：MallCore 领域事件（OrderPlaced/PaymentCaptured 等 39 个）载荷均不含接收者身份，`mall_orders.customer_id` 是无映射的 nullable 字符串（另有 buyer_type/buyer_id），Mall 客户身份 ↔ 微信身份（openid）或 ↔ Customer 模块的关联在代码库中不存在。实施前提：先由业务侧定义该映射（如订单落 openid 快照、或 mall customer → customer 模块绑定表），桥接模块（监听事件 → `WechatNotifyRouter` + 场景→模板配置）随后即可落地。
 5. **回调路由**：✅ 代码已就绪（支付/退款/公众号三类公开回调）；部署侧需确认公网 HTTPS 反代放行 `/api/wechat/*`，属人工验收项。
 
 仍开放：
