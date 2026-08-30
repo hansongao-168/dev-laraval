@@ -263,6 +263,12 @@ interface PayNotifyVerifierInterface
 
 业务模块只见契约与 DTO，不见 Eloquent 模型 —— 与 Mail 家族"service 统一入口、不直读 credentials 表"的边界一致。
 
+**As-built 契约清单（与实现同步，2026-08-30）**：
+
+- 已落地于 `WechatContracts`：`WechatAppManagerInterface`、`AccessTokenProviderInterface`、`MiniProgramAuthInterface`、`NotificationChannelInterface`（含 `CHANNEL_TAG`）、`ContentSecurityInterface`、`PayTransactionInterface`、`PayRefundInterface`、`PayTransferInterface`、`PayBillInterface`、`PayNotifyVerifierInterface`。
+- 事件已落地：`WechatUserAuthorized`、`WechatOaMessageReceived`、`WechatOaEventReceived`、`WechatSubscribeGrantRecorded`、`WechatPayTransactionUpdated`、`WechatPayRefundUpdated`。
+- **设计调整**：规划的 `OaAuth/OaUser/OaContent/OaMessage` 四个公众号契约与 `MiniProgramToolInterface` 未上提到契约层——公众号与小程序工具域暂无跨模块消费方，按 YAGNI 以模块内具体 Service 实现（`OaApiClient` 统一出口）；`ContentSecurityInterface` 因群发前置校验的跨模块需求按期上提。后续若出现第二个消费方再按需上提，迁移仅限服务层。
+
 ### 2.5 数据模型（全量 8 张表）
 
 集中在各所属模块 `database/migrations/`，按阶段创建，避免空跑迁移。
