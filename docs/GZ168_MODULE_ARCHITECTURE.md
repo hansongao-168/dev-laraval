@@ -92,9 +92,10 @@ flowchart BT
 | `export-management` | `filament` |
 | `extension-data` | `filament` |
 | `git-management` | `package-registration`, `role-permission` |
-| `gmail-api` | `api-auth` |
+| `gmail-api` | `api-auth`（已从宿主退役，源码存档于 `gz168/GmailApi`，未安装） |
 | `kafka-management` | `common`, `filament`, `role-permission` |
 | `log-management` | `filament`, `package-registration` |
+| `mail` | `api-auth`, `common`, `filament`, `role-permission` |
 | `module-settings` | `common`, `filament`, `module-core`, `role-permission` |
 | `redis-management` | `common`, `filament`, `role-permission` |
 | `user-management` | `common`, `filament`, `role-permission`, `export-management`, `extension-data`, `api-auth` |
