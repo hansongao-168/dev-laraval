@@ -242,4 +242,25 @@ class CrmModuleTest extends TestCase
         $this->assertFalse($dueIds->contains($churned->id), '流失客户不出现在待跟进。');
         $this->assertFalse($dueIds->contains($noPlan->id));
     }
+
+    public function test_transfer_changes_owner_including_unassign(): void
+    {
+        $service = app(CrmCustomerService::class);
+        $customer = CrmCustomer::factory()->create();
+        $oldOwner = User::factory()->create();
+        $newOwner = User::factory()->create();
+        $customer->owner_id = $oldOwner->id;
+        $customer->save();
+
+        $service->transfer($customer, $newOwner->id);
+        $this->assertSame($newOwner->id, $customer->refresh()->owner_id);
+
+        // 传 0 / null 均表示暂不指派。
+        $service->transfer($customer, 0);
+        $this->assertNull($customer->refresh()->owner_id);
+
+        $service->transfer($customer, $oldOwner->id);
+        $service->transfer($customer, null);
+        $this->assertNull($customer->refresh()->owner_id);
+    }
 }
