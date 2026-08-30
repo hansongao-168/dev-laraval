@@ -20,7 +20,7 @@
 | Gmail OAuth2 授权(沿用 GmailApi 的 OAuth 流,但绑到账户 ID) | 阶段 1 | |
 | QQ 邮箱授权码接入(密码学方式存储) | 阶段 1 | |
 | 接收(IMAP 拉取 + 本地邮件表) | 阶段 2 | Gmail IMAP XOAUTH2 + QQ IMAP 授权码 |
-| 计划任务(后台手动触发为主 + 可选 Laravel Scheduler) | 阶段 2 | 同步记录落 `mail_sync_runs`;全局默认频率 + 每账户覆盖 |
+| 计划任务(后台手动触发为主 + 可选 Laravel Scheduler) | 阶段 2 | 同步记录落 `mail_fetch_runs`;全局默认频率 + 每账户覆盖 |
 | 发送(替代 GmailApi 单账户限制) | 阶段 3 | 沿用 GmailApi Gmail 发送;新增 QQ SMTP 发送 |
 
 ### 1.3 非目标
@@ -287,10 +287,11 @@ gz168/Mail/
 
 ```text
 mail_messages      邮件正文与索引(详见 §2.4 mail_messages)
-mail_sync_runs     每次同步的运行记录(新增)
+mail_fetch_runs    每次同步的运行记录(新增;原计划名 mail_sync_runs,真实联调时发现与
+                   MailInbound 拆分包的同名表冲突,已改名避让,见 §4.8 后续记录)
 ```
 
-`mail_sync_runs` 字段:
+`mail_fetch_runs` 字段:
 
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
@@ -398,7 +399,7 @@ class SyncMailAccountJob implements ShouldQueue
 
 ```text
 src/Services/
-├── MailAccountSyncService.php      // 主入口:写 mail_sync_runs、调 IMAP client、回写账户 last_synced_at / last_error
+├── MailAccountSyncService.php      // 主入口:写 mail_fetch_runs、调 IMAP client、回写账户 last_synced_at / last_error
 ├── MailSyncScheduleResolver.php    // 全局 vs 账户覆盖
 ├── GmailImapClient.php             // webklex/php-imap + XOAUTH2
 └── QqImapClient.php                // webklex/php-imap + 授权码
@@ -506,7 +507,7 @@ GET  /api/admin/mail/messages/{id}               邮件详情
 
 - 单元:`MailSyncScheduleResolver` 全局默认 / 账户覆盖 / 账户关闭 / 边界值
 - 集成:
-  - 单账户同步成功 → 写入 `mail_sync_runs` 与 `mail_messages`,账户 `last_synced_at` 更新
+  - 单账户同步成功 → 写入 `mail_fetch_runs` 与 `mail_messages`,账户 `last_synced_at` 更新
   - IMAP 抛错 → `MailSyncRun.status=failed`,`last_error` 写入摘要,凭据永不进 error_context
   - Job 重试 3 次后仍失败 → `status=failed`,不再重试
   - 后台手动派发 `sync` Action → 创建 `trigger=manual` + `created_by=actor_id` 的 run
