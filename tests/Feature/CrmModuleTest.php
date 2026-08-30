@@ -12,6 +12,7 @@ use Gz168\Crm\Models\CrmCustomer;
 use Gz168\Crm\Models\CrmFollowUp;
 use Gz168\Crm\Models\CrmOpportunity;
 use Gz168\Crm\Services\CrmContactService;
+use Gz168\Crm\Services\CrmCustomerCsvExportService;
 use Gz168\Crm\Services\CrmCustomerService;
 use Gz168\Crm\Services\CrmFollowUpService;
 use Gz168\Crm\Services\CrmOpportunityService;
@@ -311,5 +312,36 @@ class CrmModuleTest extends TestCase
         Mail::assertSent(FollowUpReminderMail::class, fn (FollowUpReminderMail $mail): bool => count($mail->customers) === 1);
 
         $this->assertNull($ownerless->owner_id);
+    }
+
+    public function test_csv_export_service_emits_header_and_mapped_rows(): void
+    {
+        $owner = User::factory()->create();
+        $customer = CrmCustomer::factory()->create([
+            'status' => CustomerStatus::Active->value,
+            'owner_id' => $owner->id,
+            'code' => 'ACME-100',
+            'name' => '测试导出公司',
+            'last_follow_up_at' => now(),
+            'next_follow_up_at' => now()->addDays(2),
+        ]);
+
+        $export = app(CrmCustomerCsvExportService::class);
+        $query = CrmCustomer::query()->whereKey($customer->id);
+
+        $header = $export->header();
+        $this->assertSame('客户编号', $header[0]);
+        $this->assertSame('创建时间', $header[count($header) - 1]);
+
+        $rows = $export->rows($query)->all();
+        $this->assertCount(1, $rows);
+
+        [$code, $name, , , , $status, $ownerName, , , , , $last, $next] = $rows[0];
+        $this->assertSame('ACME-100', $code);
+        $this->assertSame('测试导出公司', $name);
+        $this->assertSame(CustomerStatus::Active->label(), $status, '枚举列应输出中文标签。');
+        $this->assertSame($owner->name, $ownerName, '负责人应经 eager load 取名。');
+        $this->assertNotSame('', $last);
+        $this->assertNotSame('', $next);
     }
 }
