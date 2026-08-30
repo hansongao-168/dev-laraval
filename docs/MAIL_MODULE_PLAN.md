@@ -638,6 +638,21 @@ php artisan db:seed --class="Gz168\\RolePermission\\Database\\Seeders\\Permissio
 3. **v1 保留**:全部 REST API、`packages/api-client` SDK、附件、手动同步、失败告警、`mail:sync` 命令(手动可用)
 4. 事实澄清:v2 账户资源 slug 为 `mail-center-accounts`,与 v1 之间从未发生路由 slug 冲突;收敛主要消除的是"双调度器可能对同一账户重复拉取"与入口歧义
 
+## 4.9 新功能四件套(2026-08-30,已真实联调)
+
+在 QQ 真实账户(150 封邮件)上完成端到端验证后落地:
+
+| 功能 | 端点 | 要点 |
+| --- | --- | --- |
+| 验证码/OTP 提取 | `GET /mail/accounts/{id}/otp?from=&subject=&ttl=` | **只接受标注验证码**(验证码/code/otp/pin/口令,双语序);真实邮箱联调证明数字兜底必然误报(收件人 ID/URL app ID/营销数字),已全部移除;收件人自身标识永久排除 |
+| 邮件搜索 | `GET /mail/messages?q=` | subject/from/snippet/body_text 多字段 LIKE;规模到万级再评估 FULLTEXT |
+| 新邮件 Webhook | `mail_webhook_endpoints` CRUD + 自动推送 | HMAC-SHA256 签名覆盖原始 body(`X-Gz168-Mail-Signature`);4xx 不重试,5xx/网络异常队列重试(3 次);**派发在消息事务之外**,投递失败绝不回滚已存储邮件;secret 仅创建时返回明文 |
+| 模板化发送 | `POST /mail/send-template` | 内置 `generic-notification`(段落+按钮)/`simple-report`(键值报表)Blade 模板;白名单渲染,禁止渲染模块外视图;复用限流与 Sent 归档 |
+
+SDK(`packages/api-client` domain/mail)已同步全部新端点与类型。
+
+运维提示:Webhook 投递走 `mail-sync` 队列,生产需保证 worker 在跑;delivery 停在 `pending` 即表示队列无消费者。
+
 ## 5. 安全要点
 
 - QQ 授权码 / Gmail refresh_token 入库前必须经 `Crypt::encryptString`;数据库只存密文。
