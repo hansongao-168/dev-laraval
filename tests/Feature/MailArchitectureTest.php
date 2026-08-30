@@ -47,7 +47,7 @@ class MailArchitectureTest extends TestCase
             'MailInbound' => ['gz168/mail-contracts', 'gz168/mail-account'],
             'MailOutbound' => ['gz168/mail-contracts', 'gz168/mail-account'],
             'MailNotification' => ['gz168/mail-inbound'],
-            'MailAdmin' => ['gz168/mail-account', 'gz168/mail-inbound', 'gz168/mail-outbound', 'gz168/mail-notification', 'gz168/filament'],
+            'MailAdmin' => ['gz168/mail-account', 'gz168/mail', 'gz168/mail-inbound', 'gz168/mail-outbound', 'gz168/mail-notification', 'gz168/filament'],
         ];
         foreach ($expected as $module => $requires) {
             $manifest = json_decode(file_get_contents(base_path("gz168/{$module}/module.json")), true, flags: JSON_THROW_ON_ERROR);
