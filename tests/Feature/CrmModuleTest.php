@@ -171,4 +171,75 @@ class CrmModuleTest extends TestCase
 
         $this->assertSame(1, $stats->followUpsLast30Days(), '仅统计近 30 天跟进。');
     }
+
+    public function test_next_follow_up_at_follows_latest_follow_up_only(): void
+    {
+        $customer = CrmCustomer::factory()->create();
+        $service = app(CrmFollowUpService::class);
+
+        $service->record($customer, [
+            'type' => FollowUpType::Call->value,
+            'content' => '首次跟进，约定下周复访',
+            'followed_at' => now()->subDays(2),
+            'next_follow_up_at' => now()->addDays(7),
+        ], User::factory()->create()->id);
+
+        $this->assertNotNull($customer->refresh()->next_follow_up_at);
+
+        // 更新的跟进覆盖计划时间。
+        $service->record($customer, [
+            'type' => FollowUpType::Visit->value,
+            'content' => '上门拜访',
+            'followed_at' => now(),
+            'next_follow_up_at' => now()->addDays(3),
+        ], User::factory()->create()->id);
+
+        $this->assertTrue(
+            $customer->refresh()->next_follow_up_at->isSameDay(now()->addDays(3)),
+            '最新跟进的计划时间应覆盖客户下次跟进时间。',
+        );
+
+        // 更早日期的补录跟进不得覆盖计划时间。
+        $service->record($customer, [
+            'type' => FollowUpType::Email->value,
+            'content' => '补录邮件往来',
+            'followed_at' => now()->subDays(5),
+            'next_follow_up_at' => now()->addDays(30),
+        ], User::factory()->create()->id);
+
+        $this->assertTrue(
+            $customer->refresh()->next_follow_up_at->isSameDay(now()->addDays(3)),
+            '补录的更早跟进不应覆盖客户下次跟进时间。',
+        );
+
+        // 最新跟进未设置计划时间时清空。
+        $service->record($customer, [
+            'type' => FollowUpType::Call->value,
+            'content' => '结案通话，无后续计划',
+            'followed_at' => now()->addHour(),
+            'next_follow_up_at' => null,
+        ], User::factory()->create()->id);
+
+        $this->assertNull($customer->refresh()->next_follow_up_at, '最新跟进未设计划时应清空。');
+    }
+
+    public function test_due_for_follow_up_scope_excludes_churned_and_future_customers(): void
+    {
+        $due = CrmCustomer::factory()->create(['status' => CustomerStatus::Active->value, 'next_follow_up_at' => now()->subDay()]);
+        $today = CrmCustomer::factory()->create(['status' => CustomerStatus::Active->value, 'next_follow_up_at' => now()->addHours(2)]);
+        $future = CrmCustomer::factory()->create(['status' => CustomerStatus::Active->value, 'next_follow_up_at' => now()->addDays(5)]);
+        $churned = CrmCustomer::factory()->create([
+            'status' => CustomerStatus::Churned->value,
+            'next_follow_up_at' => now()->subDay(),
+        ]);
+        $noPlan = CrmCustomer::factory()->create(['status' => CustomerStatus::Active->value, 'next_follow_up_at' => null]);
+
+        $dueIds = CrmCustomer::query()->dueForFollowUp()->pluck('id');
+
+        $this->assertTrue($dueIds->contains($due->id));
+        $this->assertTrue($dueIds->contains($today->id), '今天内的计划也算待跟进。');
+        $this->assertFalse($dueIds->contains($future->id));
+        $this->assertFalse($dueIds->contains($churned->id), '流失客户不出现在待跟进。');
+        $this->assertFalse($dueIds->contains($noPlan->id));
+    }
 }
