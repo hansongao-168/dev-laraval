@@ -6,6 +6,7 @@ use App\Models\User;
 use Gz168\Crm\Enums\CustomerStatus;
 use Gz168\Crm\Enums\FollowUpType;
 use Gz168\Crm\Enums\OpportunityStage;
+use Gz168\Crm\Mail\FollowUpReminderMail;
 use Gz168\Crm\Models\CrmContact;
 use Gz168\Crm\Models\CrmCustomer;
 use Gz168\Crm\Models\CrmFollowUp;
@@ -18,6 +19,7 @@ use Gz168\Crm\Services\CrmStatsService;
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
 class CrmModuleTest extends TestCase
@@ -262,5 +264,47 @@ class CrmModuleTest extends TestCase
         $service->transfer($customer, $oldOwner->id);
         $service->transfer($customer, null);
         $this->assertNull($customer->refresh()->owner_id);
+    }
+
+    public function test_follow_up_reminder_command_groups_by_owner_and_respects_dry_run(): void
+    {
+        Mail::fake();
+
+        $ownerA = User::factory()->create();
+        $ownerB = User::factory()->create();
+        $ownerless = CrmCustomer::factory()->create([
+            'status' => CustomerStatus::Active->value,
+            'next_follow_up_at' => now()->subDay(),
+        ]);
+        CrmCustomer::factory()->create([
+            'status' => CustomerStatus::Active->value,
+            'owner_id' => $ownerA->id,
+            'next_follow_up_at' => now()->subDay(),
+        ]);
+        CrmCustomer::factory()->create([
+            'status' => CustomerStatus::Active->value,
+            'owner_id' => $ownerA->id,
+            'next_follow_up_at' => now()->addHours(2),
+        ]);
+        CrmCustomer::factory()->create([
+            'status' => CustomerStatus::Active->value,
+            'owner_id' => $ownerB->id,
+            'next_follow_up_at' => now()->subHours(5),
+        ]);
+
+        // dry-run 不发信。
+        $this->artisan('crm:send-follow-up-reminders', ['--dry-run' => true])
+            ->expectsOutputToContain('dry-run 完成：2 位负责人待提醒')
+            ->assertExitCode(Command::SUCCESS);
+        Mail::assertNothingSent();
+
+        $this->artisan('crm:send-follow-up-reminders')->assertExitCode(Command::SUCCESS);
+
+        // 无主客户不产生提醒；按负责人分组各发一封。
+        Mail::assertSent(FollowUpReminderMail::class, 2);
+        Mail::assertSent(FollowUpReminderMail::class, fn (FollowUpReminderMail $mail): bool => $mail->ownerName === $ownerA->name && count($mail->customers) === 2);
+        Mail::assertSent(FollowUpReminderMail::class, fn (FollowUpReminderMail $mail): bool => count($mail->customers) === 1);
+
+        $this->assertNull($ownerless->owner_id);
     }
 }
