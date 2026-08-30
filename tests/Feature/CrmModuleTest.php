@@ -167,6 +167,11 @@ class CrmModuleTest extends TestCase
         $this->assertSame(2, $stats->customersTotal());
         $this->assertSame(1, $stats->potentialCustomers());
 
+        $byStatus = $stats->customersByStatus();
+        $this->assertSame(1, $byStatus[CustomerStatus::Potential->value] ?? 0);
+        $this->assertSame(1, $byStatus[CustomerStatus::Active->value] ?? 0);
+        $this->assertSame(0, $byStatus[CustomerStatus::Churned->value] ?? 0, '无数据的状态不出现或为 0。');
+
         $open = $stats->openOpportunities();
         $this->assertSame(2, $open['count'], '已成交/已输单商机不计入进行中。');
         $this->assertEquals(2000.0, $open['amount']);
