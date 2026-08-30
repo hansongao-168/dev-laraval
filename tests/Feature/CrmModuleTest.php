@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\User;
+use Gz168\Crm\Enums\CustomerSource;
 use Gz168\Crm\Enums\CustomerStatus;
 use Gz168\Crm\Enums\FollowUpType;
 use Gz168\Crm\Enums\OpportunityStage;
@@ -13,6 +14,7 @@ use Gz168\Crm\Models\CrmFollowUp;
 use Gz168\Crm\Models\CrmOpportunity;
 use Gz168\Crm\Services\CrmContactService;
 use Gz168\Crm\Services\CrmCustomerCsvExportService;
+use Gz168\Crm\Services\CrmCustomerCsvImportService;
 use Gz168\Crm\Services\CrmCustomerService;
 use Gz168\Crm\Services\CrmFollowUpService;
 use Gz168\Crm\Services\CrmOpportunityService;
@@ -343,5 +345,50 @@ class CrmModuleTest extends TestCase
         $this->assertSame($owner->name, $ownerName, '负责人应经 eager load 取名。');
         $this->assertNotSame('', $last);
         $this->assertNotSame('', $next);
+    }
+
+    public function test_csv_import_upserts_by_code_and_reports_row_errors(): void
+    {
+        $existing = CrmCustomer::factory()->create([
+            'code' => 'ACME-200',
+            'name' => '旧名称公司',
+            'status' => CustomerStatus::Dormant->value,
+        ]);
+
+        $csv = implode("\n", [
+            '客户编号,客户名称,行业,来源,等级,状态,邮箱,电话,网站,地址,备注',
+            'ACME-200,更名后的公司,电子商务,展会,A 级（重点）,活跃客户,new@example.com,13800000000,,,',
+            ',无编号新客户,软件服务,官网咨询,B 级（普通）,潜在客户,new2@example.com,,,,',
+            'ACME-300,首次出现的编号,,,,,,,,',
+            'ACME-300,重复编号公司,,,,,,,,',
+            ',,制造业,,,,,,,行业有值但缺名称,',
+            ',无编号新客户2,制造业,广告,C 级（观察）,休眠客户,,,,备注内容,',
+        ]);
+        $stream = fopen('php://memory', 'rb+');
+        fwrite($stream, "\xEF\xBB\xBF".$csv);
+        rewind($stream);
+
+        $summary = app(CrmCustomerCsvImportService::class)->import($stream);
+        fclose($stream);
+        fwrite(STDERR, 'DEBUG='.json_encode($summary, JSON_UNESCAPED_UNICODE)."\n");
+
+        $this->assertSame(3, $summary['created']);
+        $this->assertSame(2, $summary['updated'], 'ACME-200 更新 + 批次内同编号第二行按更新处理。');
+        $this->assertSame(1, $summary['skipped']);
+        $this->assertCount(1, $summary['errors'], '仅缺名称一行记错误。');
+
+        $existing->refresh();
+        $this->assertSame('更名后的公司', $existing->name, '按编号更新名称。');
+        $this->assertSame(CustomerStatus::Active, $existing->status, '中文标签应解析为枚举值。');
+        $this->assertSame('ACME-200', $existing->code, '更新路径不得改动编号。');
+
+        $created = CrmCustomer::query()->where('name', '无编号新客户')->first();
+        $this->assertNotNull($created);
+        $this->assertMatchesRegularExpression('/^CRM-\d{6}$/', (string) $created->code, '无编号新客户自动生成编号。');
+        $this->assertSame(CustomerSource::Website->value, $created->source->value, '中文标签解析来源。');
+
+        // 批次内同编号第二行按 upsert 语义覆盖首行。
+        $this->assertSame('重复编号公司', CrmCustomer::query()->where('code', 'ACME-300')->value('name'));
+        $this->assertSame(1, CrmCustomer::query()->where('code', 'ACME-300')->count());
     }
 }
