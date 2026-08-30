@@ -102,6 +102,28 @@ export function createMailApi(http, { getToken } = {}) {
     async sendForm(form) {
       // 附件上传:form 为 FormData(含 account_id/to/subject/body/attachments[])
       return request('/api/admin/mail/send', { method: 'POST', body: form })
+    },
+    async sendTemplate(input) {
+      return request('/api/admin/mail/send-template', { method: 'POST', body: input })
+    },
+
+    // ---- OTP / 搜索 ----
+    async getOtp(id, query) {
+      return request(path('/api/admin/mail/accounts/' + id + '/otp', query))
+    },
+
+    // ---- Webhook 端点 ----
+    async listWebhookEndpoints() {
+      return request('/api/admin/mail/webhook-endpoints')
+    },
+    async createWebhookEndpoint(input) {
+      return request('/api/admin/mail/webhook-endpoints', { method: 'POST', body: input })
+    },
+    async updateWebhookEndpoint(id, input) {
+      return request('/api/admin/mail/webhook-endpoints/' + id, { method: 'PATCH', body: input })
+    },
+    async deleteWebhookEndpoint(id) {
+      return request('/api/admin/mail/webhook-endpoints/' + id, { method: 'DELETE' })
     }
   }
 }

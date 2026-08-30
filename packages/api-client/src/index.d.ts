@@ -41,7 +41,10 @@ export type {
   MailSyncRun,
   MailMessageSummary,
   SendMailInput,
-  SendMailResult
+  SendMailResult,
+  OtpResult,
+  SendTemplateInput,
+  MailWebhookEndpoint
 } from './domain/mail/types.js'
 export type {
   Customer,

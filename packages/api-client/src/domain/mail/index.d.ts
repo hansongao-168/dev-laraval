@@ -1,4 +1,9 @@
 import type {
+  OtpResult,
+  SendTemplateInput,
+  MailWebhookEndpoint,
+  CreateWebhookEndpointInput,
+  UpdateWebhookEndpointInput,
   MailAccount,
   MailAccountStatusPayload,
   RegisterMailAccountInput,
@@ -30,12 +35,19 @@ export interface MailApi {
   getSyncRun(id: number): Promise<{ data: MailSyncRun }>
   markSeen(messageId: number): Promise<{ message: string; data: MailMessageSummary }>
 
-  listMessages(accountId: number, query?: { page?: number; per_page?: number; folder?: string }): Promise<{ data: MailMessageSummary[]; meta: PaginatedMeta }>
+  listMessages(accountId: number, query?: { page?: number; per_page?: number; folder?: string; q?: string }): Promise<{ data: MailMessageSummary[]; meta: PaginatedMeta }>
+  getOtp(id: number, query?: { from?: string; subject?: string; ttl?: number }): Promise<{ data: OtpResult }>
   getMessage(id: number): Promise<{ data: MailMessageSummary }>
   attachmentDownloadUrl(id: number): string
 
   send(input: SendMailInput): Promise<{ message: string; data: SendMailResult }>
   sendForm(form: FormData): Promise<{ message: string; data: SendMailResult }>
+  sendTemplate(input: SendTemplateInput): Promise<{ message: string; data: SendMailResult }>
+
+  listWebhookEndpoints(): Promise<{ data: MailWebhookEndpoint[] }>
+  createWebhookEndpoint(input: CreateWebhookEndpointInput): Promise<{ message: string; data: MailWebhookEndpoint }>
+  updateWebhookEndpoint(id: number, input: UpdateWebhookEndpointInput): Promise<{ message: string; data: MailWebhookEndpoint }>
+  deleteWebhookEndpoint(id: number): Promise<{ message: string }>
 }
 
 export declare function createMailApi(

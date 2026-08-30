@@ -143,3 +143,48 @@ export interface SyncDispatchPayload {
   queued_at: string
   trigger?: MailSyncTrigger
 }
+
+export interface OtpResult {
+  code: string
+  message_id: number
+  from_address: string | null
+  subject: string | null
+  received_at: string | null
+  pattern: 'labelled'
+}
+
+export interface SendTemplateInput {
+  account_id: number
+  template: 'generic-notification' | 'simple-report' | string
+  to: string
+  subject: string
+  variables?: Record<string, unknown>
+  cc?: string[]
+}
+
+export interface MailWebhookEndpoint {
+  id: number
+  url: string
+  mail_account_id: number | null
+  account_email: string | null
+  active: boolean
+  description: string | null
+  /** Only returned at creation / rotation time. */
+  secret: string | null
+  created_at: string | null
+}
+
+export interface CreateWebhookEndpointInput {
+  url: string
+  mail_account_id?: number | null
+  active?: boolean
+  description?: string | null
+}
+
+export interface UpdateWebhookEndpointInput {
+  url?: string
+  mail_account_id?: number | null
+  active?: boolean
+  description?: string | null
+  rotate_secret?: boolean
+}
