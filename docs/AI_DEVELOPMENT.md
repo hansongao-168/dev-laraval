@@ -136,6 +136,21 @@ Infrastructure (Repository / Cache / Queue / External Adapter)
 - 表单中的唯一性、状态转换和跨字段规则必须在服务端验证。
 - 使用当前安装版本的 Filament API，不照搬 Filament 3/4 示例。
 
+### gz168 模块 Filament 资产命名规范
+
+`gz168/*` 模块的 Filament 资产必须遵循统一结构，便于 `ModuleScanner` 自动发现：
+
+- **模块目录** PascalCase（如 `CacheManagement`、`Deepseek`、`LogManagement`）。
+- **Composer 包名** kebab-case（如 `gz168/cache-management`、`gz168/log-management`）。
+- **PSR-4 命名空间** 与目录名一致：`Gz168\<StudlyModule>\`。
+- **Filament 资产位置** 统一在 `src/Filament/{Pages,Resources,Widgets}` 下：
+  - `src/Filament/Pages/<PageName>.php` → `Gz168\<Module>\Filament\Pages\<PageName>`
+  - `src/Filament/Resources/<ResourceName>.php` → `Gz168\<Module>\Filament\Resources\<ResourceName>`
+  - `src/Filament/Widgets/<WidgetName>.php` → `Gz168\<Module>\Filament\Widgets\<WidgetName>`
+- **Resource 主文件** 必须平铺为单文件（与 `ApiAuth/ApiClientCredentialResource.php` 一致）。
+- **Resource 子资产** 用同名子目录组织：`Resources/<ResourceName>/Pages/`、`/Schemas/`、`/Tables/`、`/RelationManagers/`；其 namespace 为 `Gz168\<Module>\Filament\Resources\<ResourceName>\...`。
+- 新增模块时同步创建 `module.json`（含 `name`、`alias`、`active`、`providers`、`requires`），由 `ModuleScanner` 自动发现并接入 admin 面板。
+
 ## 数据与性能
 
 - 列表页按需 eager load，禁止循环内查询。

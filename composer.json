@@ -9,67 +9,88 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.3",
         "filament/filament": "^5.0",
+        "gz168/address-management": "@dev",
         "gz168/api-auth": "dev-master",
         "gz168/attribute-management": "dev-master",
         "gz168/cache-management": "dev-master",
         "gz168/common": "dev-master",
+        "gz168/crm": "dev-master",
         "gz168/custom-config": "dev-master",
         "gz168/customer": "dev-master",
         "gz168/database-backup": "dev-master",
         "gz168/database-manager": "dev-master",
         "gz168/deepseek": "dev-master",
         "gz168/demo-consumer": "dev-master",
+        "gz168/erp-core": "@dev",
         "gz168/export-management": "dev-master",
         "gz168/extension-data": "dev-master",
         "gz168/filament": "dev-master",
         "gz168/filament-admin": "dev-master",
         "gz168/front-nav": "dev-master",
         "gz168/git-management": "dev-master",
-        "gz168/gmail-api": "dev-master",
+        "gz168/inventory": "@dev",
         "gz168/kafka-management": "dev-master",
         "gz168/log-management": "dev-master",
         "gz168/mail": "dev-master",
-          "gz168/mall-admin": "dev-master",
-          "gz168/mall-cart": "dev-master",
-          "gz168/mall-catalog": "dev-master",
-          "gz168/mall-core": "dev-master",
-          "gz168/mall-customer": "dev-master",
-          "gz168/mall-fulfillment": "dev-master",
-          "gz168/mall-inventory": "dev-master",
-          "gz168/mall-order": "dev-master",
-          "gz168/mall-payment": "dev-master",
-          "gz168/mall-pricing": "dev-master",
-          "gz168/mall-storefront-api": "dev-master",
-            "gz168/mall-after-sales": "dev-master",
-            "gz168/mall-content": "dev-master",
-            "gz168/mall-media": "dev-master",
-            "gz168/mall-notification": "dev-master",
-            "gz168/mall-promotion": "dev-master",
-            "gz168/mall-review": "dev-master",
-              "gz168/mall-mode-o2o": "dev-master",
-              "gz168/mall-store": "dev-master",
-              "gz168/mall-merchant-portal-api": "dev-master",
-                "gz168/mall-mode-c2c": "dev-master",
-                "gz168/mall-seller": "dev-master",
-                "gz168/mall-settlement": "dev-master",
-                  "gz168/mall-b2b-portal-api": "dev-master",
-                  "gz168/mall-business-client": "dev-master",
-                  "gz168/mall-mode-b2b": "dev-master",
-                  "gz168/mall-quote": "dev-master",
-                    "gz168/mall-mode-b2c": "dev-master",
-                    "gz168/mall-search": "dev-master",
+        "gz168/mail-account": "@dev",
+        "gz168/mail-admin": "@dev",
+        "gz168/mail-contracts": "@dev",
+        "gz168/mail-gmail": "@dev",
+        "gz168/mail-inbound": "@dev",
+        "gz168/mail-notification": "@dev",
+        "gz168/mail-outbound": "@dev",
+        "gz168/mail-qq": "@dev",
+        "gz168/mall-admin": "dev-master",
+        "gz168/mall-after-sales": "dev-master",
+        "gz168/mall-b2b-portal-api": "dev-master",
+        "gz168/mall-business-client": "dev-master",
+        "gz168/mall-cart": "dev-master",
+        "gz168/mall-catalog": "dev-master",
+        "gz168/mall-content": "dev-master",
+        "gz168/mall-core": "dev-master",
+        "gz168/mall-customer": "dev-master",
+        "gz168/mall-fulfillment": "dev-master",
+        "gz168/mall-inventory": "dev-master",
+        "gz168/mall-media": "dev-master",
+        "gz168/mall-merchant-portal-api": "dev-master",
+        "gz168/mall-mode-b2b": "dev-master",
+        "gz168/mall-mode-b2c": "dev-master",
+        "gz168/mall-mode-c2c": "dev-master",
+        "gz168/mall-mode-o2o": "dev-master",
+        "gz168/mall-notification": "dev-master",
+        "gz168/mall-order": "dev-master",
+        "gz168/mall-payment": "dev-master",
+        "gz168/mall-pricing": "dev-master",
+        "gz168/mall-promotion": "dev-master",
+        "gz168/mall-quote": "dev-master",
+        "gz168/mall-review": "dev-master",
+        "gz168/mall-search": "dev-master",
+        "gz168/mall-seller": "dev-master",
+        "gz168/mall-settlement": "dev-master",
+        "gz168/mall-store": "dev-master",
+        "gz168/mall-storefront-api": "dev-master",
         "gz168/module-core": "dev-master",
         "gz168/module-settings": "dev-master",
         "gz168/package-registration": "dev-master",
         "gz168/redis-management": "dev-master",
+        "gz168/rednote": "@dev",
         "gz168/role-permission": "dev-master",
         "gz168/system-settings": "dev-master",
         "gz168/user-management": "dev-master",
+        "gz168/wechat-app": "@dev",
+        "gz168/wechat-contracts": "@dev",
+        "gz168/wechat-mall-pay": "@dev",
+        "gz168/wechat-official-account": "@dev",
+        "gz168/wechat-mini-program": "@dev",
+        "gz168/wechat-notify": "@dev",
+        "gz168/wechat-open-platform": "@dev",
+        "gz168/wechat-pay": "@dev",
         "laravel/framework": "^13.8",
         "laravel/sanctum": "^4.0",
-        "laravel/tinker": "^3.0"
+        "laravel/tinker": "^3.0",
+        "php": "^8.3",
+        "webklex/php-imap": "^6.2"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -91,7 +112,8 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/",
-            "Gz168\\DatabaseManager\\Tests\\": "gz168/DatabaseManager/tests/"
+            "Gz168\\DatabaseManager\\Tests\\": "gz168/DatabaseManager/tests/",
+            "Gz168\\Customer\\Tests\\": "gz168/Customer/tests/"
         }
     },
     "scripts": {
@@ -108,7 +130,7 @@
         ],
         "dev": [
             "Composer\\Config::disableProcessTimeout",
-            "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1 --timeout=0\" \"php artisan pail --timeout=0\" \"npm run dev\" --names=server,queue,logs,vite --kill-others"
+            "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --queue=mail-sync,wechat,default --tries=1 --timeout=0\" \"php artisan pail --timeout=0\" \"npm run dev\" --names=server,queue,logs,vite --kill-others"
         ],
         "test": [
             "@php artisan config:clear --ansi @no_additional_args",
@@ -213,10 +235,6 @@
         {
             "type": "path",
             "url": "gz168/GitManagement"
-        },
-        {
-            "type": "path",
-            "url": "gz168/GmailApi"
         },
         {
             "type": "path",
@@ -389,6 +407,90 @@
         {
             "type": "path",
             "url": "gz168/module-core"
+        },
+        {
+            "type": "path",
+            "url": "gz168/AddressManagement"
+        },
+        {
+            "type": "path",
+            "url": "gz168/ErpCore"
+        },
+        {
+            "type": "path",
+            "url": "gz168/Inventory"
+        },
+        {
+            "type": "path",
+            "url": "gz168/RedNote"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MailAccount"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MailAdmin"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MailContracts"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MailGmail"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MailInbound"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MailNotification"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MailOutbound"
+        },
+        {
+            "type": "path",
+            "url": "gz168/MailQq"
+        },
+        {
+            "type": "path",
+            "url": "gz168/Crm"
+        },
+        {
+            "type": "path",
+            "url": "gz168/WechatApp"
+        },
+        {
+            "type": "path",
+            "url": "gz168/WechatContracts"
+        },
+        {
+            "type": "path",
+            "url": "gz168/WechatMallPay"
+        },
+        {
+            "type": "path",
+            "url": "gz168/WechatMiniProgram"
+        },
+        {
+            "type": "path",
+            "url": "gz168/WechatNotify"
+        },
+        {
+            "type": "path",
+            "url": "gz168/WechatOpenPlatform"
+        },
+        {
+            "type": "path",
+            "url": "gz168/WechatOfficialAccount"
+        },
+        {
+            "type": "path",
+            "url": "gz168/WechatPay"
         }
     ]
 }

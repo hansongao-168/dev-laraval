@@ -1,4 +1,5 @@
 import type { CustomerApi } from './domain/customer/auth.js'
+import type { MailApi } from './domain/mail/index.js'
 import type { Customer, Address, CustomerSettings } from './domain/customer/types.js'
 import type { ApiResponse, HealthPayload } from './core/types.js'
 import type { HttpClient } from './core/http.js'
@@ -8,11 +9,13 @@ export interface ApiClient {
   health(): Promise<ApiResponse<HealthPayload>>
   http: HttpClient
   customer: CustomerApi
+  mail: MailApi
 }
 
 export interface CreateApiClientOptions {
   baseUrl: string
   request?: ApiRequestHandler
+  getToken?: () => string | null
 }
 
 export interface ApiRequest {
@@ -30,6 +33,19 @@ export type { HttpClient, HttpOptions, RequestOptions } from './core/http.js'
 export type { ApiResponse, ApiError, ApiErrorKind } from './core/types.js'
 export { createCustomerApi } from './domain/customer/auth.js'
 export type { CustomerApi } from './domain/customer/auth.js'
+export { createMailApi } from './domain/mail/index.js'
+export type { MailApi } from './domain/mail/index.js'
+export type {
+  MailAccount,
+  MailAccountStatusPayload,
+  MailSyncRun,
+  MailMessageSummary,
+  SendMailInput,
+  SendMailResult,
+  OtpResult,
+  SendTemplateInput,
+  MailWebhookEndpoint
+} from './domain/mail/types.js'
 export type {
   Customer,
   Address,

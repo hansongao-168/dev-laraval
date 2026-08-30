@@ -1,0 +1,118 @@
+openapi: 3.0.3
+info:
+  title: FrontNav API
+  description: |
+    Wire contract for the front-end navigation endpoints.
+
+    Hand-authored by design (see FrontNavOpenApiYamlTest): the schema is
+    small and stable, and keeping it hand-written avoids coupling CI to an
+    annotation parser. Four sources must stay in sync:
+      1. Gz168\FrontNav\Contracts\NavItem (PHP DTO)
+      2. NavItemResource::toArray()        (serializer)
+      3. this file                          (wire spec)
+      4. packages/front-nav/src/core/types.d.ts (SDK type)
+    FrontNavOpenApiYamlTest guards 1<->2<->3; FrontNavSdkYamlAlignmentTest
+    guards 3<->4.
+  version: 1.0.0
+paths:
+  /api/v1/front-nav:
+    get:
+      operationId: frontnav.index
+      summary: Visible nav tree for the requested location
+      tags:
+        - FrontNav
+      parameters:
+        - name: location
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [header, sidebar, footer, mobile]
+        - name: locale
+          in: query
+          required: false
+          schema:
+            type: string
+          description: BCP-47 locale tag. Filters items whose i18nLocales does not include it.
+      responses:
+        '200':
+          description: Visible nav tree for the requested location.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FrontNavResponse'
+        '422':
+          description: Validation failure (e.g. unknown location).
+  /api/v1/front-nav/refresh:
+    post:
+      operationId: frontnav.refresh
+      summary: Invalidate every cached /front-nav response
+      tags:
+        - FrontNav
+      security:
+        - sanctum: []
+      responses:
+        '200':
+          description: Cache evicted.
+components:
+  schemas:
+    FrontNavItem:
+      type: object
+      properties:
+        key:
+          type: string
+        label:
+          type: string
+          description: Source-language label; fallback when labelKey resolution fails.
+        labelKey:
+          type: string
+          nullable: true
+        i18nLocales:
+          type: array
+          nullable: true
+          items:
+            type: string
+        location:
+          type: string
+          enum: [header, sidebar, footer, mobile]
+        url:
+          type: string
+        icon:
+          type: string
+          nullable: true
+        sort:
+          type: integer
+          nullable: true
+        parent:
+          type: string
+          nullable: true
+        requiresAuth:
+          type: boolean
+        permission:
+          type: string
+          nullable: true
+        enabled:
+          type: boolean
+        meta:
+          type: object
+          additionalProperties: true
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/FrontNavItem'
+    FrontNavResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/FrontNavItem'
+        meta:
+          type: object
+          properties:
+            location:
+              type: string
+            locale:
+              type: string
+            authed:
+              type: boolean

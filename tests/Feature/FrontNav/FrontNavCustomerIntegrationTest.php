@@ -8,6 +8,7 @@ use Gz168\FrontNav\Contracts\NavItem;
 use Gz168\FrontNav\Contracts\NavLocation;
 use Gz168\FrontNav\Contracts\NavRegistrar;
 use Gz168\FrontNav\Contracts\NavRegistry;
+use Illuminate\Contracts\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Tests\TestCase;
 
@@ -124,7 +125,7 @@ final class FrontNavCustomerIntegrationTest extends TestCase
 
     private function makeAuthedVisitor(): object
     {
-        return new class implements Authenticatable
+        return new class implements Authenticatable, Authorizable
         {
             public function getAuthIdentifierName(): string
             {
@@ -156,6 +157,25 @@ final class FrontNavCustomerIntegrationTest extends TestCase
             public function getRememberTokenName(): string
             {
                 return '';
+            }
+
+            /**
+             * The test visitor grants no permissions: permission-gated
+             * items must stay hidden (see the demo.settings assertion).
+             */
+            public function can($abilities, $arguments = []): bool
+            {
+                return false;
+            }
+
+            public function cant($abilities, $arguments = []): bool
+            {
+                return ! $this->can($abilities, $arguments);
+            }
+
+            public function cannot($abilities, $arguments = []): bool
+            {
+                return $this->cant($abilities, $arguments);
             }
         };
     }
