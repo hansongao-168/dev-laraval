@@ -166,4 +166,4 @@ This project has domain-specific skills available in `**/skills/**`. You MUST ac
 
 ## ERP project rules
 
-Read and follow `docs/AI_DEVELOPMENT.md` for project facts, security requirements, business invariants, verification commands, and completion criteria. In particular, never weaken the protected super administrator or the idempotent initialization flow, and never expose `.env` secrets.
+Read and follow `docs-host/AI_DEVELOPMENT.md` for project facts, security requirements, business invariants, verification commands, and completion criteria. In particular, never weaken the protected super administrator or the idempotent initialization flow, and never expose `.env` secrets.

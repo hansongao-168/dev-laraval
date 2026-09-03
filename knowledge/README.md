@@ -39,4 +39,4 @@
 
 - 父仓库：`/Users/37user/Documents/dev-laraval`（Dev 学习主项目）
 - 历史 ERP 业务版（2026-07-26 前）已归档：`99-Archive/erp-snapshot-2026-07-26/`
-- 仓库根 `AGENTS.md` 与 `docs/AI_DEVELOPMENT.md` 决定代码规范
+- 仓库根 `AGENTS.md` 与 `docs-host/AI_DEVELOPMENT.md` 决定代码规范

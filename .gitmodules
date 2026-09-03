@@ -2,3 +2,7 @@
 	path = gz168
 	url = https://github.com/hansongao-168/gz168.git
 	branch = master
+[submodule "docs"]
+	path = docs
+	url = https://github.com/hansongao-168/docs.git
+	branch = main

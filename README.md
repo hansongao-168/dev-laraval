@@ -6,7 +6,7 @@
 
 - 这是个人 Dev 学习的载体：Laravel 13 + Filament 5 + Livewire 4 + Tailwind v4 + Boost v2 等新版本生态的实验场
 - 配套 `knowledge/` Vault（独立 git 仓库）作为长期学习笔记与项目复盘
-- 仓库根 `AGENTS.md` 与 `docs/AI_DEVELOPMENT.md` 仍约束代码规范与多端架构
+- 仓库根 `AGENTS.md` 与 `docs-host/AI_DEVELOPMENT.md` 仍约束代码规范与多端架构
 - 历史 ERP 业务版（多端 ERP、订单 / 客户 / 财务业务描述）保留在 `apps/`、`bin/`、`gz168/` 子模块与 `99-Archive/erp-snapshot-2026-07-26/`，仅作为参考底座，不再是主线目标
 
 ## 业务项目说明（原 ERP）
@@ -49,19 +49,19 @@ npm run dev:mobile
 npm run dev:miniapp
 ```
 
-详细安装说明参见 [docs/INSTALL.md](docs/INSTALL.md)。
-系统结构与多端边界参见 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)。
+详细安装说明参见 [docs-host/INSTALL.md](docs-host/INSTALL.md)。
+系统结构与多端边界参见 [docs/dev_laraval/ARCHITECTURE.md](docs/dev_laraval/ARCHITECTURE.md)。
 
 ## gz168 模块架构
 
 本项目按"模块化、高内聚、低耦合、单向依赖"原则把业务切成多个 `gz168/*` 公共 Composer 包，
 每个模块都是单一 Composer 包 + 单一 ServiceProvider + 两棵子树（`src/Front/` 与 `src/Admin/`，默认关闭）。
 
-- 模块设计基线：[`docs/architecture/gz168-customer.md`](docs/architecture/gz168-customer.md)
+- 模块设计基线：[`docs/dev_laraval/architecture/gz168-customer.md`](docs/dev_laraval/architecture/gz168-customer.md)
   —— `gz168/Customer`（前台用户域）的完整架构、约束与边界守卫。
-- 多端前端架构：[`docs/architecture/web-frontend.md`](docs/architecture/web-frontend.md)
+- 多端前端架构：[`docs/dev_laraval/architecture/web-frontend.md`](docs/dev_laraval/architecture/web-frontend.md)
   —— L0/L1/L2/L3 分层、声明式导航、三端 Shell。
-- Customer 域 host 接入：[`docs/architecture/customer-host-integration.md`](docs/architecture/customer-host-integration.md)
+- Customer 域 host 接入：[`docs/dev_laraval/architecture/customer-host-integration.md`](docs/dev_laraval/architecture/customer-host-integration.md)
   —— `.env` / `config/customer.php` / Filament / Sanctum 接入步骤。
 
 ### gz168/front-nav — 前台导航（14 milestone 已交付）
@@ -137,7 +137,7 @@ bin/create-project ../new-erp "New ERP"
 创建过程中可以直接初始化新项目的 `.env`。已经创建的项目可在其根目录执行
 `bin/configure-env` 重新配置，并执行 `bin/configure-apache` 生成 Apache VirtualHost。
 
-完整说明参见 [docs/NEW_PROJECT.md](docs/NEW_PROJECT.md)。
+完整说明参见 [docs/dev_laraval/NEW_PROJECT.md](docs/dev_laraval/NEW_PROJECT.md)。
 
 ## Obsidian 知识库
 
@@ -164,7 +164,7 @@ bin/create-project ../new-erp "New ERP"
 
 项目已安装 Laravel Boost，并提供适用于 Codex、Claude Code、Cursor、Junie、GitHub Copilot、Gemini、Windsurf、Cline、Roo Code 和 Aider 的项目配置。
 
-所有工具共同遵循 [docs/AI_DEVELOPMENT.md](docs/AI_DEVELOPMENT.md)。Laravel Boost 会额外提供版本匹配的框架规范、项目技能与 MCP 工具。
+所有工具共同遵循 [docs-host/AI_DEVELOPMENT.md](docs-host/AI_DEVELOPMENT.md)。Laravel Boost 会额外提供版本匹配的框架规范、项目技能与 MCP 工具。
 
 更新依赖后，可同步最新 AI 规则：
 

@@ -179,8 +179,8 @@ composer validate --no-check-publish
 - Expo：`apps/mobile`
 - Taro 微信小程序：`apps/miniapp`
 - 共享 API SDK：`packages/api-client`
-- 安装文档：`docs/INSTALL.md`
-- Apache 示例：`docs/apache-vhost.conf.example`
+- 安装文档：`docs-host/INSTALL.md`
+- Apache 示例：`docs-host/apache-vhost.conf.example`
 - Laravel Boost 配置：`boost.json`
 - Laravel Boost MCP：`php artisan boost:mcp`
 

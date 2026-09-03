@@ -44,7 +44,7 @@ tags:
    - 工具链 / 工程 → [[00-Home/MOC-工程实践]]
 3. 主题 MOC 下的具体原子笔记
 4. 需要参考历史 ERP 经验时，回到 `99-Archive/erp-snapshot-2026-07-26/` 索引
-5. 仓库根的 `AGENTS.md` 与 `docs/AI_DEVELOPMENT.md` 决定代码规范
+5. 仓库根的 `AGENTS.md` 与 `docs-host/AI_DEVELOPMENT.md` 决定代码规范
 
 ## 仓库技术栈（开发时参考）
 

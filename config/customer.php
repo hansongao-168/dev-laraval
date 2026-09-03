@@ -7,7 +7,7 @@ declare(strict_types=1);
 | gz168/Customer 模块配置
 |--------------------------------------------------------------------------
 |
-| 详细架构与约束见 docs/architecture/gz168-customer.md。
+| 详细架构与约束见 docs/dev_laraval/architecture/gz168-customer.md。
 | 本文件覆盖 gz168/Customer/config/customer.php 的默认值，host 项目可
 | 在 config/customer.php 中修改任一项，无需修改模块内部代码。
 |

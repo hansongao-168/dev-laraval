@@ -18,7 +18,7 @@
 /public/fonts-manifest.dev.json
 /public/hot
 /public/storage
-/docs/apache-vhost.conf
+/docs-host/apache-vhost.conf
 /storage/*.key
 /storage/pail
 /vendor

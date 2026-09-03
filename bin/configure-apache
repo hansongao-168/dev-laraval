@@ -5,7 +5,7 @@ set -euo pipefail
 project_directory="${1:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
 project_directory="$(cd "$project_directory" && pwd)"
 env_file="$project_directory/.env"
-output_file="$project_directory/docs/apache-vhost.conf"
+output_file="$project_directory/docs-host/apache-vhost.conf"
 
 if [[ ! -f "$project_directory/public/index.php" ]]; then
     echo "Laravel public entry point not found: $project_directory/public/index.php"

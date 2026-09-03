@@ -66,7 +66,7 @@ is_admin          tinyint(1), default 0
 - `INDEX users_is_protected_index (is_protected)`
 - `INDEX users_is_admin_index (is_admin)`
 
-业务不变量（来自 `docs/AI_DEVELOPMENT.md`）：
+业务不变量（来自 `docs-host/AI_DEVELOPMENT.md`）：
 
 1. 受保护管理员由 `php artisan app:initialize` 创建。
 2. `is_protected = 1` 的用户**不得删除**，**不得改其他资料**，只允许修改邮箱、密码、状态及管理员权限（含降权或停用）。
@@ -235,7 +235,7 @@ php artisan db:show --counts
 - [[../MOC]]：本目录的入口与索引约定
 - [[../../../00-Home/MOC-工程实践]]：把数据库速查定位到工程实践主题
 - [[../../../07-Operations/知识库安全规范]]：凭据与隐私的红线，速查只存结构不存数据
-- `docs/AI_DEVELOPMENT.md`：受保护管理员与初始化幂等性的源头说明
+- `docs-host/AI_DEVELOPMENT.md`：受保护管理员与初始化幂等性的源头说明
 
 ## 复盘 / 复习
 
