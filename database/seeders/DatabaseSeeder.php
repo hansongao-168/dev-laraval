@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Gz168\ApiDoc\Database\Seeders\ApiDocPermissionSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -11,7 +12,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Project-specific seeders belong here. The protected administrator is
-        // created by the idempotent `php artisan app:initialize` command.
+        $this->call(ApiDocPermissionSeeder::class);
     }
 }

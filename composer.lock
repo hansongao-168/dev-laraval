@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cd20d283ca44024789343f1a4f414f94",
+    "content-hash": "f62b30076edc274bff59fb50a3755e36",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -2139,6 +2139,67 @@
                 "MIT"
             ],
             "description": "OAuth2 JWT API authentication and client credentials",
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "gz168/api-doc",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "gz168/ApiDoc",
+                "reference": "70ccb2c2d3ae39abd7732d62abce38481cbf8e3e"
+            },
+            "require": {
+                "gz168/common": "dev-master",
+                "gz168/filament": "dev-master",
+                "gz168/role-permission": "dev-master",
+                "illuminate/contracts": "^12.0|^13.0",
+                "illuminate/database": "^12.0|^13.0",
+                "illuminate/http": "^12.0|^13.0",
+                "illuminate/support": "^12.0|^13.0",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.93"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^9.0|^10.0",
+                "phpunit/phpunit": "^11.0|^12.0"
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gz168\\ApiDoc\\Providers\\ApiDocServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gz168\\ApiDoc\\": "src/",
+                    "Gz168\\ApiDoc\\Database\\Factories\\": "database/factories/",
+                    "Gz168\\ApiDoc\\Database\\Seeders\\": "database/seeders/"
+                },
+                "files": [
+                    "src/Support/api_doc_helper.php"
+                ]
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Gz168\\ApiDoc\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "API documentation module: front-end renderer (Livewire) + Filament back-office editor. Replaces html/api-doc-complete.html with a database-backed, admin-editable bilingual (FR/ZH) documentation site.",
+            "keywords": [
+                "api-doc",
+                "documentation",
+                "filament",
+                "laravel",
+                "livewire"
+            ],
             "transport-options": {
                 "relative": true
             }
@@ -13848,6 +13909,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "gz168/api-auth": 20,
+        "gz168/api-doc": 20,
         "gz168/attribute-management": 20,
         "gz168/cache-management": 20,
         "gz168/common": 20,
