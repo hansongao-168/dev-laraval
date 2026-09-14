@@ -86,4 +86,10 @@ class LocalizedStringFormatTest extends TestCase
 
         $this->assertSame('你好<span class="en">Hello</span><span class="fr">Bonjour</span>', $html);
     }
+
+    #[Test]
+    public function format_for_mode_handles_null_value(): void
+    {
+        $this->assertSame('', LocalizedString::formatForMode(null, ['fr', 'zh']));
+    }
 }
