@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Feature\ApiDoc;
 
 use Gz168\ApiDoc\Database\Seeders\ApiDocDisplayModeSeeder;
+use Gz168\ApiDoc\Models\ApiDocDisplayMode;
 use Gz168\ApiDoc\Models\ApiDocSection;
 use Gz168\ApiDoc\Models\ApiDocSetting;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
@@ -67,5 +68,22 @@ class ApiDocFrontPageTest extends TestCase
 
         $this->get('/api-doc?mode=fr_zh')->assertOk()->assertSee('class="zh"', false);
         $this->get('/api-doc?lang=both')->assertOk()->assertSee('class="zh"', false);
+    }
+
+    #[Test]
+    public function header_omits_inactive_display_modes(): void
+    {
+        $this->seed(ApiDocDisplayModeSeeder::class);
+        ApiDocDisplayMode::query()->where('code', 'en')->update(['is_active' => false]);
+
+        ApiDocSection::factory()->create([
+            'slug' => 'intro',
+            'is_intro' => true,
+        ]);
+
+        $html = $this->get('/api-doc')->assertOk()->getContent();
+
+        $this->assertStringNotContainsString('>英文<', $html);
+        $this->assertStringContainsString('法文', $html);
     }
 }
