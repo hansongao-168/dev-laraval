@@ -204,4 +204,44 @@ class ApiDocDisplayModeTest extends TestCase
         $this->assertSame(1, ApiDocDisplayMode::query()->where('is_default', true)->count());
         $this->assertSame('en', ApiDocSetting::current()->default_locale);
     }
+
+    #[Test]
+    public function filament_can_save_classic_template_key(): void
+    {
+        $this->actingAsFilamentAdmin();
+        $this->seed(ApiDocDisplayModeSeeder::class);
+        $zh = ApiDocDisplayMode::query()->where('code', 'zh')->firstOrFail();
+
+        Livewire::test(EditApiDocDisplayMode::class, ['record' => $zh->getKey()])
+            ->fillForm([
+                'label' => $zh->label,
+                'locales' => array_map(
+                    fn (string $locale): array => ['locale' => $locale],
+                    $zh->locales,
+                ),
+                'sort' => $zh->sort,
+                'is_active' => true,
+                'is_default' => false,
+                'template_key' => 'classic',
+            ])
+            ->call('save')
+            ->assertHasNoFormErrors();
+
+        $this->assertSame('classic', $zh->fresh()->template_key);
+    }
+
+    #[Test]
+    public function filament_rejects_unknown_template_key(): void
+    {
+        $this->actingAsFilamentAdmin();
+        $this->seed(ApiDocDisplayModeSeeder::class);
+        $zh = ApiDocDisplayMode::query()->where('code', 'zh')->firstOrFail();
+
+        Livewire::test(EditApiDocDisplayMode::class, ['record' => $zh->getKey()])
+            ->fillForm([
+                'template_key' => 'not-a-skin',
+            ])
+            ->call('save')
+            ->assertHasFormErrors(['template_key']);
+    }
 }
