@@ -239,6 +239,14 @@ class ApiDocDisplayModeTest extends TestCase
 
         Livewire::test(EditApiDocDisplayMode::class, ['record' => $zh->getKey()])
             ->fillForm([
+                'label' => $zh->label,
+                'locales' => array_map(
+                    fn (string $locale): array => ['locale' => $locale],
+                    $zh->locales,
+                ),
+                'sort' => $zh->sort,
+                'is_active' => true,
+                'is_default' => false,
                 'template_key' => 'not-a-skin',
             ])
             ->call('save')
