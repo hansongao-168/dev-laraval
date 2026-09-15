@@ -8,9 +8,10 @@ use Gz168\ApiDoc\Database\Seeders\ApiDocDisplayModeSeeder;
 use Gz168\ApiDoc\Models\ApiDocDisplayMode;
 use Gz168\ApiDoc\Models\ApiDocSection;
 use Gz168\ApiDoc\Models\ApiDocSetting;
+use Gz168\ApiDoc\Services\ApiDocCacheManager;
 use Gz168\ApiDoc\Services\ApiDocRenderer;
-use Gz168\ApiDoc\Services\ApiDocTemplateResolver;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
+use Mockery;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
@@ -30,19 +31,32 @@ class ApiDocFrontTemplateTest extends TestCase
     }
 
     #[Test]
-    public function renderer_payload_includes_resolved_template_key(): void
+    public function renderer_cache_keys_include_template_key(): void
     {
         $this->seed(ApiDocDisplayModeSeeder::class);
         ApiDocSetting::current();
         ApiDocSection::factory()->create(['slug' => 'oauth', 'verb' => 'POST', 'path' => '/x']);
 
-        $payload = app(ApiDocRenderer::class)->render('fr', html: true);
+        $cache = Mockery::mock(ApiDocCacheManager::class);
+        $cache->shouldReceive('remember')
+            ->once()
+            ->withArgs(fn (string $key): bool => $key === 'render:fr:classic:html')
+            ->andReturn([
+                'lang' => 'fr',
+                'mode' => 'fr',
+                'nav' => [],
+                'sections' => [],
+                'ui' => [],
+            ]);
 
-        $this->assertSame('classic', $payload['template']);
+        $this->app->instance(ApiDocCacheManager::class, $cache);
+        $this->app->forgetInstance(ApiDocRenderer::class);
+
+        app(ApiDocRenderer::class)->render('fr', html: true);
     }
 
     #[Test]
-    public function different_template_keys_resolve_distinct_cache_key_segments(): void
+    public function different_template_keys_do_not_share_cache_payload(): void
     {
         $this->seed(ApiDocDisplayModeSeeder::class);
         ApiDocSetting::current();
@@ -56,19 +70,35 @@ class ApiDocFrontTemplateTest extends TestCase
             ],
         ]);
 
+        $seen = [];
+        $cache = Mockery::mock(ApiDocCacheManager::class);
+        $cache->shouldReceive('remember')
+            ->andReturnUsing(function (string $key) use (&$seen): array {
+                $seen[] = $key;
+
+                return [
+                    'lang' => 'fr',
+                    'mode' => 'fr',
+                    'nav' => [],
+                    'sections' => [],
+                    'ui' => [],
+                ];
+            });
+
+        $this->app->instance(ApiDocCacheManager::class, $cache);
+        $this->app->forgetInstance(ApiDocRenderer::class);
+
         $mode = ApiDocDisplayMode::query()->where('code', 'fr')->firstOrFail();
-        $templates = app(ApiDocTemplateResolver::class);
+        $renderer = app(ApiDocRenderer::class);
 
         $mode->forceFill(['template_key' => 'classic'])->saveQuietly();
-        $classic = $templates->resolve($mode->fresh()->template_key, $mode->code);
-        $this->assertSame('classic', $classic->key);
+        $renderer->render('fr', html: true);
 
         $mode->forceFill(['template_key' => 'alt'])->saveQuietly();
-        $alt = $templates->resolve($mode->fresh()->template_key, $mode->code);
-        $this->assertSame('alt', $alt->key);
+        $renderer->render('fr', html: true);
 
-        $this->app->forgetInstance(ApiDocRenderer::class);
-        $payload = app(ApiDocRenderer::class)->render('fr', html: true);
-        $this->assertSame('alt', $payload['template']);
+        $this->assertContains('render:fr:classic:html', $seen);
+        $this->assertContains('render:fr:alt:html', $seen);
+        $this->assertNotSame('render:fr:classic:html', 'render:fr:alt:html');
     }
 }
