@@ -5,14 +5,19 @@ declare(strict_types=1);
 namespace Tests\Feature\ApiDoc;
 
 use Gz168\ApiDoc\Database\Seeders\ApiDocDisplayModeSeeder;
+use Gz168\ApiDoc\Livewire\ApiDocPage;
 use Gz168\ApiDoc\Models\ApiDocDisplayMode;
 use Gz168\ApiDoc\Models\ApiDocSection;
 use Gz168\ApiDoc\Models\ApiDocSetting;
 use Gz168\ApiDoc\Services\ApiDocCacheManager;
+use Gz168\ApiDoc\Services\ApiDocDisplayModeResolver;
 use Gz168\ApiDoc\Services\ApiDocRenderer;
+use Gz168\ApiDoc\Services\ApiDocTemplateResolver;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
+use Illuminate\Support\Facades\Cache;
 use Mockery;
 use PHPUnit\Framework\Attributes\Test;
+use RuntimeException;
 use Tests\TestCase;
 
 class ApiDocFrontTemplateTest extends TestCase
@@ -100,5 +105,83 @@ class ApiDocFrontTemplateTest extends TestCase
         $this->assertContains('render:fr:classic:html', $seen);
         $this->assertContains('render:fr:alt:html', $seen);
         $this->assertNotSame('render:fr:classic:html', 'render:fr:alt:html');
+    }
+
+    #[Test]
+    public function front_page_throws_when_template_views_are_missing(): void
+    {
+        $this->seed(ApiDocDisplayModeSeeder::class);
+        ApiDocSetting::current();
+
+        config([
+            'api-doc.templates.catalog.broken' => [
+                'label' => 'Broken',
+                'views_prefix' => 'gz168-api-doc-nonexistent',
+                'assets' => [],
+            ],
+        ]);
+
+        $mode = ApiDocDisplayMode::query()->where('code', 'fr')->firstOrFail();
+        $mode->forceFill(['template_key' => 'broken'])->saveQuietly();
+
+        $page = new ApiDocPage;
+        $page->mode = 'fr';
+
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('views are missing');
+
+        $page->render(
+            app(ApiDocDisplayModeResolver::class),
+            app(ApiDocTemplateResolver::class),
+        );
+    }
+
+    #[Test]
+    public function ui_cache_keys_include_template_key(): void
+    {
+        $this->seed(ApiDocDisplayModeSeeder::class);
+
+        $cache = Mockery::mock(ApiDocCacheManager::class);
+        $cache->shouldReceive('remember')
+            ->once()
+            ->withArgs(fn (string $key): bool => $key === 'ui:fr:classic:html')
+            ->andReturn(['nav.home' => 'Home']);
+
+        $this->app->instance(ApiDocCacheManager::class, $cache);
+        $this->app->forgetInstance(ApiDocRenderer::class);
+
+        app(ApiDocRenderer::class)->uiStrings('fr', html: true);
+    }
+
+    #[Test]
+    public function flush_forgets_legacy_and_template_scoped_render_html_keys(): void
+    {
+        $this->seed(ApiDocDisplayModeSeeder::class);
+
+        config([
+            'api-doc.cache.store' => 'array',
+            'api-doc.cache.ttl' => 3600,
+            'api-doc.cache.key_prefix' => 'api_doc:',
+        ]);
+
+        $this->app->forgetInstance(ApiDocCacheManager::class);
+        $this->app->forgetInstance(ApiDocRenderer::class);
+
+        $store = Cache::store('array');
+        $manager = app(ApiDocCacheManager::class);
+
+        $legacyKey = $manager->key('render:fr:html');
+        $templateKey = $manager->key('render:fr:classic:html');
+
+        $store->put($legacyKey, ['legacy' => true], 3600);
+        $store->put($templateKey, ['template' => true], 3600);
+
+        $this->assertTrue($store->has($legacyKey));
+        $this->assertTrue($store->has($templateKey));
+
+        $manager->flush();
+
+        $this->assertFalse($store->has($legacyKey));
+        $this->assertFalse($store->has($templateKey));
     }
 }
