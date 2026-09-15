@@ -47,6 +47,29 @@ class ApiDocDisplayModeTest extends TestCase
     }
 
     #[Test]
+    public function seeder_sets_template_key_classic_on_all_modes(): void
+    {
+        $this->seed(ApiDocDisplayModeSeeder::class);
+
+        $this->assertSame(
+            5,
+            ApiDocDisplayMode::query()->where('template_key', 'classic')->count(),
+        );
+        $this->assertSame(0, ApiDocDisplayMode::query()->whereNull('template_key')->count());
+    }
+
+    #[Test]
+    public function model_rejects_unknown_template_key(): void
+    {
+        $this->seed(ApiDocDisplayModeSeeder::class);
+        $mode = ApiDocDisplayMode::query()->where('code', 'zh')->firstOrFail();
+
+        $this->expectException(\RuntimeException::class);
+        $mode->template_key = 'not-a-skin';
+        $mode->save();
+    }
+
+    #[Test]
     public function resolver_maps_legacy_lang_both_to_fr_zh(): void
     {
         $this->seed(ApiDocDisplayModeSeeder::class);
