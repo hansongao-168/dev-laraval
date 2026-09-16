@@ -9,6 +9,7 @@ use Gz168\ApiDoc\Livewire\ApiDocPage;
 use Gz168\ApiDoc\Models\ApiDocDisplayMode;
 use Gz168\ApiDoc\Models\ApiDocSection;
 use Gz168\ApiDoc\Models\ApiDocSetting;
+use Gz168\ApiDoc\Models\ApiDocTemplate;
 use Gz168\ApiDoc\Services\ApiDocCacheManager;
 use Gz168\ApiDoc\Services\ApiDocDisplayModeResolver;
 use Gz168\ApiDoc\Services\ApiDocRenderer;
@@ -67,12 +68,10 @@ class ApiDocFrontTemplateTest extends TestCase
         ApiDocSetting::current();
         ApiDocSection::factory()->create(['slug' => 'oauth', 'verb' => 'POST', 'path' => '/x']);
 
-        config([
-            'api-doc.templates.catalog.alt' => [
-                'label' => 'Alt',
-                'views_prefix' => 'gz168-api-doc::front',
-                'assets' => [],
-            ],
+        ApiDocTemplate::factory()->create([
+            'code' => 'alt',
+            'label' => 'Alt',
+            'sort' => 50,
         ]);
 
         $seen = [];
@@ -113,12 +112,10 @@ class ApiDocFrontTemplateTest extends TestCase
         $this->seed(ApiDocDisplayModeSeeder::class);
         ApiDocSetting::current();
 
-        config([
-            'api-doc.templates.catalog.broken' => [
-                'label' => 'Broken',
-                'views_prefix' => 'gz168-api-doc-nonexistent',
-                'assets' => [],
-            ],
+        ApiDocTemplate::factory()->create([
+            'code' => 'broken',
+            'label' => 'Broken',
+            'sort' => 90,
         ]);
 
         $mode = ApiDocDisplayMode::query()->where('code', 'fr')->firstOrFail();

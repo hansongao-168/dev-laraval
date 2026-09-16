@@ -11,6 +11,7 @@ use Gz168\ApiDoc\Filament\Resources\ApiDocDisplayModeResource\Pages\CreateApiDoc
 use Gz168\ApiDoc\Filament\Resources\ApiDocDisplayModeResource\Pages\EditApiDocDisplayMode;
 use Gz168\ApiDoc\Models\ApiDocDisplayMode;
 use Gz168\ApiDoc\Models\ApiDocSetting;
+use Gz168\ApiDoc\Models\ApiDocTemplate;
 use Gz168\ApiDoc\Services\ApiDocDisplayModeResolver;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Livewire\Livewire;
@@ -228,6 +229,25 @@ class ApiDocDisplayModeTest extends TestCase
             ->assertHasNoFormErrors();
 
         $this->assertSame('classic', $zh->fresh()->template_key);
+    }
+
+    #[Test]
+    public function model_rejects_inactive_template_key(): void
+    {
+        $this->seed(ApiDocDisplayModeSeeder::class);
+        ApiDocTemplate::factory()->create([
+            'code' => 'idle',
+            'is_active' => true,
+            'sort' => 40,
+        ]);
+        $idle = ApiDocTemplate::query()->where('code', 'idle')->firstOrFail();
+        $idle->is_active = false;
+        $idle->save();
+
+        $mode = ApiDocDisplayMode::query()->where('code', 'zh')->firstOrFail();
+        $this->expectException(\RuntimeException::class);
+        $mode->template_key = 'idle';
+        $mode->save();
     }
 
     #[Test]
