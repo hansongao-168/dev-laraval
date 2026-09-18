@@ -16,6 +16,7 @@
         "gz168/attribute-management": "dev-master",
         "gz168/cache-management": "dev-master",
         "gz168/common": "dev-master",
+        "gz168/contract-bus": "dev-master",
         "gz168/custom-config": "dev-master",
         "gz168/customer": "dev-master",
         "gz168/database-backup": "dev-master",
@@ -92,7 +93,8 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/",
-            "Gz168\\DatabaseManager\\Tests\\": "gz168/DatabaseManager/tests/"
+            "Gz168\\DatabaseManager\\Tests\\": "gz168/DatabaseManager/tests/",
+            "Gz168\\ContractBus\\Tests\\": "gz168/ContractBus/tests/"
         }
     },
     "scripts": {
@@ -114,6 +116,9 @@
         "test": [
             "@php artisan config:clear --ansi @no_additional_args",
             "@php artisan test"
+        ],
+        "test:contracts": [
+            "@php artisan contract-bus:validate"
         ],
         "test:front-nav": [
             "@php vendor/bin/pint --dirty",
@@ -177,7 +182,7 @@
         },
         {
             "type": "path",
-            "url": "gz168/Customer"
+            "url": "gz168/ContractBus"
         },
         {
             "type": "path",
@@ -397,3 +402,4 @@
         }
     ]
 }
+
