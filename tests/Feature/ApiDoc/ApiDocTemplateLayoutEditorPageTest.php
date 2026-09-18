@@ -125,15 +125,49 @@ class ApiDocTemplateLayoutEditorPageTest extends TestCase
     }
 
     #[Test]
-    public function grapesjs_editor_renders_placeholder_root(): void
+    public function grapesjs_editor_loads_root_and_save_layout_persists_tree(): void
     {
+        $this->withoutVite();
         $this->actingAsFilamentAdmin();
         $template = $this->prepareLivewirePageTemplate();
         $template->layout_editor = ApiDocLayoutEditor::GrapesJs->value;
         $template->save();
 
+        $nodes = LayoutTreeDefaults::tree()['nodes'];
+        $first = $nodes[0];
+        array_shift($nodes);
+        $nodes[] = $first;
+        $nodes = array_values($nodes);
+
         Livewire::test(ApiDocTemplateLayoutEditorPage::class, ['record' => $template->getKey()])
             ->assertOk()
-            ->assertSeeHtml('id="api-doc-grapes-root"');
+            ->assertSeeHtml('id="api-doc-grapes-root"')
+            ->call('applyLayoutFromGrapes', $nodes)
+            ->assertSet('layoutTreeNodes.0.part', 'nav')
+            ->assertSet('layoutTreeNodes.6.part', 'header')
+            ->call('saveLayout')
+            ->assertHasNoErrors();
+
+        $fresh = $template->fresh();
+        $this->assertSame('nav', $fresh->layout_tree['nodes'][0]['part']);
+        $this->assertSame('header', $fresh->layout_tree['nodes'][6]['part']);
+    }
+
+    #[Test]
+    public function grapesjs_selected_part_preview_reads_body_parts(): void
+    {
+        $this->withoutVite();
+        $this->actingAsFilamentAdmin();
+        $template = $this->prepareLivewirePageTemplate();
+        $template->layout_editor = ApiDocLayoutEditor::GrapesJs->value;
+        $parts = is_array($template->body_parts) ? $template->body_parts : [];
+        $parts['header'] = '<div class="preview-header">Header Preview</div>';
+        $template->body_parts = $parts;
+        $template->save();
+
+        Livewire::test(ApiDocTemplateLayoutEditorPage::class, ['record' => $template->getKey()])
+            ->assertOk()
+            ->set('selectedPart', 'header')
+            ->assertSet('selectedPartPreviewHtml', '<div class="preview-header">Header Preview</div>');
     }
 }
