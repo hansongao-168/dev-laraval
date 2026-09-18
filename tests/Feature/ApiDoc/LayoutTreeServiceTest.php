@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\ApiDoc;
 
+use App\Models\User;
 use Gz168\ApiDoc\Database\Seeders\ApiDocTemplateSeeder;
 use Gz168\ApiDoc\Layout\LayoutTreeDefaults;
 use Gz168\ApiDoc\Layout\LayoutTreeService;
@@ -16,11 +17,28 @@ class LayoutTreeServiceTest extends TestCase
 {
     use LazilyRefreshDatabase;
 
+    private function actingAsLayoutAdmin(): User
+    {
+        $admin = User::factory()->make();
+        $admin->forceFill([
+            'is_protected' => true,
+            'is_super_admin' => true,
+        ])->saveQuietly();
+
+        $this->actingAs($admin);
+
+        return $admin;
+    }
+
     #[Test]
     public function save_dual_writes_tree_and_page(): void
     {
+        $this->actingAsLayoutAdmin();
         $this->seed(ApiDocTemplateSeeder::class);
         $t = ApiDocTemplate::query()->where('code', 'classic')->firstOrFail();
+        $t->layout_visual_enabled = true;
+        $t->save();
+
         $tree = LayoutTreeDefaults::tree();
         app(LayoutTreeService::class)->save($t, $tree);
         $t->refresh();
@@ -39,5 +57,19 @@ class LayoutTreeServiceTest extends TestCase
         $t->layout_visual_enabled = false;
         $t->save();
         $this->assertNull(app(LayoutTreeService::class)->resolveEffectivePage($t));
+    }
+
+    #[Test]
+    public function unauthorized_layout_tree_mutation_is_restored(): void
+    {
+        $this->seed(ApiDocTemplateSeeder::class);
+        $t = ApiDocTemplate::query()->where('code', 'classic')->firstOrFail();
+        $originalTree = $t->layout_tree;
+
+        $t->layout_tree = LayoutTreeDefaults::tree();
+        $t->save();
+        $t->refresh();
+
+        $this->assertSame($originalTree, $t->layout_tree);
     }
 }
