@@ -123,6 +123,14 @@ class ApiDocTemplateResourceTest extends TestCase
 
         Livewire::test(EditApiDocTemplate::class, ['record' => $classic->getKey()])
             ->assertFormFieldExists('js_text')
-            ->assertSeeHtml('template_preview=classic');
+            ->assertFormFieldExists('body_parts.page')
+            ->assertFormFieldExists('body_parts.layout')
+            ->assertFormFieldExists('body_parts.header')
+            ->assertSeeHtml('template_preview=classic')
+            ->assertSee('真前台预览')
+            ->assertSee('简易预览')
+            ->assertSee('组件')
+            ->assertSee('网页版')
+            ->assertSee('手机版');
     }
 }

@@ -93,6 +93,35 @@ class ApiDocTemplatePreviewTest extends TestCase
     }
 
     #[Test]
+    public function authorized_template_preview_shows_skeleton_tokens_not_section_content(): void
+    {
+        $this->seed(ApiDocTemplateSeeder::class);
+        ApiDocSetting::current();
+
+        ApiDocSection::factory()->create([
+            'slug' => 'intro',
+            'is_intro' => true,
+            'is_active' => true,
+            'title' => ['fr' => 'REAL-INTRO-TITLE', 'zh' => '真实介绍'],
+            'intro_h1' => ['fr' => 'REAL-H1', 'zh' => '真实H1'],
+        ]);
+
+        $admin = User::factory()->create([
+            'is_protected' => true,
+            'is_super_admin' => true,
+        ]);
+        $this->actingAs($admin);
+
+        $response = $this->get('/api-doc?template_preview=classic&admin_embed=1');
+        $response->assertOk();
+        $response->assertSee('{h1}', false);
+        $response->assertSee('{nav_label}', false);
+        $response->assertSee('{title}', false);
+        $response->assertDontSee('REAL-INTRO-TITLE', false);
+        $response->assertDontSee('REAL-H1', false);
+    }
+
+    #[Test]
     public function resolve_returns_null_for_unknown_or_trashed_code(): void
     {
         $this->seed(ApiDocTemplateSeeder::class);
