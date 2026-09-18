@@ -125,3 +125,6 @@ flowchart TD
 - 掌握度 = 5：进终身复习列表，每季度一次
 
 具体由 `next-review` 字段 + Dataview 控制，详见 [[00-Home/学习地图]]。
+
+- [[10-Notes/70-Design-Patterns/YAML契约总线-模块解耦]] — contract-bus 把 SOLID 落到模块边界(CI 闸口, v1.3 已覆盖 36 模块,含 Cache / Impact / 扩张)
+

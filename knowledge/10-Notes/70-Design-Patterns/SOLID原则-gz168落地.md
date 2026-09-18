@@ -179,6 +179,8 @@ interface Authorizable {
 - 平行概念：[[10-Notes/70-Design-Patterns/设计模式落地-gz168模块架构]]（23 模式如何协同）、[[10-Notes/70-Design-Patterns/框架内建vs显式模式]]
 - 下位例子：`gz168/Mail/src/Contracts/*Interface.php`（ISP）、`gz168/Inventory/src/Services/Inventory/Contracts/ChannelInventoryAdapter.php`（OCP/DIP）、`gz168/Inventory/src/Services/Inventory/*.php`（SRP 拆分）
 - 关联笔记：[[30-Resources/books/深入设计模式/书评]]（SOLID p.51–67）
+- 后续落地:[[10-Notes/70-Design-Patterns/YAML契约总线-模块解耦]] — 把 DIP 从 import 路径级升到契约机器可读级,v1.3 已 36 契约 / 45 测试
+
 
 ## 复盘
 
