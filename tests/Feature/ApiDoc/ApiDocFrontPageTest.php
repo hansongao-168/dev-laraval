@@ -86,4 +86,36 @@ class ApiDocFrontPageTest extends TestCase
         $this->assertStringNotContainsString('>英文<', $html);
         $this->assertStringContainsString('法文', $html);
     }
+
+    #[Test]
+    public function classic_intro_html_matches_template_without_nested_paragraphs(): void
+    {
+        $this->seed(ApiDocDisplayModeSeeder::class);
+        ApiDocSetting::current();
+
+        $section = ApiDocSection::factory()->create([
+            'slug' => 'intro',
+            'is_intro' => true,
+            'is_active' => true,
+            'intro_h1' => ['fr' => 'API Colis v2', 'zh' => '', 'en' => ''],
+            'title' => ['fr' => 'Intro', 'zh' => '', 'en' => ''],
+            'nav_label' => ['fr' => 'Intro', 'zh' => '', 'en' => ''],
+        ]);
+
+        $section->paras()->create([
+            'sort' => 0,
+            'text' => [
+                'fr' => '<p>bordereaux d&#039;envoi</p>',
+                'zh' => '',
+                'en' => '',
+            ],
+            'content_format' => 'html',
+        ]);
+
+        $this->get('/api-doc')
+            ->assertOk()
+            ->assertSee("bordereaux d'envoi", false)
+            ->assertDontSee('<p><p>', false)
+            ->assertDontSee('&#039;', false);
+    }
 }
