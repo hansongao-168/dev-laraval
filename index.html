@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>37 Express — API Colis v2</title>
+<meta name="description" content="Documentation de l'API Colis v2 de 37 Express — devis, bordereaux, étiquettes, suivi, points relais.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* --- couleur de marque : une seule variable à changer --- */
+  --teal:#099e98;
+  --teal-deep:#0A6E69;
+  --teal-pale:#E7F5F4;
+  --teal-line:#C9E8E5;
+  --teal-tint:#EDF3F2;
+
+  --bg:#F5F8F8;
+  --ink:#12211F;
+  --ink-2:#3C4B49;
+  --ink-3:#42514F;
+  --ink-4:#4A5A58;
+  --mute:#7C8B89;
+  --mute-2:#8B9997;
+  --mute-3:#93A19F;
+
+  --line:#E1E9E8;
+  --line-2:#E4EAE9;
+  --line-3:#EDF1F0;
+  --line-4:#E9EFEE;
+  --slate:#3F5150;
+
+  --panel:#0C1A1C;
+  --panel-line:#1B3533;
+  --panel-line-2:#142A2B;
+  --panel-lab:#8FB2AF;
+  --panel-txt:#CFDEDC;
+
+  --warn:#95590B; --warn-bg:#FFF4E5; --warn-line:#F6DCB4; --warn-bar:#F0A03C; --warn-soft:#FFF8EE;
+  --alert:#A63328; --alert-bg:#FCEEEC; --alert-line:#F3CFC9; --alert-bar:#C0473B; --alert-soft:#FDF1EF;
+
+  --mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
+  --han:'Noto Sans SC','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Source Han Sans SC',sans-serif;
+  --sans:'Plus Jakarta Sans',var(--han),system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:86px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+     font-size:15px;line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:var(--teal-deep);text-decoration:none}
+a:hover{color:var(--teal)}
+summary{list-style:none;cursor:pointer}
+summary::-webkit-details-marker{display:none}
+::selection{background:#C4EAE6}
+.zh{display:block;color:var(--mute);margin-top:4px;font-family:var(--han)}
+
+/* ---------------- en-tête ---------------- */
+header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.94);
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);display:flex;align-items:center;gap:16px;padding:0 26px;height:62px}
+.logo{height:23px;width:auto;display:block;flex:none}
+.vr{width:1px;height:20px;background:#DDE6E5;flex:none}
+.brandline{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--mute);white-space:nowrap}
+.brandline b{color:var(--teal-deep);font-weight:600}
+.grow{flex:1}
+#search{font-family:var(--sans);font-size:13px;padding:8px 13px;border:1px solid var(--line);
+  background:#fff;color:var(--ink);width:212px;border-radius:999px;outline:none;transition:border-color .15s}
+#search:focus{border-color:var(--teal)}
+.langs{display:flex;gap:3px;background:var(--teal-tint);padding:3px;border-radius:999px;border:1px solid var(--line)}
+.langs button{font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.09em;
+  text-transform:uppercase;border:0;cursor:pointer;padding:7px 13px;border-radius:999px;
+  background:transparent;color:#5A6A68;transition:background .15s,color .15s}
+.langs button[aria-pressed="true"]{background:var(--teal);color:#fff}
+.langs button:focus-visible,#search:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+
+/* ---------------- structure ---------------- */
+.wrap{display:flex;align-items:flex-start;max-width:1560px;margin:0 auto}
+aside{position:sticky;top:62px;flex:0 0 268px;max-height:calc(100vh - 62px);overflow-y:auto;
+  padding:30px 16px 90px;border-right:1px solid var(--line)}
+.navgroup{margin-bottom:20px}
+.navgroup>div{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.17em;
+  text-transform:uppercase;color:var(--mute-3);padding:0 12px;margin-bottom:6px}
+aside a{display:block;font-size:13.5px;line-height:1.4;padding:7px 12px;border-radius:9px;color:var(--ink-3)}
+aside a:hover{background:#EAF4F3;color:var(--teal-deep)}
+aside a.on{background:var(--teal-pale);color:var(--teal-deep);font-weight:600}
+main{flex:1 1 auto;min-width:0;padding:40px 40px 180px}
+
+.cols{display:flex;flex-wrap:wrap;gap:44px;align-items:flex-start}
+.col-l{flex:1 1 480px;min-width:0}
+.col-full{flex-basis:100%}
+.col-r{flex:1 1 380px;max-width:470px;min-width:0;position:sticky;top:86px}
+section{scroll-margin-top:86px;border-top:1px solid var(--line);padding-top:40px;margin-bottom:56px}
+section#intro{border-top:0;padding-top:0;margin-bottom:64px}
+
+/* ---------------- intro ---------------- */
+.eyebrow{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:10px;
+  font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--teal-deep);
+  background:var(--teal-pale);border:1px solid var(--teal-line);padding:5px 10px;border-radius:999px;margin-bottom:18px}
+.eyebrow i{width:5px;height:5px;border-radius:50%;background:var(--teal);display:block}
+h1{font-size:44px;font-weight:800;letter-spacing:-.032em;line-height:1.08;margin:0 0 6px}
+.lede p{font-size:16.5px;line-height:1.66;color:var(--ink-4);margin:14px 0 0;max-width:64ch;text-wrap:pretty}
+.lede p .zh{font-size:15px}
+
+/* ---------------- panneau sombre ---------------- */
+.panel{background:var(--panel);border:1px solid var(--panel-line);border-radius:14px;overflow:hidden;
+  box-shadow:0 18px 40px -24px rgba(10,45,44,.55);margin-bottom:14px}
+.panel:last-child{margin-bottom:0}
+.panel-h{display:flex;align-items:center;gap:8px;padding:11px 16px;border-bottom:1px solid var(--panel-line);
+  font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--panel-lab)}
+.panel-h i{width:6px;height:6px;border-radius:50%;background:var(--teal);display:block;flex:none}
+.copy{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  background:rgba(255,255,255,.07);color:var(--panel-lab);border:1px solid var(--panel-line);
+  padding:3px 9px;border-radius:999px;cursor:pointer;transition:color .15s,border-color .15s}
+.copy:hover{color:#fff;border-color:#2E4F4C}
+.copy.done{color:#7FD8D0;border-color:#7FD8D0}
+.panel pre{margin:0;padding:15px 17px;overflow-x:auto;font-family:var(--mono);
+  font-size:12.3px;line-height:1.68;color:var(--panel-txt)}
+.entry-row{padding:14px 16px;border-bottom:1px solid var(--panel-line-2)}
+.entry-row:last-child{border-bottom:0}
+.entry-row .k{font-family:var(--mono);font-size:9.5px;font-weight:500;letter-spacing:.13em;
+  text-transform:uppercase;color:#6F8A88;margin-bottom:5px}
+.entry-row .v{font-family:var(--mono);font-size:12.6px;line-height:1.6;color:#DCEAE8;word-break:break-all}
+
+/* ---------------- en-tête d'endpoint ---------------- */
+.ep-meta{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:13px}
+.verb{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.11em;color:#fff;
+  background:var(--slate);padding:4px 8px;border-radius:6px}
+.path{font-family:var(--mono);font-size:12.4px;color:var(--mute)}
+.path b{color:var(--ink);font-weight:600}
+.badge{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;
+  padding:4px 9px;border-radius:999px;border:1px solid}
+.badge.ok{background:var(--teal-pale);color:var(--teal-deep);border-color:var(--teal-line)}
+.badge.warn{background:var(--warn-bg);color:var(--warn);border-color:var(--warn-line)}
+.badge.alert{background:var(--alert-bg);color:var(--alert);border-color:var(--alert-line)}
+.badge.new{background:var(--teal);color:#fff;border-color:var(--teal)}
+h2{font-size:27px;font-weight:700;letter-spacing:-.024em;line-height:1.24;margin:0;
+  display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.anchor{font-family:var(--mono);font-size:17px;color:#CFDCDA;background:none;border:0;
+  cursor:pointer;padding:0;line-height:1;transition:color .15s}
+section:hover .anchor{color:var(--teal-line)}
+.anchor:hover{color:var(--teal)!important}
+.body p{font-size:15.2px;line-height:1.66;color:var(--ink-3);margin:13px 0 0;max-width:70ch;text-wrap:pretty}
+
+/* ---------------- encarts ---------------- */
+.note{border:1px solid var(--line-4);border-left:3px solid var(--warn-bar);background:var(--warn-soft);
+  border-radius:10px;padding:13px 16px;margin-top:16px;max-width:74ch}
+.note.alert{border-left-color:var(--alert-bar);background:var(--alert-soft)}
+.note.info{border-left-color:var(--teal);background:#EDF7F6}
+.note .lab{font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--warn);margin-bottom:5px}
+.note.alert .lab{color:var(--alert)}
+.note.info .lab{color:var(--teal-deep)}
+.note .txt{font-size:13.8px;line-height:1.6;color:var(--ink-2)}
+.note .txt .zh{color:#6E7D7B;margin-top:5px}
+
+/* ---------------- tableaux ---------------- */
+.tsec{margin-top:30px;max-width:1180px}
+.tsec>.tlab{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--mute);margin-bottom:10px}
+.tcard{background:#fff;border:1px solid var(--line-2);border-radius:12px;overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13.4px}
+thead tr{background:#FAFCFC}
+th{text-align:left;font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--mute-2);padding:11px 14px;border-bottom:1px solid var(--line-2);white-space:nowrap}
+td{padding:11px 14px;border-top:1px solid var(--line-3);vertical-align:top;color:var(--ink-3);line-height:1.55}
+tbody tr:first-child td{border-top:0}
+td.p{font-family:var(--mono);font-size:12.2px;line-height:1.45;word-break:break-word;color:var(--ink)}
+td.p .stem{color:var(--mute)}
+td.p .leaf{font-weight:600}
+td.req{font-family:var(--mono);font-size:11px;font-weight:600;white-space:nowrap}
+td.req.y{color:var(--alert)}
+td.req.n{color:var(--mute)}
+td.ty{font-family:var(--mono);font-size:12px;color:var(--teal-deep);white-space:nowrap}
+td.d{min-width:240px}
+td.d .zh{font-size:12.6px;margin-top:3px}
+tr.legacy{background:var(--warn-soft)}
+tr.hidden{display:none}
+mark{background:#FFE9A8;color:inherit;border-radius:3px;padding:0 2px}
+.tag{display:inline-block;font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:.08em;
+  text-transform:uppercase;padding:2px 6px;margin-left:6px;border-radius:999px;border:1px solid;vertical-align:1px}
+.tag.legacy{background:var(--warn-bg);color:var(--warn);border-color:#F0D9B4}
+.tag.added,.tag.fixed{background:var(--teal-pale);color:var(--teal-deep);border-color:var(--teal-line)}
+.noresult{font-size:13px;color:var(--mute);padding:12px 14px;background:#fff;
+  border:1px solid var(--line-2);border-radius:12px;margin-top:10px}
+.err{font-family:var(--mono);font-size:12.2px;font-weight:600;color:var(--alert);white-space:nowrap}
+
+/* ---------------- démarrage rapide ---------------- */
+.quick{margin-top:34px;background:#fff;border:1px solid var(--line-2);border-radius:14px;overflow:hidden}
+.quick-h{padding:16px 20px;border-bottom:1px solid var(--line-2);background:#FAFCFC}
+.quick-h h3{margin:0;font-size:19px;font-weight:700;letter-spacing:-.02em}
+.quick-h p{margin:3px 0 0;font-size:13.4px;color:var(--mute)}
+.qstep{display:flex;flex-wrap:wrap;gap:28px;padding:20px;border-top:1px solid var(--line-3)}
+.qstep:first-of-type{border-top:0}
+.qstep .l{flex:1 1 320px;min-width:0}
+.qstep .r{flex:1 1 400px;min-width:0}
+.qnum{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;
+  border-radius:999px;background:var(--teal);color:#fff;font-family:var(--mono);
+  font-size:11.5px;font-weight:600;margin-bottom:9px}
+.qstep h4{margin:0 0 6px;font-size:16px;font-weight:700;letter-spacing:-.015em}
+.qstep p{margin:0;font-size:13.8px;line-height:1.6;color:var(--ink-3)}
+
+/* ---------------- transporteurs / décisions ---------------- */
+details.geo>summary{font-family:var(--mono);font-size:11px;color:var(--mute)}
+details.geo>summary::before{content:"\25B8  ";color:var(--teal)}
+details.geo[open]>summary::before{content:"\25BE  "}
+details.geo p{margin:6px 0 0;font-size:12.6px;color:var(--mute);line-height:1.55}
+td.code{font-family:var(--mono);font-size:12.4px;font-weight:500;color:var(--teal-deep);white-space:nowrap}
+ol.decide{counter-reset:d;list-style:none;padding:0;margin:0;background:#fff;
+  border:1px solid var(--line-2);border-radius:12px;overflow:hidden}
+ol.decide li{counter-increment:d;position:relative;padding:15px 18px 15px 58px;border-top:1px solid var(--line-3)}
+ol.decide li:first-child{border-top:0}
+ol.decide li::before{content:counter(d,decimal-leading-zero);position:absolute;left:18px;top:15px;
+  font-family:var(--mono);font-size:11px;font-weight:600;color:#fff;background:var(--alert-bar);
+  padding:3px 7px;border-radius:6px}
+ol.decide b{display:block;margin-bottom:3px;font-size:14.6px;color:var(--ink)}
+ol.decide span{color:var(--ink-3);font-size:13.6px;line-height:1.58}
+
+footer{border-top:1px solid var(--line);margin-top:70px;padding:22px 0 0;font-family:var(--mono);
+  font-size:11px;color:var(--mute);display:flex;flex-wrap:wrap;gap:8px 22px}
+
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(14px);
+  background:var(--panel);color:#DCEAE8;font-size:13px;padding:10px 18px;border-radius:999px;
+  opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;z-index:60;
+  box-shadow:0 12px 30px -14px rgba(10,45,44,.6)}
+#toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media (max-width:1180px){
+  .col-r{position:static;max-width:none;flex-basis:100%}
+  .cols{gap:26px}
+}
+@media (max-width:900px){
+  .wrap{display:block}
+  aside{position:static;max-height:none;border-right:0;border-bottom:1px solid var(--line);
+    padding:16px;display:flex;flex-wrap:wrap;gap:0 16px}
+  .navgroup{margin-bottom:8px}
+  main{padding:26px 18px 90px}
+  h1{font-size:32px}
+  h2{font-size:22px}
+  header{padding:10px 14px;height:auto;flex-wrap:wrap;gap:10px}
+  #search{width:100%;order:5}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+
+@media print{
+  header,aside,#toast,.copy,.anchor{display:none!important}
+  .wrap{display:block;max-width:none}
+  main{padding:0}
+  body{background:#fff;font-size:10.5pt;color:#000}
+  .cols{display:block}
+  .col-r{max-width:none;position:static}
+  section{page-break-inside:auto;padding-top:20pt;margin-bottom:20pt}
+  .panel,.tcard,.quick,ol.decide{page-break-inside:avoid;box-shadow:none}
+  .panel{background:#F4F6F6;border:.5pt solid #999}
+  .panel-h{color:#555;border-bottom:.5pt solid #CCC}
+  .panel pre{color:#111;white-space:pre-wrap;word-break:break-word;font-size:8.5pt}
+  .panel pre span{color:#111 !important}
+  h1,h2,h3,h4,tr{page-break-after:avoid}
+  details.geo>summary{display:none}
+  details.geo p{margin-top:0}
+  tr.hidden{display:table-row !important}
+  .noresult{display:none}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <svg class="logo" viewBox="0 0 108 28" role="img" aria-label="37 Express">
+    <rect width="28" height="28" rx="7" fill="#099e98"/>
+    <text x="14" y="20.5" text-anchor="middle" font-family="'Plus Jakarta Sans',system-ui,sans-serif"
+          font-size="15" font-weight="800" fill="#ffffff">37</text>
+    <text x="35" y="20" font-family="'Plus Jakarta Sans',system-ui,sans-serif"
+          font-size="15" font-weight="700" fill="#12211F">Express</text>
+  </svg>
+  <span class="vr"></span>
+  <span class="brandline">API Colis <b>v2</b></span>
+  <span class="grow"></span>
+  <input id="search" type="search" autocomplete="off" aria-label="Filtrer les parametres">
+  <div class="langs" role="group" id="langs">
+    <button data-lang="fr" aria-pressed="true">Français</button>
+    <button data-lang="zh" aria-pressed="false">中文</button>
+    <button data-lang="both" aria-pressed="false">FR + 中文</button>
+  </div>
+</header>
+
+<div class="wrap">
+  <aside id="nav"></aside>
+  <main id="main"></main>
+</div>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script src="api-data.js"></script>
+<script>
+/* =============================================================================
+   RENDU — aucun contenu de documentation ici. Tout vit dans api-data.js.
+
+   RÉGLAGE DE PUBLICATION : false masque la section "Points à trancher".
+   COULEUR DE MARQUE : variable --teal, en haut de la feuille de style.
+   ========================================================================== */
+(function(){
+"use strict";
+const SHOW_DECISIONS = true;
+
+const D = window.API37;
+if(!D){
+  document.getElementById("main").innerHTML =
+    '<div class="note alert"><div class="lab">Fichier manquant</div><div class="txt">'
+    + 'api-data.js n\'a pas pu être chargé. Vérifiez qu\'il se trouve dans le même dossier '
+    + 'que cette page.</div></div>';
+  return; /* données absentes : on arrête ici */
+}
+const DOC = D.DOC, CARRIERS = D.CARRIERS, DECISIONS = D.DECISIONS,
+      UI = D.UI, QUICKSTART = D.QUICKSTART;
+
+/* ---- langue portée par l'URL : #lang=zh est partageable ---- */
+function langFromHash(){
+  const m = /(?:^|[#&])lang=(fr|zh|both)/.exec(location.hash || "");
+  return m ? m[1] : "fr";
+}
+let LANG = langFromHash();
+
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+function Lp(o){
+  if(!o) return ""; if(typeof o === "string") return o;
+  return LANG === "both" ? o.fr + " / " + o.zh : (o[LANG] || o.fr);
+}
+function L(o){
+  if(!o) return ""; if(typeof o === "string") return o;
+  return LANG === "both" ? o.fr + '<span class="zh">' + o.zh + '</span>' : (o[LANG] || o.fr);
+}
+
+/* ---- coloration syntaxique ---- */
+function hi(code){
+  const RX = /(^[ \t]*(?:#|\/\/)[^\n]*)|("(?:[^"\\]|\\.)*")(\s*:)?|\b(true|false|null)\b|\b\d+(?:\.\d+)?\b/gm;
+  let out = "", last = 0, m;
+  function put(t, c){ out += c ? '<span style="color:'+c+'">'+esc(t)+'</span>' : esc(t); }
+  while((m = RX.exec(code))){
+    if(m.index > last) put(code.slice(last, m.index));
+    if(m[1])           put(m[0], "#6F8A88");
+    else if(m[2]){     put(m[2], m[3] ? "#F3B872" : "#7FD8D0"); if(m[3]) put(m[3]); }
+    else if(m[4])      put(m[0], "#C6A5EE");
+    else               put(m[0], "#9DC8EE");
+    last = m.index + m[0].length;
+  }
+  if(last < code.length) put(code.slice(last));
+  return out;
+}
+function panel(title, code){
+  return '<div class="panel"><div class="panel-h"><i></i>' + esc(Lp(title))
+    + '<span class="grow"></span><button class="copy" type="button" data-copy="'
+    + esc(code).replace(/"/g,"&quot;") + '">' + Lp(UI.copy) + '</button></div><pre>'
+    + hi(code) + '</pre></div>';
+}
+function notes(list){
+  return (list||[]).map(function(n){
+    const kind = n[0], lab = n[1], body = n[2];
+    return '<div class="note ' + (kind==="alert"?"alert":kind==="info"?"info":"") + '">'
+      + '<div class="lab">' + Lp(lab) + '</div>'
+      + (body ? '<div class="txt">' + L(body) + '</div>' : '') + '</div>';
+  }).join("");
+}
+function paramName(p){
+  const i = p.lastIndexOf("/");
+  return i < 0 ? '<span class="leaf">'+esc(p)+'</span>'
+    : '<span class="stem">'+esc(p.slice(0,i+1))+'</span><span class="leaf">'+esc(p.slice(i+1))+'</span>';
+}
+function tagFor(k){
+  if(!k) return "";
+  const m = k === "legacy" ? UI.tagLegacy : k === "added" ? UI.tagAdded : UI.tagFixed;
+  return '<span class="tag '+k+'">'+Lp(m)+'</span>';
+}
+function tsec(label, inner, extra){
+  return '<div class="tsec"><div class="tlab">'+Lp(label)+'</div><div class="tcard">'
+    + inner + '</div>' + (extra||"") + '</div>';
+}
+function paramTable(rows){
+  let h = '<table class="ptable"><thead><tr><th>'+Lp(UI.param)+'</th><th>'+Lp(UI.req)+'</th><th>'
+        + Lp(UI.type)+'</th><th>'+Lp(UI.desc)+'</th></tr></thead><tbody>';
+  for(const r of rows){
+    const p = r[0], req = r[1], ty = r[2], d = r[3], flag = r[4];
+    const y = req && req.fr === "oui";
+    h += '<tr' + (flag==="legacy" ? ' class="legacy"' : '') + ' data-k="'+esc(p.toLowerCase())+'">'
+       + '<td class="p">'+paramName(p)+tagFor(flag)+'</td>'
+       + '<td class="req '+(y?"y":"n")+'">'+Lp(req)+'</td>'
+       + '<td class="ty">'+esc(ty)+'</td><td class="d">'+L(d)+'</td></tr>';
+  }
+  return tsec(UI.param, h+'</tbody></table>',
+    '<div class="noresult" hidden>'+Lp(UI.searchNone)+'</div>');
+}
+function retTable(label, rows){
+  let h = '<table><thead><tr><th>'+Lp(UI.field)+'</th><th>'+Lp(UI.type)+'</th><th>'
+        + Lp(UI.desc)+'</th></tr></thead><tbody>';
+  for(const r of rows)
+    h += '<tr><td class="p"><span class="leaf">'+esc(r[0])+'</span></td><td class="ty">'
+       + esc(r[1])+'</td><td class="d">'+L(r[2])+'</td></tr>';
+  return tsec(label, h+'</tbody></table>');
+}
+function errTable(rows){
+  let h = '<table><thead><tr><th>'+Lp(UI.err)+'</th><th>'+Lp(UI.cause)+'</th></tr></thead><tbody>';
+  for(const r of rows)
+    h += '<tr><td><span class="err">'+esc(r[0])+'</span></td><td class="d">'+L(r[1])+'</td></tr>';
+  return tsec(UI.err, h+'</tbody></table>');
+}
+function anchorBtn(id){
+  return '<button class="anchor" type="button" data-anchor="'+id+'" title="'+Lp(UI.anchor)+'">#</button>';
+}
+
+/* ---- sections ---- */
+function renderQuick(){
+  let h = '<div class="quick" id="quickstart"><div class="quick-h"><h3>'+Lp(UI.quickH)
+        + '</h3><p>'+Lp(UI.quickSub)+'</p></div>';
+  QUICKSTART.forEach(function(s, i){
+    h += '<div class="qstep"><div class="l"><div class="qnum">'+(i+1)+'</div><h4>'+Lp(s.h)
+       + '</h4><p>'+L(s.d)+'</p></div>'
+       + (s.code ? '<div class="r">'+panel(Lp(UI.quickStep)+" "+(i+1), s.code)+'</div>' : '')
+       + '</div>';
+  });
+  return h + '</div>';
+}
+function renderIntro(s){
+  let entries = '<div class="panel"><div class="panel-h"><i></i>'+Lp(UI.entry)+'</div>';
+  for(const b of s.base)
+    entries += '<div class="entry-row"><div class="k">'+Lp(b[0])+'</div>'
+      + String(b[1]).split("\n").map(function(x){ return '<div class="v">'+esc(x)+'</div>'; }).join("")
+      + '</div>';
+  entries += '</div>';
+  return '<section id="intro"><div class="cols"><div class="col-l">'
+    + '<div class="eyebrow"><i></i>REST · JSON · OAuth2</div>'
+    + '<h1>'+Lp(s.h1)+'</h1><div class="lede">'
+    + s.paras.map(function(p){ return '<p>'+L(p)+'</p>'; }).join("") + '</div>'
+    + '<div style="margin-top:24px">'+notes(s.notes)+'</div>'
+    + '</div><div class="col-r">'+entries+'</div></div>' + renderQuick() + '</section>';
+}
+function renderSection(s){
+  if(s.intro) return renderIntro(s);
+  const hasCode = s.blocks && s.blocks.length;
+  const left = '<div class="ep-meta"><span class="verb">'+esc(s.verb)+'</span><span class="path">'
+    + (s.path.charAt(0) === "/" ? esc(s.path) : '/api/parcel/v2/ · <b>'+esc(s.path)+'</b>')
+    + '</span><span class="badge '+s.stamp[0]+'">'+Lp(s.stamp[1])+'</span></div>'
+    + '<h2>'+Lp(s.title)+anchorBtn(s.id)+'</h2><div class="body">'
+    + s.paras.map(function(p){ return '<p>'+L(p)+'</p>'; }).join("") + '</div>' + notes(s.notes);
+
+  let h = '<section id="'+s.id+'"><div class="cols">'
+    + '<div class="col-l'+(hasCode?'':' col-full')+'">'+left+'</div>'
+    + (hasCode ? '<div class="col-r">'
+        + s.blocks.map(function(b){ return panel(b.h, b.code); }).join("") + '</div>' : '')
+    + '</div>';
+  if(s.table)  h += paramTable(s.table.rows);
+  if(s.table2) h += retTable(s.table2.h, s.table2.rows);
+  if(s.errors) h += errTable(s.errors);
+  return h + '</section>';
+}
+function renderCarriers(){
+  let tb = '<table><thead><tr><th>'+Lp(UI.carrierCode)+'</th><th>'+Lp(UI.carrierName)+'</th><th>'
+         + Lp(UI.carrierGeo)+'</th></tr></thead><tbody>';
+  for(const c of CARRIERS)
+    tb += '<tr><td class="code">'+esc(c[0])+'</td><td>'+Lp(c[1])+'</td><td class="d">'
+        + '<details class="geo"><summary>'+Lp(UI.see)+'</summary><p>'+L(c[2])+'</p></details></td></tr>';
+  return '<section id="transporteurs"><div class="cols"><div class="col-l col-full">'
+    + '<div class="ep-meta"><span class="verb">REF</span><span class="path">createShipment · '
+    + '<b>carrier</b></span><span class="badge warn">'+Lp(UI.codesOnly)+'</span></div>'
+    + '<h2>'+Lp(UI.carriersH)+anchorBtn("transporteurs")+'</h2>'
+    + '<div class="body"><p>'+L(UI.carriersLede)+'</p></div>'
+    + '<div class="note info"><div class="lab">'+Lp(UI.latest)+'</div><div class="txt">'
+    + L(UI.carriersNote)+'</div></div></div></div>'
+    + tsec(UI.carriersH, tb+'</tbody></table>') + '</section>';
+}
+function renderDecisions(){
+  if(!SHOW_DECISIONS) return "";
+  let h = '<section id="trancher"><div class="cols"><div class="col-l col-full">'
+    + '<div class="ep-meta"><span class="verb">TODO</span><span class="path">'+Lp(UI.decideSub)
+    + '</span><span class="badge alert">'+Lp(UI.open)+'</span></div>'
+    + '<h2>'+Lp(UI.decideH)+anchorBtn("trancher")+'</h2></div></div>'
+    + '<div class="tsec"><ol class="decide">';
+  for(const d of DECISIONS) h += '<li><b>'+Lp(d[0])+'</b><span>'+L(d[1])+'</span></li>';
+  return h + '</ol></div></section>';
+}
+function renderNav(){
+  const groups = [];
+  for(const s of DOC){
+    const g = Lp(s.group);
+    let e = groups.find(function(x){ return x.g === g; });
+    if(!e){ e = {g:g, items:[]}; groups.push(e); }
+    e.items.push([s.id, Lp(s.nav)]);
+  }
+  const ref = [["transporteurs", Lp(UI.carriersH)]];
+  if(SHOW_DECISIONS) ref.push(["trancher", Lp(UI.decideH)]);
+  groups.push({g:Lp(UI.ref), items:ref});
+  return groups.map(function(gr){
+    return '<div class="navgroup"><div>'+gr.g+'</div>'
+      + gr.items.map(function(it){ return '<a href="#'+it[0]+'">'+it[1]+'</a>'; }).join("")
+      + '</div>';
+  }).join("");
+}
+
+function render(){
+  document.documentElement.lang = LANG === "zh" ? "zh" : "fr";
+  document.getElementById("search").placeholder = Lp(UI.search);
+  document.getElementById("nav").innerHTML = renderNav();
+  document.getElementById("main").innerHTML =
+    DOC.map(renderSection).join("") + renderCarriers() + renderDecisions()
+    + '<footer><span>37 Express · API Colis v2</span><span>'+Lp(UI.footL)+'</span></footer>';
+  const btns = document.getElementById("langs").children;
+  for(const b of btns) b.setAttribute("aria-pressed", String(b.dataset.lang === LANG));
+  spy();
+  applyFilter(document.getElementById("search").value);
+}
+
+let io;
+function spy(){
+  if(io) io.disconnect();
+  const links = Array.prototype.slice.call(document.querySelectorAll("aside a"));
+  const map = new Map(links.map(function(a){ return [a.getAttribute("href").slice(1), a]; }));
+  io = new IntersectionObserver(function(es){
+    for(const e of es) if(e.isIntersecting){
+      links.forEach(function(a){ a.classList.remove("on"); });
+      const a = map.get(e.target.id); if(a) a.classList.add("on");
+    }
+  }, {rootMargin:"-90px 0px -70% 0px"});
+  document.querySelectorAll("section").forEach(function(s){ io.observe(s); });
+}
+
+function applyFilter(q){
+  q = (q||"").trim().toLowerCase();
+  const rx = q ? new RegExp("("+q.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+")","ig") : null;
+  document.querySelectorAll("table.ptable").forEach(function(tbl){
+    let shown = 0;
+    for(const tr of tbl.tBodies[0].rows){
+      const hit = !q || (tr.dataset.k||"").indexOf(q) !== -1;
+      tr.classList.toggle("hidden", !hit);
+      if(hit) shown++;
+      const c = tr.cells[0];
+      if(!c.dataset.orig) c.dataset.orig = c.innerHTML;
+      c.innerHTML = (rx && hit) ? c.dataset.orig.replace(rx, "<mark>$1</mark>") : c.dataset.orig;
+    }
+    const box = tbl.closest(".tsec");
+    const msg = box && box.querySelector(".noresult");
+    if(msg) msg.hidden = shown > 0;
+  });
+}
+
+let toastT;
+function toast(msg){
+  const el = document.getElementById("toast");
+  el.textContent = msg; el.classList.add("on");
+  clearTimeout(toastT); toastT = setTimeout(function(){ el.classList.remove("on"); }, 1700);
+}
+async function copyText(text){
+  try{ await navigator.clipboard.writeText(text); return true; }
+  catch(e){
+    const ta = document.createElement("textarea");
+    ta.value = text; ta.style.cssText = "position:fixed;opacity:0";
+    document.body.appendChild(ta); ta.select();
+    let ok = false; try{ ok = document.execCommand("copy"); }catch(_){}
+    ta.remove(); return ok;
+  }
+}
+
+document.getElementById("langs").addEventListener("click", function(e){
+  const b = e.target.closest("button"); if(!b) return;
+  LANG = b.dataset.lang;
+  history.replaceState(null, "", "#lang="+LANG);
+  render(); window.scrollTo({top:0});
+});
+document.getElementById("search").addEventListener("input", function(e){ applyFilter(e.target.value); });
+document.addEventListener("click", async function(e){
+  const c = e.target.closest(".copy");
+  if(c){
+    const ta = document.createElement("textarea"); ta.innerHTML = c.dataset.copy;
+    if(await copyText(ta.value)){
+      c.textContent = Lp(UI.copied); c.classList.add("done");
+      setTimeout(function(){ c.textContent = Lp(UI.copy); c.classList.remove("done"); }, 1400);
+    }
+    return;
+  }
+  const a = e.target.closest(".anchor");
+  if(a){
+    const url = location.origin + location.pathname + "#lang="+LANG+"&s="+a.dataset.anchor;
+    if(await copyText(url)) toast(Lp(UI.copied) + " — #" + a.dataset.anchor);
+  }
+});
+window.addEventListener("hashchange", function(){
+  const l = langFromHash();
+  if(l !== LANG){ LANG = l; render(); }
+  const m = /[#&]s=([\w-]+)/.exec(location.hash);
+  if(m){ const el = document.getElementById(m[1]); if(el) el.scrollIntoView(); }
+});
+
+render();
+(function(){
+  const m = /[#&]s=([\w-]+)/.exec(location.hash);
+  if(m) requestAnimationFrame(function(){
+    const el = document.getElementById(m[1]); if(el) el.scrollIntoView();
+  });
+})();
+
+})(); /* fin de la portée du rendu — évite tout conflit de noms avec api-data.js */
+</script>
+</body>
+</html>

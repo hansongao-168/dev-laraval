@@ -59,3 +59,4 @@ SORT topic ASC, confidence ASC
 - 后端：Laravel 13（PHP 8.5）
 - 管理后台：Filament 5
 - 已有项目复盘：[[20-Projects/laravel-dev-laraval/复盘]]
+- 模块 ServiceProvider 底座：[[10-Notes/60-PHP-Laravel/spatie-laravel-package-tools]]

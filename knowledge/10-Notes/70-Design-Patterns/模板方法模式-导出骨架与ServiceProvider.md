@@ -99,6 +99,7 @@ packageBooted()              ← 钩子：启动路由/命令/事件
 
 - 上位概念：[[10-Notes/70-Design-Patterns/MOC]]、[[00-Home/学习地图]]
 - 平行概念：[[10-Notes/70-Design-Patterns/策略与适配器-多平台库存推送]]（策略 vs 模板方法）、[[10-Notes/70-Design-Patterns/设计模式落地-gz168模块架构]]
+- 包工具全量解读：[[10-Notes/60-PHP-Laravel/spatie-laravel-package-tools]]
 - 下位例子：`gz168/ExportManagement/src/Services/ExportService.php`、`gz168/DemoConsumer/src/Providers/DemoConsumerServiceProvider.php`
 - 反模式对照：《深入设计模式》"模板方法被过度设计成回调地狱"
 

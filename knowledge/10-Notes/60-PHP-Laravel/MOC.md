@@ -4,7 +4,7 @@ topic: php
 subtopic: laravel
 status: active
 created: 2026-07-26
-updated: 2026-07-26
+updated: 2026-09-24
 tags:
   - moc
   - php
@@ -27,6 +27,7 @@ tags:
 - Filament Resources / Pages / Widgets
 - 测试（PHPUnit 12 + Pest 可选）
 - Laravel Boost v2 / MCP v0
+- 包与模块化（Spatie Package Tools / gz168 模块）
 
 ## 原子笔记（本主题）
 
@@ -41,9 +42,11 @@ WHERE type = "atomic"
 SORT confidence ASC
 ```
 
-## 入门起步（1 篇示范）
+## 入门起步
 
 - [[10-Notes/60-PHP-Laravel/中间件]]
+- [[10-Notes/60-PHP-Laravel/spatie-laravel-package-tools]] — Spatie Package Tools 架构/流程/用法
+- [[10-Notes/60-PHP-Laravel/spatie-laravel-package-tools-源码注解]] — 全部 34 个 PHP 逐方法注解
 
 ## 项目主线
 
