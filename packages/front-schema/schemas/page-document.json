@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://erp.local/schemas/front-page-document.json",
+  "title": "FrontPage Document",
+  "type": "object",
+  "required": ["schemaVersion", "page", "shell"],
+  "properties": {
+    "schemaVersion": { "type": "integer", "minimum": 1 },
+    "page": {
+      "type": "object",
+      "required": ["slug", "channel", "shellKey"],
+      "properties": {
+        "slug": { "type": "string", "minLength": 1 },
+        "channel": { "type": "string" },
+        "shellKey": { "type": "string" },
+        "defaultSkinCode": { "type": "string" },
+        "themePolicy": {
+          "type": "string",
+          "enum": ["follow_schedule", "ignore_schedule", "force_locked"]
+        },
+        "lockedThemeCode": { "type": ["string", "null"] },
+        "lockedSkinCode": { "type": ["string", "null"] },
+        "title": { "type": "object", "additionalProperties": { "type": "string" } }
+      },
+      "additionalProperties": true
+    },
+    "shell": {
+      "type": "object",
+      "required": ["key", "slots"],
+      "properties": {
+        "key": { "type": "string" },
+        "slots": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": { "$ref": "#/$defs/blockInstance" }
+          }
+        }
+      }
+    },
+    "meta": { "type": "object" }
+  },
+  "$defs": {
+    "blockInstance": {
+      "type": "object",
+      "required": ["id", "type"],
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "type": "string" },
+        "props": { "type": "object" },
+        "call": {
+          "type": "object",
+          "required": ["capability"],
+          "properties": {
+            "id": { "type": "string" },
+            "module": { "type": "string" },
+            "capability": { "type": "string" },
+            "args": { "type": "object" },
+            "onError": { "type": "string", "enum": ["fail", "omit", "empty"] }
+          }
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

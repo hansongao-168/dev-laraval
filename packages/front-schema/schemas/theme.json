@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://erp.local/schemas/front-theme.json",
+  "title": "FrontTemplate Theme",
+  "type": "object",
+  "required": ["code", "skinCode"],
+  "properties": {
+    "code": { "type": "string" },
+    "skinCode": { "type": "string" },
+    "enabled": { "type": "boolean" },
+    "label": {},
+    "channels": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "notes": { "type": "string" },
+    "pageOverlays": {
+      "type": "object",
+      "description": "Optional per-page slot overlays: pageOverlays.{slug}.{slot}.{prepend|append}",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object",
+          "properties": {
+            "prepend": {
+              "type": "array",
+              "items": { "type": "object" }
+            },
+            "append": {
+              "type": "array",
+              "items": { "type": "object" }
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}

@@ -28,7 +28,13 @@
         "gz168/filament": "dev-master",
         "gz168/filament-admin": "dev-master",
         "gz168/front-nav": "dev-master",
+        "gz168/front-shell": "dev-master",
+        "gz168/front-template": "dev-master",
+        "gz168/front-page": "dev-master",
         "gz168/git-management": "dev-master",
+        "gz168/wechat-app": "dev-master",
+        "gz168/wechat-contracts": "dev-master",
+        "gz168/wechat-mini-program": "dev-master",
         "gz168/gmail-api": "dev-master",
         "gz168/kafka-management": "dev-master",
         "gz168/log-management": "dev-master",
@@ -190,6 +196,10 @@
         },
         {
             "type": "path",
+            "url": "gz168/Customer"
+        },
+        {
+            "type": "path",
             "url": "gz168/DemoConsumer"
         },
         {
@@ -211,6 +221,18 @@
         {
             "type": "path",
             "url": "gz168/FrontNav"
+        },
+        {
+            "type": "path",
+            "url": "gz168/FrontShell"
+        },
+        {
+            "type": "path",
+            "url": "gz168/FrontTemplate"
+        },
+        {
+            "type": "path",
+            "url": "gz168/FrontPage"
         },
         {
             "type": "path",
@@ -379,6 +401,18 @@
         {
             "type": "path",
             "url": "gz168/UserManagement"
+        },
+        {
+            "type": "path",
+            "url": "gz168/WechatApp"
+        },
+        {
+            "type": "path",
+            "url": "gz168/WechatContracts"
+        },
+        {
+            "type": "path",
+            "url": "gz168/WechatMiniProgram"
         },
         {
             "type": "path",

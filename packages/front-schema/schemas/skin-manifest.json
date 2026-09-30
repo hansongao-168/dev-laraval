@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://erp.local/schemas/front-skin-manifest.json",
+  "title": "FrontTemplate Skin Manifest",
+  "type": "object",
+  "required": ["code", "schemaVersion"],
+  "properties": {
+    "code": { "type": "string", "minLength": 1 },
+    "schemaVersion": { "type": "integer", "minimum": 1 },
+    "label": {},
+    "compatibleShellKeys": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "parts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["key"],
+        "properties": {
+          "key": { "type": "string" },
+          "label": { "type": "string" },
+          "valueType": { "type": "string" }
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}
