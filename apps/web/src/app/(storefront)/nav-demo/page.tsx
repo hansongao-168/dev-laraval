@@ -13,7 +13,7 @@ import { getFrontNav } from '@/lib/front-nav';
  *      run on the same identity as the rest of the page.
  *   2. The returned tree is rendered as nested <ul>/<li> with links.
  *
- * Open this in a browser at `/nav-demo` (desktop) to see the live tree.
+ * Open this in a browser at `/nav-demo` (storefront) to see the live tree.
  */
 export default async function NavDemoPage() {
   const sidebar = await getFrontNav('sidebar');
