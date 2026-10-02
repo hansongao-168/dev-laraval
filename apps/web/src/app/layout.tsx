@@ -28,7 +28,7 @@ export default async function RootLayout({
   return (
     <html lang="zh-CN" className="h-full antialiased">
       <body className="flex min-h-full flex-col" data-session-status={session.status}>
-        {/* Provider 链：C7 阶段以 data-* 暴露 session 状态；C5 阶段补 ThemeProvider/DeviceProvider */}
+        {/* Provider 链：C7 阶段以 data-* 暴露 session 状态；C5 阶段补 ThemeProvider。站点分区见 (storefront)/(account)/(auth)，非 device 路由组。 */}
         {children}
       </body>
     </html>

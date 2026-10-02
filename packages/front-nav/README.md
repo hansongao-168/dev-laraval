@@ -101,7 +101,7 @@ export async function getFrontNav(location: string, locale?: string) {
 }
 ```
 
-A working example lives at `apps/web/src/app/(desktop)/nav-demo/page.tsx`.
+A working example lives at `apps/web/src/app/(storefront)/nav-demo/page.tsx`.
 
 ## Wire shape
 

@@ -18,7 +18,7 @@ on:
       - 'tests/Feature/FrontNav/**'
       - 'storage/app/openapi/**'
       - 'apps/web/src/lib/front-nav.ts'
-      - 'apps/web/src/app/(desktop)/nav-demo/**'
+      - 'apps/web/src/app/(storefront)/nav-demo/**'
       - 'apps/web/package.json'
       - '.github/workflows/front-nav.yml'
       - 'composer.json'
@@ -30,7 +30,7 @@ on:
       - 'tests/Feature/FrontNav/**'
       - 'storage/app/openapi/**'
       - 'apps/web/src/lib/front-nav.ts'
-      - 'apps/web/src/app/(desktop)/nav-demo/**'
+      - 'apps/web/src/app/(storefront)/nav-demo/**'
       - 'apps/web/package.json'
       - '.github/workflows/front-nav.yml'
       - 'composer.json'
@@ -118,7 +118,7 @@ jobs:
         run: |
           npx eslint \
             src/lib/front-nav.ts \
-            'src/app/(desktop)/nav-demo/page.tsx'
+            'src/app/(storefront)/nav-demo/page.tsx'
 
   # Node matrix job — the SDK is pure JavaScript with no PHP dependency,
   # so it gets its own matrix across Node LTS versions. Splitting it out
