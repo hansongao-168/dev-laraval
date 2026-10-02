@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "check:zones": "node ./scripts/assert-site-zones.mjs"
   },
   "dependencies": {
     "@erp/api-client": "file:../../packages/api-client",
