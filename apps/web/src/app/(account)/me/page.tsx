@@ -3,7 +3,7 @@ import { getCurrentSession } from '@/lib/server-customer'
 import { redirect } from 'next/navigation'
 
 /**
- * (desktop) /me — 个人中心首页。
+ * (account) /me — 个人中心首页。
  *
  * 真实视图后续抽到 @erp/module-users/views/ProfileView（C7.5 阶段）；
  * 当前 C7 阶段先给最小可读版本，复用 server-customer.ts 的 SessionContext。
