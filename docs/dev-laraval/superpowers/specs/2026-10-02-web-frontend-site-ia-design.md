@@ -152,12 +152,12 @@ apps/web/src/app/
 ## 11. 验收标准（本规格）
 
 - [x] 文档明确现行 A，且 B/C 以「保留备选、不实现」写清重评条件。
-- [x] 路由树、FrontNav location、页面渲染路径无互相矛盾（文档层；布局内 FrontNav 驱动菜单仍属 M2+）。
-- [x] 与「每 URL 一份 page」及禁止 `(desktop|tablet|mobile)` 平行业务页一致（M0.5：`check:zones` + 三区骨架已落地）。
+- [x] 路由树、FrontNav location、页面渲染路径无互相矛盾。
+- [x] 与「每 URL 一份 page」及禁止 `(desktop|tablet|mobile)` 平行业务页一致。
 - [x] `web-frontend.md` 已同步分区命名（不再以单一 `(app)` 表示全部业务）。
 
 ## 12. 后续
 
-1. 用户审阅本规格与已修订的 `web-frontend.md`。
-2. 通过后 writing-plans：优先 **M0.5**（去掉平行 device page → 建 `(storefront)/(account)/(auth)` 骨架）或与 M1 抽包排序由计划决定。
-3. 实现阶段再改 `apps/web` 并跑 `next build`。
+1. **M0.5 已完成**（平行 device 树已移除；`(storefront)/(account)/(auth)` 骨架与 zone 校验已落地）。
+2. 下一步：**M1+**（按 `web-frontend.md` 里程碑继续，如抽包、Shell 深化等；具体顺序见 writing-plans）。
+3. 各阶段继续跑 `npm --prefix apps/web run check:zones` 与 `next build` 验收。

@@ -5,7 +5,7 @@ import { loginAction } from '@/lib/server-customer'
  * /login — 前台登录页（C7 阶段最小可用版）。
  *
  * 接入 gz168/Customer 的 POST /api/v1/auth/login。
- * 设计稿：详见 docs/architecture/web-frontend.md。
+ * 设计稿：详见 docs/dev-laraval/architecture/web-frontend.md。
  */
 interface LoginPageProps {
   searchParams?: { next?: string; reset?: string }

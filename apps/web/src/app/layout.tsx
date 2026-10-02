@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 /**
  * Root Layout（L0）
  *
- * 职责白名单（参考 docs/architecture/web-frontend.md §3）：
+ * 职责白名单（参考 docs/dev-laraval/architecture/web-frontend.md §3）：
  * - 渲染 <html>/<body>
  * - 引入字体（next/font）、globals.css
  * - 全局 metadata / viewport

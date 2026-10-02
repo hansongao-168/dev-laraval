@@ -59,7 +59,7 @@ npm run dev:miniapp
 
 - 模块设计基线：[`docs/architecture/gz168-customer.md`](docs/architecture/gz168-customer.md)
   —— `gz168/Customer`（前台用户域）的完整架构、约束与边界守卫。
-- 多端前端架构：[`docs/architecture/web-frontend.md`](docs/architecture/web-frontend.md)
+- 多端前端架构：[`docs/dev-laraval/architecture/web-frontend.md`](docs/dev-laraval/architecture/web-frontend.md)
   —— L0/L1/L2/L3 分层、声明式导航、三端 Shell。
 - Customer 域 host 接入：[`docs/architecture/customer-host-integration.md`](docs/architecture/customer-host-integration.md)
   —— `.env` / `config/customer.php` / Filament / Sanctum 接入步骤。
