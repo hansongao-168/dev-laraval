@@ -12,6 +12,8 @@
         "filament/filament": "^5.0",
         "gz168/address-management": "@dev",
         "gz168/api-auth": "dev-master",
+        "gz168/api-integration": "dev-master",
+        "gz168/api-integration-contracts": "dev-master",
         "gz168/attribute-management": "dev-master",
         "gz168/cache-management": "dev-master",
         "gz168/common": "dev-master",
@@ -28,6 +30,8 @@
         "gz168/filament": "dev-master",
         "gz168/filament-admin": "dev-master",
         "gz168/front-nav": "dev-master",
+        "gz168/front-shell": "dev-master",
+        "gz168/front-template": "dev-master",
         "gz168/git-management": "dev-master",
         "gz168/inventory": "@dev",
         "gz168/kafka-management": "dev-master",
@@ -113,7 +117,9 @@
         "psr-4": {
             "Tests\\": "tests/",
             "Gz168\\DatabaseManager\\Tests\\": "gz168/DatabaseManager/tests/",
-            "Gz168\\Customer\\Tests\\": "gz168/Customer/tests/"
+            "Gz168\\Customer\\Tests\\": "gz168/Customer/tests/",
+            "Gz168\\ApiIntegration\\Tests\\": "gz168/ApiIntegration/tests/",
+            "Gz168\\ApiIntegrationContracts\\Tests\\": "gz168/ApiIntegrationContracts/tests/"
         }
     },
     "scripts": {
@@ -190,6 +196,14 @@
         },
         {
             "type": "path",
+            "url": "gz168/ApiIntegration"
+        },
+        {
+            "type": "path",
+            "url": "gz168/ApiIntegrationContracts"
+        },
+        {
+            "type": "path",
             "url": "gz168/AttributeManagement"
         },
         {
@@ -227,6 +241,14 @@
         {
             "type": "path",
             "url": "gz168/FrontNav"
+        },
+        {
+            "type": "path",
+            "url": "gz168/FrontShell"
+        },
+        {
+            "type": "path",
+            "url": "gz168/FrontTemplate"
         },
         {
             "type": "path",
