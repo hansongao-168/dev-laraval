@@ -14,7 +14,6 @@
     "strictNullChecks": true,
     "skipLibCheck": true,
     "sourceMap": true,
-    "rootDir": ".",
     "jsx": "react-jsx",
     "allowJs": true,
     "resolveJsonModule": true,
@@ -28,7 +27,9 @@
       // 显式把 @erp/front-nav 的子路径指到源码 .d.ts
       "@erp/front-nav": ["../../packages/front-nav/src/index.d.ts"],
       "@erp/front-nav/core": ["../../packages/front-nav/src/core/index.d.ts"],
-      "@erp/front-nav/react": ["../../packages/front-nav/src/react/index.d.ts"]
+      "@erp/front-nav/react": ["../../packages/front-nav/src/react/index.d.ts"],
+      "@erp/front-experience": ["../../packages/front-experience/src/index.d.ts"],
+      "@erp/i18n": ["../../packages/i18n/src/index.d.ts"]
     }
   },
   "include": ["./src", "./types", "./config"],

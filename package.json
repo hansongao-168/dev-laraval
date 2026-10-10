@@ -3,20 +3,28 @@
     "name": "erp-platform",
     "private": true,
     "type": "module",
+    "workspaces": [
+        "apps/*",
+        "packages/*",
+        "modules/*"
+    ],
     "scripts": {
         "build": "vite build",
         "build:all": "npm run build && npm run build:web && npm run build:miniapp",
-        "build:web": "npm --prefix apps/web run build",
-        "build:miniapp": "npm --prefix apps/miniapp run build:weapp",
-        "check:clients": "npm run check:web && npm run check:mobile && npm run check:miniapp",
-        "check:web": "npm --prefix apps/web run lint && npm --prefix apps/web run typecheck",
-        "check:mobile": "npm --prefix apps/mobile run lint && npm --prefix apps/mobile run typecheck",
-        "check:miniapp": "npm --prefix apps/miniapp run typecheck",
+        "build:web": "npm -w @erp/web run build",
+        "build:miniapp": "npm -w @erp/miniapp run build:weapp",
+        "check:clients": "npm run check:web && npm run check:mobile && npm run check:miniapp && npm run lint:boundaries && npm run test:web && npm run test:packages",
+        "lint:boundaries": "eslint apps/web apps/mobile apps/miniapp packages modules",
+        "check:web": "npm -w @erp/web run check",
+        "check:mobile": "npm -w @erp/mobile run check",
+        "check:miniapp": "npm -w @erp/miniapp run check",
+        "test:web": "npm -w @erp/web run test",
+        "test:packages": "npm run test -w @erp/config -w @erp/devices -w @erp/api-client -w @erp/ui -w @erp/i18n -w @erp/front-experience -w @erp/eslint-config -w @erp/front-nav -w @erp/module-auth -w @erp/module-users -w @erp/module-storefront",
         "dev": "vite",
-        "dev:web": "npm --prefix apps/web run dev",
-        "dev:mobile": "npm --prefix apps/mobile run start",
-        "dev:miniapp": "npm --prefix apps/miniapp run dev:weapp",
-        "setup:clients": "npm --prefix apps/web install && npm --prefix apps/mobile install && npm --prefix apps/miniapp install --ignore-scripts"
+        "dev:web": "npm -w @erp/web run dev",
+        "dev:mobile": "npm -w @erp/mobile run start",
+        "dev:miniapp": "npm -w @erp/miniapp run dev:weapp",
+        "setup:clients": "npm install"
     },
     "engines": {
         "node": ">=22"
@@ -24,6 +32,8 @@
     "devDependencies": {
         "@tailwindcss/vite": "^4.0.0",
         "concurrently": "^9.0.1",
+        "eslint": "^9.39.5",
+        "@erp/eslint-config": "*",
         "laravel-vite-plugin": "^3.1",
         "tailwindcss": "^4.0.0",
         "vite": "^8.0.0"

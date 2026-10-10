@@ -8,11 +8,21 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "check:zones": "node ./scripts/assert-site-zones.mjs"
+    "check:zones": "node ./scripts/assert-site-zones.mjs",
+    "check": "npm run lint && npm run typecheck && npm run check:zones",
+    "test": "node --experimental-strip-types --test tests/*.test.mjs"
   },
   "dependencies": {
-    "@erp/api-client": "file:../../packages/api-client",
-    "@erp/front-nav": "file:../../packages/front-nav",
+    "@erp/api-client": "*",
+    "@erp/config": "*",
+    "@erp/devices": "*",
+    "@erp/front-experience": "*",
+    "@erp/front-nav": "*",
+    "@erp/i18n": "*",
+    "@erp/module-auth": "*",
+    "@erp/module-storefront": "*",
+    "@erp/module-users": "*",
+    "@erp/ui": "*",
     "next": "16.2.11",
     "react": "19.2.4",
     "react-dom": "19.2.4"

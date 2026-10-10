@@ -11,6 +11,7 @@
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
+    "check": "npm run typecheck",
     "build:weapp": "taro build --type weapp",
     "dev:weapp": "npm run build:weapp -- --watch"
   },
@@ -20,8 +21,10 @@
   ],
   "author": "",
   "dependencies": {
-    "@erp/api-client": "file:../../packages/api-client",
-    "@erp/front-nav": "file:../../packages/front-nav",
+    "@erp/api-client": "*",
+    "@erp/front-experience": "*",
+    "@erp/front-nav": "*",
+    "@erp/i18n": "*",
     "@babel/runtime": "^7.24.4",
     "@tarojs/components": "4.2.1",
     "@tarojs/helper": "4.2.1",

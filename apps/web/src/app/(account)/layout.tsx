@@ -1,64 +1,38 @@
 import type { ReactNode } from 'react'
-import Link from 'next/link'
-import { getCurrentSession, logoutAction } from '@/lib/server-customer'
+import { AccountZone } from '@/components/account-zone'
+import { t } from '@/i18n'
+import { getFrontNavSafe } from '@/lib/front-nav'
+import { mapFrontNavToChrome } from '@/lib/map-front-nav'
+import { logoutAction, requireAccountSession } from '@/lib/server-customer'
 
-/**
- * (account) zone layout — Account chrome skeleton (site IA A).
- * DeviceShell extraction is M1/M2; this is a single layout for all viewports.
- */
 export default async function AccountLayout({ children }: { children: ReactNode }) {
-  const session = await getCurrentSession()
+  const session = await requireAccountSession('/me')
+  const [sidebarNav, mobileNav] = await Promise.all([
+    getFrontNavSafe('sidebar'),
+    getFrontNavSafe('mobile'),
+  ])
+
+  const accountSlot = (
+    <div className="flex items-center gap-3">
+      <span className="text-sm text-slate-600">{session.user.email}</span>
+      <form action={logoutAction}>
+        <button
+          type="submit"
+          className="rounded-lg border border-slate-300 px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+        >
+          {t('chrome.logout')}
+        </button>
+      </form>
+    </div>
+  )
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      <header className="border-b border-slate-200 bg-white">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <Link href="/" className="flex items-center gap-2">
-            <span className="grid size-8 place-items-center rounded-lg bg-blue-600 text-sm font-bold text-white">
-              E
-            </span>
-            <span className="font-semibold tracking-tight text-slate-900">ERP Global</span>
-          </Link>
-          <div className="flex items-center gap-3">
-            {session.user ? (
-              <>
-                <span className="text-sm text-slate-600">{session.user.email}</span>
-                <form action={logoutAction}>
-                  <button
-                    type="submit"
-                    className="rounded-lg border border-slate-300 px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
-                  >
-                    退出
-                  </button>
-                </form>
-              </>
-            ) : (
-              <Link
-                href="/login?next=/me"
-                className="rounded-lg bg-blue-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-blue-700"
-              >
-                登录
-              </Link>
-            )}
-          </div>
-        </div>
-      </header>
-      <div className="mx-auto flex max-w-7xl gap-6 px-6 py-8">
-        <aside className="w-56 shrink-0">
-          <nav className="flex flex-col gap-1">
-            <Link href="/me" className="rounded-lg px-3 py-2 text-sm font-medium text-slate-700 hover:bg-white">
-              我的
-            </Link>
-            <Link href="/me/settings" className="rounded-lg px-3 py-2 text-sm font-medium text-slate-700 hover:bg-white">
-              设置
-            </Link>
-            <Link href="/me/security" className="rounded-lg px-3 py-2 text-sm font-medium text-slate-700 hover:bg-white">
-              安全
-            </Link>
-          </nav>
-        </aside>
-        <main className="min-w-0 flex-1">{children}</main>
-      </div>
-    </div>
+    <AccountZone
+      sidebarItems={mapFrontNavToChrome(sidebarNav)}
+      mobileItems={mapFrontNavToChrome(mobileNav)}
+      accountSlot={accountSlot}
+    >
+      {children}
+    </AccountZone>
   )
 }

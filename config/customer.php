@@ -14,7 +14,7 @@ declare(strict_types=1);
 */
 
 return [
-    'route_prefix'     => env('GZ168_CUSTOMER_ROUTE_PREFIX', 'api/v1'),
+    'route_prefix' => env('GZ168_CUSTOMER_ROUTE_PREFIX', 'api/v1'),
     'route_middleware' => ['api'],
 
     /*
@@ -26,8 +26,8 @@ return [
     | 或注入 admin_check_callback 自定义判定。
     */
     'admin' => [
-        'enabled'  => env('GZ168_CUSTOMER_ADMIN_ENABLED', false),
-        'guard'    => env('GZ168_CUSTOMER_ADMIN_GUARD', 'web'),
+        'enabled' => env('GZ168_CUSTOMER_ADMIN_ENABLED', false),
+        'guard' => env('GZ168_CUSTOMER_ADMIN_GUARD', 'web'),
         'route_path' => env('GZ168_CUSTOMER_ADMIN_ROUTE_PATH', 'admin/customers'),
 
         // 默认判定：hasRole('admin')；若 host 项目 admin 实现不同，覆盖此回调
@@ -37,10 +37,11 @@ return [
     ],
 
     'auth' => [
-        'cookie'           => env('GZ168_CUSTOMER_COOKIE', 'gz168_customer_session'),
-        'token_ttl'        => (int) env('GZ168_CUSTOMER_TOKEN_TTL', 60 * 24 * 30),
-        'password_min'     => 8,
-        'default_locale'   => 'zh-CN',
+        'guard' => env('GZ168_CUSTOMER_GUARD', 'customer'),
+        'cookie' => env('GZ168_CUSTOMER_COOKIE', 'gz168_customer_session'),
+        'token_ttl' => (int) env('GZ168_CUSTOMER_TOKEN_TTL', 60 * 24 * 30),
+        'password_min' => 8,
+        'default_locale' => 'zh-CN',
         'default_timezone' => 'Asia/Shanghai',
         'passwords' => [
             'broker' => env('GZ168_CUSTOMER_PASSWORD_BROKER', 'customers'),
@@ -48,20 +49,20 @@ return [
     ],
 
     'avatar' => [
-        'disk'          => env('GZ168_CUSTOMER_AVATAR_DISK', 'public'),
-        'max_kb'        => (int) env('GZ168_CUSTOMER_AVATAR_MAX_KB', 2048),
+        'disk' => env('GZ168_CUSTOMER_AVATAR_DISK', 'public'),
+        'max_kb' => (int) env('GZ168_CUSTOMER_AVATAR_MAX_KB', 2048),
         'allowed_mimes' => ['jpg', 'jpeg', 'png', 'webp'],
     ],
 
     'mail' => [
         'from_address' => env('GZ168_CUSTOMER_MAIL_FROM', env('MAIL_FROM_ADDRESS', 'hello@example.com')),
-        'from_name'    => env('GZ168_CUSTOMER_MAIL_NAME', env('MAIL_FROM_NAME', 'Customer Service')),
+        'from_name' => env('GZ168_CUSTOMER_MAIL_NAME', env('MAIL_FROM_NAME', 'Customer Service')),
     ],
 
     'wx' => [
-        'app_id'     => env('GZ168_WX_APP_ID'),
+        'app_id' => env('GZ168_WX_APP_ID'),
         'app_secret' => env('GZ168_WX_APP_SECRET'),
-        'mode'       => env('GZ168_WX_MODE', 'mp'),
+        'mode' => env('GZ168_WX_MODE', 'mp'),
     ],
 
     // 若 host 注入自定义 Customer 模型（含扩展字段），在此声明：

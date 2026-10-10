@@ -1,3 +1,5 @@
+import { t } from '../../i18n'
+
 export default definePageConfig({
-  navigationBarTitleText: '首页'
+  navigationBarTitleText: t('home.navTitle'),
 })

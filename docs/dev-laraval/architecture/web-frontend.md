@@ -252,7 +252,7 @@ export { default, metadata, generateMetadata } from '@erp/module-users/views/Pro
 
 首页 `(storefront)/page.tsx` 可拉 FrontPage Document（非整页硬编码区块）。产品等店面业务页优先 module re-export。
 
-ESLint 规则：禁止超过 N 行（默认 5 行）业务实现（Document 装配页可单独白名单）。每个业务路径**恰好一份** page；端差异只体现在 L1。
+ESLint 规则：`erp/thin-page` 禁止 `page.tsx` 超过 N 行（默认 15；Document 首页白名单默认 20）。更厚的 SSR 装配放 `apps/web/src/lib/pages/`。每个业务路径**恰好一份** page；端差异只体现在 L1。
 
 ---
 
@@ -358,7 +358,7 @@ Sidebar、TopBar、TabBar、Breadcrumb、⌘K 命令面板、移动端"更多"�
 
 链路：
 
-1. Laravel `EnsureFrontendRequestsAreStateful` 中间件对 `apps/web` 域名单放行。
+1. Laravel `EnsureFrontendRequestsAreStateful` 中间件对 `apps/web` 域名单放行（`bootstrap/app.php` 的 `$middleware->statefulApi()`；`SANCTUM_STATEFUL_DOMAINS` 含 `localhost:3000`）。
 2. 登录：`POST /api/v1/auth/login`（先 `GET /sanctum/csrf-cookie` 拿 XSRF），成功后 Set-Cookie `XSRF-TOKEN` + session cookie（`HttpOnly`, `SameSite=Lax`, `Secure`）。
 3. 客户端拿到 `XSRF-TOKEN` 后，**所有写请求** 通过 `api-client` 注入 `X-XSRF-TOKEN` 头。
 4. Server Component 通过 Next `cookies()` 读 session，调用 `api-client` 转发到 Laravel。
@@ -411,7 +411,7 @@ Sidebar、TopBar、TabBar、Breadcrumb、⌘K 命令面板、移动端"更多"�
 | 类型 | `tsc --noEmit` | 通过 `npm run check:web` 强制 |
 | Lint | ESLint（next + 自定义） | 规则：禁 SSR 危险 API、禁 device 误用、限 page.tsx 行数 |
 
-CI：`npm run check:clients` 已覆盖 lint + typecheck；后续接入 `npm run test:web`（vitest + playwright）。
+CI：`npm run check:clients` 覆盖 lint + typecheck + `test:web` + `test:packages`（`node:test`）。Playwright / Vitest 浏览器 E2E 另开里程碑。
 
 ---
 
@@ -447,9 +447,9 @@ CI：`npm run check:clients` 已覆盖 lint + typecheck；后续接入 `npm run 
 
 | 关系 | 写法 | 备注 |
 |---|---|---|
-| `apps/web` → `modules/auth` | `"@erp/module-auth": "workspace:*"` | 由 root 提升解析 |
-| `modules/auth` → `packages/ui` | `"@erp/ui": "workspace:*"` | 同上 |
-| `apps/*` → `packages/api-client` | `"@erp/api-client": "workspace:*"` | 替换原 `file:..` |
+| `apps/web` → `modules/auth` | `"@erp/module-auth": "*"` | npm 11 的 npa 把 `workspace:` 当 URL 拒绝；`*` 由 root workspaces 链到本地包 |
+| `modules/auth` → `packages/ui` | `"@erp/ui": "*"` | 同上 |
+| `apps/*` → `packages/api-client` | `"@erp/api-client": "*"` | 替换原 `file:..` |
 | `tsconfig` 继承 | `"extends": "@erp/tsconfig/web.json"` | 统一 strict |
 
 根 `package.json` 脚本调整：
@@ -457,7 +457,7 @@ CI：`npm run check:clients` 已覆盖 lint + typecheck；后续接入 `npm run 
 ```jsonc
 "build:web": "npm -w @erp/web run build"
 "build:all": "npm -w @erp/web run build && npm -w @erp/miniapp run build:weapp"
-"check:clients": "npm -w @erp/web run check && npm -w @erp/mobile run check && npm -w @erp/miniapp run check"
+"check:clients": "… check:web/mobile/miniapp + lint:boundaries + test:web + test:packages"
 ```
 
 ---
@@ -469,21 +469,21 @@ CI：`npm run check:clients` 已覆盖 lint + typecheck；后续接入 `npm run 
 3. **设备类闪烁**：SSR 阶段只能从 Header 推断，移动端从 `sec-ch-viewport-width` 拿不到时降级 UA；首屏可能错位 1 帧，hydrate 前保持与 SSR 相同骨架。
 4. **`api-client` 双环境**（浏览器 / Node SSR）会引入 cookie 抽象层，需在 PR 中单独评审 API。
 5. **Tailwind v4 + Next 16** 训练数据滞后，关键 API（`@theme`、`container-queries`、`next/font`）以 `node_modules/next/dist/docs/` 与 Tailwind 4 官方文档为准。
-6. **i18n 后置**：先全中文，**严禁**中文硬编码到非 messages 目录之外的视图（建立 lint 规则）。
+6. **i18n**：`@erp/i18n` + 各包 `messages/zh-CN.ts`；`erp/no-hardcoded-cjk` 禁止视图硬编码中文（M13）。
 7. **BFF 是否启用**：当前架构默认不启用 `app/api/`，仅当有鉴权/聚合/缓存需求时再加；新建文件前必须评审。
 
 ---
 
 ## 14. 验收清单
 
-- [ ] `apps/web/src/app/**/page.tsx` 99% 都是单行 re-export（Document 首页可白名单）。
-- [ ] 每个业务路径恰好一份 `page.tsx`（无平行 device Route Group）。
-- [ ] 存在且仅存在 `(storefront)` / `(account)` / `(auth)` 三区（现行 A）；未实现 B/C。
-- [ ] 顶/底/侧/移动菜单均来自 FrontNav 对应 location。
-- [ ] 新增业务模块 = `modules/<m>/nav.ts` + `views/*.tsx`，壳工程仅加 re-export page 与（如需）Nav 注册。
-- [ ] 切换 viewport 时 DeviceShell 切换，URL 不变（除非显式 `redirect`）。
-- [ ] 业务模块**不感知** layout / 体验壳分层。
-- [ ] ESLint 边界守卫通过（`apps/*`、`modules/*`、`packages/*` 互不越界）。
+- [x] `apps/web/src/app/**/page.tsx` 薄壳（`erp/thin-page` ≤15 行；Document 首页 ≤20；SSR 装配可在 `lib/pages`）。
+- [x] 每个业务路径恰好一份 `page.tsx`（无平行 device Route Group；`check:zones`）。
+- [x] 存在且仅存在 `(storefront)` / `(account)` / `(auth)` 三区（现行 A）；未实现 B/C。
+- [x] 顶/底/侧/移动菜单均来自 FrontNav 对应 location。
+- [x] 新增业务模块 = `modules/<m>/nav.ts` + `views/*.tsx`，壳工程仅加 re-export page 与（如需）Nav 注册。
+- [x] 切换 viewport 时 DeviceShell 切换，URL 不变（除非显式 `redirect`）。
+- [x] 业务模块**不感知** layout / 体验壳分层。
+- [x] ESLint 边界守卫通过（`apps/*`、`modules/*`、`packages/*` 互不越界）。
 
 ---
 
@@ -493,14 +493,21 @@ CI：`npm run check:clients` 已覆盖 lint + typecheck；后续接入 `npm run 
 |---|---|---|
 | **M0** | 根 `package.json` 开 workspaces；新建 `docs/architecture/web-frontend.md` | 几乎无 |
 | **M0.5** | 删除平行 `(desktop\|tablet\|mobile)` page；落地 `(storefront)/(account)/(auth)` 骨架；check:zones + `next build` 绿 — **done**（代码已落地） | 低 |
-| **M1** | 抽 `packages/{config,devices}` 空壳；`apps/web` 改 import 路径 | 低 |
-| **M2** | 落 L0 + 各区 L1 DeviceShell（最小版）；抽 `packages/ui` 雏形；店面接 FrontNav 顶底 | 中 |
-| **M3** | 落 L2 Frame；接通 NavRegistry；首页接 FrontPage Document | 中 |
-| **M4** | 抽 `packages/api-client` 增强（CSRF/SSR cookie）；Laravel 端 `EnsureFrontendRequestsAreStateful` 放行 | 中 |
-| **M5** | 鉴权贯通：登录页 → Sanctum Cookie → `(account)` SSR | 中 |
-| **M6** | 落 `modules/auth` + `modules/users`（首个范式） | 中 |
-| **M7** | `apps/web` 删除业务实现，仅留 re-export 与 layout | 中 |
-| **M8** | `apps/mobile`、`apps/miniapp` 同步切 workspace 协议；CI 串 `check:clients` | 低 |
+| **M1** | 抽 `packages/{config,devices}` 空壳；`apps/web` 改 import 路径 — **done**（L0 `DeviceProvider`；M8 切 `workspace:*`） | 低 |
+| **M2** | 落 L0 + 各区 L1 DeviceShell（最小版）；抽 `packages/ui` 雏形；店面接 FrontNav 顶底 — **done**（cmdk 见 M10） | 中 |
+| **M3** | 落 L2 Frame；接通 NavRegistry；首页接 FrontPage Document — **done**（仅 `main` slot；Laravel 不可达时营销 fallback；block 见 M11/M14） | 中 |
+| **M4** | 抽 `packages/api-client` 增强（CSRF/SSR cookie）；Laravel 端 `EnsureFrontendRequestsAreStateful` 放行 — **done**（`statefulApi()` + Origin/XSRF/Set-Cookie jar；401 跳转留给 M5） | 中 |
+| **M5** | 鉴权贯通：登录页 → Sanctum Cookie → `(account)` SSR — **done**（`customer` guard；失败不跳转；`next` 仅站内路径） | 中 |
+| **M6** | 落 `modules/auth` + `modules/users`（首个范式） — **done**（views + nav；Server Actions 仍在 `apps/web`） | 中 |
+| **M7** | `apps/web` 删除业务实现，仅留 re-export 与 layout — **done**（`@erp/module-storefront`；SSR helpers / zone chrome 仍在壳） | 中 |
+| **M8** | `apps/mobile`、`apps/miniapp` 同步切 workspace 协议；CI 串 `check:clients` — **done**（根 workspaces + `@erp/*: "*"`；npm 11 拒绝 `workspace:`；`.github/workflows/clients.yml`） | 低 |
+| **M9** | ESLint 包边界守卫 — **done**（`@erp/eslint-config` + `npm run lint:boundaries`） | 低 |
+| **M10** | ⌘K 命令面板 — **done**（`@erp/ui` cmdk；壳负责路由；手机 sheet / 桌面 dialog） | 低 |
+| **M11** | `@erp/front-experience` block registry + PageRenderer — **done**（mall 默认块；storefront 消费；未知块占位） | 中 |
+| **M12** | 薄 page 守卫 — **done**（`erp/thin-page` + `check:zones`；login 抽到 `lib/pages`） | 低 |
+| **M13** | `@erp/i18n` + 禁硬编码 CJK — **done**（messages 目录；`erp/no-hardcoded-cjk`） | 中 |
+| **M14** | 三端 FrontPage — **done**（core `fetchFrontPageDocument`；web `/react`；mobile/miniapp 各端 registry） | 中 |
+| **M15** | 客户端测试门闸 — **done**（`test:web` + `test:packages` 并入 `check:clients`；沿用 `node:test`） | 低 |
 
 > 每个 M 阶段独立提交，**任何阶段回滚都只影响单个包**。
 

@@ -3,8 +3,10 @@
   "main": "expo-router/entry",
   "version": "1.0.0",
   "dependencies": {
-    "@erp/api-client": "file:../../packages/api-client",
-    "@erp/front-nav": "file:../../packages/front-nav",
+    "@erp/api-client": "*",
+    "@erp/front-experience": "*",
+    "@erp/front-nav": "*",
+    "@erp/i18n": "*",
     "@expo/ui": "~57.0.7",
     "expo": "~57.0.8",
     "expo-constants": "~57.0.7",
@@ -41,8 +43,9 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "lint": "expo lint",
-    "typecheck": "tsc --noEmit"
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "check": "npm run lint && npm run typecheck"
   },
   "private": true
 }

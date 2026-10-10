@@ -17,10 +17,9 @@
  * NOTE: this is intentionally a thin wrapper. Do NOT add caching, retry,
  * or auth logic here — the SDK and `@erp/api-client` already own those.
  */
-import { cookies } from 'next/headers';
-import { createHttp } from '@erp/api-client/core';
 import { fetchNav, resolveLabels } from '@erp/front-nav/core';
 import type { NavItem, NavLocation } from '@erp/front-nav/core';
+import { ssrHttp } from '@/lib/ssr-http';
 
 const FRONT_NAV_LOCATIONS = ['header', 'sidebar', 'footer', 'mobile'] as const;
 type FrontNavLocation = (typeof FRONT_NAV_LOCATIONS)[number];
@@ -44,21 +43,7 @@ export async function getFrontNav(location: string, locale?: string): Promise<Na
     return [];
   }
 
-  const cookieStore = await cookies();
-  const cookieHeader = cookieStore
-    .getAll()
-    .map((c) => `${c.name}=${c.value}`)
-    .join('; ');
-
-  const baseUrl =
-    process.env.NEXT_PUBLIC_API_BASE_URL ??
-    process.env.API_BASE_URL ??
-    'http://localhost:8000';
-
-  const http = createHttp({
-    baseUrl,
-    cookies: () => cookieHeader,
-  });
+  const http = await ssrHttp();
 
   const response = await fetchNav(http, {
     location: location as NavLocation,
@@ -69,4 +54,12 @@ export async function getFrontNav(location: string, locale?: string): Promise<Na
   // "source-language" string. The client hook (useFrontNav) overrides
   // them with the user's locale catalog.
   return resolveLabels(response.data, (key) => key);
+}
+
+export async function getFrontNavSafe(location: string, locale?: string): Promise<NavItem[]> {
+  try {
+    return await getFrontNav(location, locale);
+  } catch {
+    return [];
+  }
 }

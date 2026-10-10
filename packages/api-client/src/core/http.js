@@ -1,60 +1,98 @@
 import { csrfHeaders, ensureCsrfCookie } from './csrf.js'
+import { csrfHeadersFromCookieHeader } from './cookie.js'
 
 /**
- * 统一 HTTP 客户端 — 浏览器 fetch 包装 + 错误归一。
+ * Unified HTTP client — fetch wrapper + error normalization.
  *
- * 错误归一：
- *   401 → { kind: 'unauthenticated' }
- *   419 → 自动重取 CSRF 后重放一次
- *   422 → { kind: 'validation', fieldErrors: { field: [msg] } }
- *   429 → { kind: 'rate_limited', retryAfter: number }
- *   5xx → { kind: 'server', status }
- *
- * cookie：浏览器场景下自动 include；SSR 场景由调用方传入 cookies。
+ * 401 → { kind: 'unauthenticated' }
+ * 419 → refresh CSRF and replay once
+ * 422 → { kind: 'validation', fieldErrors }
+ * 429 → { kind: 'rate_limited', retryAfter }
+ * 5xx → { kind: 'server', status }
  */
+
+const WRITE_METHODS = ['POST', 'PUT', 'PATCH', 'DELETE']
 
 export function normalizeBaseUrl(baseUrl) {
   return String(baseUrl || '').replace(/\/+$/, '')
 }
 
-export function createHttp({ baseUrl, defaultHeaders, cookies, fetchImpl, getXsrfToken } = {}) {
+export function createHttp({
+  baseUrl,
+  defaultHeaders,
+  cookies,
+  fetchImpl,
+  getXsrfToken,
+  origin,
+  onSetCookie,
+} = {}) {
   const normalized = normalizeBaseUrl(baseUrl)
   const _fetch = fetchImpl || (typeof fetch !== 'undefined' ? fetch : null)
   if (!_fetch) {
     throw new Error('createHttp: no fetch implementation available')
   }
 
+  function frontendHeaders() {
+    if (!origin) return {}
+    const referer = origin.endsWith('/') ? origin : `${origin}/`
+    return { Origin: origin, Referer: referer }
+  }
+
+  function xsrfHeaders() {
+    if (typeof getXsrfToken === 'function') {
+      const token = getXsrfToken()
+      if (token) return { 'X-XSRF-TOKEN': token }
+    }
+    if (typeof cookies === 'function') {
+      const fromSsr = csrfHeadersFromCookieHeader(cookies() || '')
+      if (fromSsr['X-XSRF-TOKEN']) return fromSsr
+    }
+    return csrfHeaders()
+  }
+
+  function captureSetCookie(res) {
+    if (typeof onSetCookie !== 'function' || !res || !res.headers) return
+    const listed = typeof res.headers.getSetCookie === 'function'
+      ? res.headers.getSetCookie()
+      : []
+    const fallback = res.headers.get && res.headers.get('set-cookie')
+    onSetCookie(listed.length ? listed : (fallback ? [fallback] : []))
+  }
+
   async function rawFetch(path, { method = 'GET', headers = {}, body, signal, isForm = false } = {}) {
     const url = path.startsWith('http') ? path : `${normalized}/${String(path).replace(/^\/+/, '')}`
-    const finalHeaders = { Accept: 'application/json', ...(defaultHeaders || {}), ...headers }
+    const finalHeaders = {
+      Accept: 'application/json',
+      ...frontendHeaders(),
+      ...(defaultHeaders || {}),
+      ...headers,
+    }
 
     if (!isForm && body !== undefined && !(body instanceof FormData)) {
       finalHeaders['Content-Type'] = finalHeaders['Content-Type'] || 'application/json'
     }
 
-    // SSR cookie 转发（Next.js Server Component）
     if (cookies && typeof cookies === 'function') {
       const cookieHeader = cookies()
       if (cookieHeader) finalHeaders['Cookie'] = cookieHeader
     }
 
-    // 浏览器 X-XSRF-TOKEN 注入
     if (!isForm) {
-      const xsrf = (typeof getXsrfToken === 'function' && getXsrfToken()) || csrfHeaders()
-      Object.assign(finalHeaders, xsrf)
+      Object.assign(finalHeaders, xsrfHeaders())
     }
 
     const init = {
       method,
       headers: finalHeaders,
       credentials: typeof window !== 'undefined' ? 'include' : 'omit',
-      signal
+      signal,
     }
     if (body !== undefined) {
       init.body = isForm ? body : (typeof body === 'string' ? body : JSON.stringify(body))
     }
 
     const res = await _fetch(url, init)
+    captureSetCookie(res)
     let data = null
     const text = await res.text()
     if (text) {
@@ -68,18 +106,37 @@ export function createHttp({ baseUrl, defaultHeaders, cookies, fetchImpl, getXsr
   }
 
   async function request(path, options = {}) {
-    // 第一次写请求前确保 CSRF cookie
     const method = (options.method || 'GET').toUpperCase()
-    if (['POST', 'PUT', 'PATCH', 'DELETE'].includes(method) && typeof window !== 'undefined') {
-      await ensureCsrfCookie(normalized)
+    const csrfOpts = { fetchImpl: _fetch, origin, cookies, onSetCookie }
+
+    if (WRITE_METHODS.includes(method)) {
+      await ensureCsrfCookie(normalized, csrfOpts)
     }
 
-    let result = await rawFetch(path, options)
-
-    // 419: 自动重取 CSRF 重放一次
-    if (result.status === 419 && typeof window !== 'undefined') {
-      await ensureCsrfCookie(normalized)
+    let result
+    try {
       result = await rawFetch(path, options)
+    } catch (err) {
+      return {
+        ok: false,
+        status: 0,
+        data: null,
+        error: { kind: 'http', message: (err && err.message) || 'Network error' },
+      }
+    }
+
+    if (result.status === 419) {
+      await ensureCsrfCookie(normalized, csrfOpts)
+      try {
+        result = await rawFetch(path, options)
+      } catch (err) {
+        return {
+          ok: false,
+          status: 0,
+          data: null,
+          error: { kind: 'http', message: (err && err.message) || 'Network error' },
+        }
+      }
     }
 
     if (result.ok) return { ok: true, status: result.status, data: result.data }
@@ -93,13 +150,13 @@ export function createHttp({ baseUrl, defaultHeaders, cookies, fetchImpl, getXsr
     if (status === 422) {
       return {
         kind: 'validation',
-        fieldErrors: (data && data.errors) || (data && data.fieldErrors) || {}
+        fieldErrors: (data && data.errors) || (data && data.fieldErrors) || {},
       }
     }
     if (status === 429) {
       return {
         kind: 'rate_limited',
-        retryAfter: Number((data && data.retryAfter) || 60)
+        retryAfter: Number((data && data.retryAfter) || 60),
       }
     }
     if (status >= 500) {

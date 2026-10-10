@@ -1,4 +1,11 @@
 import type { Metadata } from 'next'
+import { headers } from 'next/headers'
+import { aggregateNav } from '@erp/config'
+import { inferInitialDeviceClass } from '@erp/devices'
+import { nav as authNav } from '@erp/module-auth'
+import { nav as storefrontNav } from '@erp/module-storefront'
+import { nav as usersNav } from '@erp/module-users'
+import { AppProviders } from '@/components/app-providers'
 import './globals.css'
 import { getCurrentSession } from '@/lib/server-customer'
 
@@ -7,6 +14,8 @@ export const metadata: Metadata = {
   description: 'A global-first ERP experience powered by Laravel.',
 }
 
+const navItems = aggregateNav([storefrontNav, authNav, usersNav])
+
 /**
  * Root Layout（L0）
  *
@@ -14,9 +23,10 @@ export const metadata: Metadata = {
  * - 渲染 <html>/<body>
  * - 引入字体（next/font）、globals.css
  * - 全局 metadata / viewport
- * - 注入 SessionProvider（通过 SessionContext 隐式传递）
+ * - 注入 DeviceProvider + NavRegistryProvider；Session 仍以 data-* 暴露
  *
  * **不**写业务逻辑；**不**调用业务 API（除 getCurrentSession）。
+ * **不**选择区级 Shell（Shell 仅在各区 L1）。
  */
 export default async function RootLayout({
   children
@@ -24,12 +34,18 @@ export default async function RootLayout({
   children: React.ReactNode
 }>) {
   const session = await getCurrentSession()
+  const requestHeaders = await headers()
+  const initialDeviceClass = inferInitialDeviceClass({
+    viewportWidthHeader: requestHeaders.get('sec-ch-viewport-width'),
+    userAgent: requestHeaders.get('user-agent'),
+  })
 
   return (
     <html lang="zh-CN" className="h-full antialiased">
       <body className="flex min-h-full flex-col" data-session-status={session.status}>
-        {/* Provider 链：C7 阶段以 data-* 暴露 session 状态；C5 阶段补 ThemeProvider。站点分区见 (storefront)/(account)/(auth)，非 device 路由组。 */}
-        {children}
+        <AppProviders initialDeviceClass={initialDeviceClass} navItems={navItems}>
+          {children}
+        </AppProviders>
       </body>
     </html>
   )

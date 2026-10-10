@@ -1,48 +1,63 @@
-import { createApiClient } from '@erp/api-client';
-import { useEffect, useState } from 'react';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { createApiClient } from '@erp/api-client'
+import type { FrontPageBlock } from '@erp/front-experience'
+import { useEffect, useState } from 'react'
+import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { PageRenderer } from '@/front-experience/page-renderer'
+import { t } from '@/i18n'
+import { getFrontPageSafe, mainBlocks } from '@/lib/front-page'
 
-const apiUrl =
-  process.env.EXPO_PUBLIC_API_URL ?? 'http://127.0.0.1:8000/api/v1';
-const api = createApiClient({ baseUrl: apiUrl });
+const apiUrl = process.env.EXPO_PUBLIC_API_URL ?? 'http://127.0.0.1:8000/api/v1'
+const api = createApiClient({ baseUrl: apiUrl })
 
 export default function HomeScreen() {
-  const [status, setStatus] = useState<'checking' | 'ready' | 'offline'>(
-    'checking'
-  );
+  const [status, setStatus] = useState<'checking' | 'ready' | 'offline'>('checking')
+  const [blocks, setBlocks] = useState<FrontPageBlock[]>([])
 
   useEffect(() => {
-    api
-      .health()
-      .then((response) => {
-        setStatus(response.ok ? 'ready' : 'offline');
+    let cancelled = false
+
+    Promise.all([api.health(), getFrontPageSafe('home')])
+      .then(([health, document]) => {
+        if (cancelled) {
+          return
+        }
+        setStatus(health.ok ? 'ready' : 'offline')
+        setBlocks(mainBlocks(document))
       })
       .catch(() => {
-        setStatus('offline');
-      });
-  }, []);
+        if (!cancelled) {
+          setStatus('offline')
+          setBlocks([])
+        }
+      })
+
+    return () => {
+      cancelled = true
+    }
+  }, [])
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.brand}>
           <View style={styles.logo}>
             <Text style={styles.logoText}>E</Text>
           </View>
           <View>
             <Text style={styles.eyebrow}>ERP GLOBAL</Text>
-            <Text style={styles.brandCopy}>Global first · China ready</Text>
+            <Text style={styles.brandCopy}>{t('home.brandCopy')}</Text>
           </View>
         </View>
 
-        <View style={styles.hero}>
-          <Text style={styles.title}>Your business, wherever work happens.</Text>
-          <Text style={styles.description}>
-            The native ERP experience for teams operating across regions,
-            currencies, and time zones.
-          </Text>
-        </View>
+        {blocks.length > 0 ? (
+          <PageRenderer blocks={blocks} />
+        ) : (
+          <View style={styles.hero}>
+            <Text style={styles.title}>{t('home.title')}</Text>
+            <Text style={styles.description}>{t('home.description')}</Text>
+          </View>
+        )}
 
         <View style={styles.statusCard}>
           <View style={styles.statusHeader}>
@@ -50,25 +65,22 @@ export default function HomeScreen() {
               <ActivityIndicator color="#2563eb" />
             ) : (
               <View
-                style={[
-                  styles.statusDot,
-                  status === 'ready' ? styles.ready : styles.offline,
-                ]}
+                style={[styles.statusDot, status === 'ready' ? styles.ready : styles.offline]}
               />
             )}
             <Text style={styles.statusTitle}>
               {status === 'checking'
-                ? 'Checking Laravel API'
+                ? t('home.status.checking')
                 : status === 'ready'
-                  ? 'Laravel API connected'
-                  : 'Laravel API unavailable'}
+                  ? t('home.status.ready')
+                  : t('home.status.offline')}
             </Text>
           </View>
           <Text style={styles.endpoint}>{apiUrl}</Text>
         </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -77,10 +89,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#f4f7fb',
   },
   container: {
-    flex: 1,
     paddingHorizontal: 24,
     paddingVertical: 20,
-    gap: 48,
+    gap: 32,
   },
   brand: {
     flexDirection: 'row',
@@ -112,14 +123,12 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   hero: {
-    flex: 1,
-    justifyContent: 'center',
     gap: 18,
   },
   title: {
     color: '#0f172a',
-    fontSize: 44,
-    lineHeight: 50,
+    fontSize: 36,
+    lineHeight: 42,
     fontWeight: '700',
     letterSpacing: -1.2,
   },
@@ -163,4 +172,4 @@ const styles = StyleSheet.create({
     fontSize: 11,
     fontFamily: 'monospace',
   },
-});
+})

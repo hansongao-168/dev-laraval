@@ -9,8 +9,12 @@ export interface HttpOptions {
   cookies?: () => string | undefined;
   /** 测试场景下：注入 fetch */
   fetchImpl?: typeof fetch;
-  /** 浏览器场景下：返回 X-XSRF-TOKEN；默认从 document.cookie 读 */
+  /** 显式 XSRF；未提供时从 cookies() 或 document.cookie 读 */
   getXsrfToken?: () => string | undefined;
+  /** apps/web origin，写入 Origin/Referer 以便 Sanctum stateful 识别 */
+  origin?: string;
+  /** SSR：把 Laravel Set-Cookie 回写到 Next cookie jar */
+  onSetCookie?: (setCookieHeaders: string[]) => void;
 }
 
 export interface RequestOptions {

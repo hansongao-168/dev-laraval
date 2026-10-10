@@ -34,5 +34,8 @@
       "types": "./src/domain/mail/index.d.ts",
       "default": "./src/domain/mail/index.js"
     }
+  },
+  "scripts": {
+    "test": "node --experimental-strip-types --test tests/*.test.mjs"
   }
 }

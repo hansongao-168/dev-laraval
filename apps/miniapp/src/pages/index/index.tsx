@@ -1,7 +1,11 @@
 import { createApiClient } from '@erp/api-client'
+import type { FrontPageBlock } from '@erp/front-experience'
 import { Text, View } from '@tarojs/components'
 import Taro, { useLoad } from '@tarojs/taro'
 import { useState } from 'react'
+import { PageRenderer } from '../../front-experience/page-renderer'
+import { t } from '../../i18n'
+import { getFrontPageSafe, mainBlocks } from '../../lib/front-page'
 import './index.scss'
 
 const apiUrl = process.env.TARO_APP_API_URL ?? 'http://localhost/api/v1'
@@ -20,15 +24,17 @@ const api = createApiClient({
 
 export default function Index () {
   const [status, setStatus] = useState<'checking' | 'ready' | 'offline'>('checking')
+  const [blocks, setBlocks] = useState<FrontPageBlock[]>([])
 
   useLoad(() => {
-    api
-      .health()
-      .then(({ ok }) => {
-        setStatus(ok ? 'ready' : 'offline')
+    Promise.all([api.health(), getFrontPageSafe('home')])
+      .then(([health, document]) => {
+        setStatus(health.ok ? 'ready' : 'offline')
+        setBlocks(mainBlocks(document))
       })
       .catch(() => {
         setStatus('offline')
+        setBlocks([])
       })
   })
 
@@ -38,27 +44,29 @@ export default function Index () {
         <View className='logo'>E</View>
         <View>
           <Text className='brand-name'>ERP GLOBAL</Text>
-          <Text className='brand-copy'>全球业务 · 中国就绪</Text>
+          <Text className='brand-copy'>{t('home.brandCopy')}</Text>
         </View>
       </View>
 
-      <View className='hero'>
-        <Text className='eyebrow'>WECHAT MINI PROGRAM</Text>
-        <Text className='title'>让业务随时随地高效运转。</Text>
-        <Text className='description'>
-          面向中国团队和客户的 ERP 移动入口，与全球平台共享同一套 Laravel API。
-        </Text>
-      </View>
+      {blocks.length > 0 ? (
+        <PageRenderer blocks={blocks} />
+      ) : (
+        <View className='hero'>
+          <Text className='eyebrow'>{t('home.eyebrow')}</Text>
+          <Text className='title'>{t('home.title')}</Text>
+          <Text className='description'>{t('home.description')}</Text>
+        </View>
+      )}
 
       <View className='status-card'>
         <View className={`status-dot status-dot--${status}`} />
         <View className='status-content'>
           <Text className='status-title'>
             {status === 'checking'
-              ? '正在检查 Laravel API'
+              ? t('home.status.checking')
               : status === 'ready'
-                ? 'Laravel API 已连接'
-                : 'Laravel API 暂不可用'}
+                ? t('home.status.ready')
+                : t('home.status.offline')}
           </Text>
           <Text className='endpoint'>{apiUrl}</Text>
         </View>
