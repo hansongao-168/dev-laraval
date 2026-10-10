@@ -508,6 +508,7 @@ CI：`npm run check:clients` 覆盖 lint + typecheck + `test:web` + `test:packag
 | **M13** | `@erp/i18n` + 禁硬编码 CJK — **done**（messages 目录；`erp/no-hardcoded-cjk`） | 中 |
 | **M14** | 三端 FrontPage — **done**（core `fetchFrontPageDocument`；web `/react`；mobile/miniapp 各端 registry） | 中 |
 | **M15** | 客户端测试门闸 — **done**（`test:web` + `test:packages` 并入 `check:clients`；沿用 `node:test`） | 低 |
+| **M16** | mobile/miniapp i18n — **done**（`@erp/i18n` + `messages/zh-CN`；`erp/no-hardcoded-cjk` 覆盖三端） | 低 |
 
 > 每个 M 阶段独立提交，**任何阶段回滚都只影响单个包**。
 
