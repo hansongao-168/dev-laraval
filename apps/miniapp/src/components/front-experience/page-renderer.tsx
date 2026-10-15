@@ -9,10 +9,6 @@ export function PageRenderer ({ page }: { page: ResolvedPage }) {
 
   return (
     <View className='fe-page' style={{ borderTop: `4px solid ${primary}` }}>
-      <View className='fe-meta'>
-        <Text>skin: {page.skin.code}</Text>
-        {page.theme ? <Text> theme: {page.theme.code}</Text> : null}
-      </View>
       {rows.map(({ slot, block }) => {
         const Component = resolveBlockComponent(miniappBlockRegistry, block.type) as
           | ((props: { block: typeof block; skin: typeof page.skin; channel: string }) => unknown)
@@ -20,11 +16,10 @@ export function PageRenderer ({ page }: { page: ResolvedPage }) {
 
         return (
           <View key={`${slot}-${block.id}`} className='fe-slot'>
-            <Text className='fe-slot-label'>{slot}</Text>
             {Component ? (
               <Component block={block} skin={page.skin} channel='miniapp' />
             ) : (
-              <Text>Missing {block.type}</Text>
+              <Text>未知区块: {block.type}</Text>
             )}
           </View>
         )
