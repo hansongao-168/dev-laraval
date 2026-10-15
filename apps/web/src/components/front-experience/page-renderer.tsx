@@ -20,7 +20,7 @@ export function PageRenderer({
       style={{ ['--color-primary' as string]: primary } as CSSProperties}
     >
       {rows.length === 0 ? (
-        <p className="text-sm italic text-slate-500">No blocks in document slots.</p>
+        <p className="text-sm italic text-slate-500">暂无内容</p>
       ) : (
         rows.map(({ slot, block }) => {
           const Component = resolveBlockComponent(webBlockRegistry, block.type) as

@@ -92,7 +92,7 @@ function BannerCarouselBlock({ block, skin }: BlockComponentProps) {
   if (items.length === 0) {
     return (
       <div className="rounded bg-slate-100 px-4 py-8 text-center text-sm text-slate-500">
-        No banners ({String(block.props?.source ?? 'none')})
+        暂无轮播
       </div>
     );
   }
@@ -164,7 +164,7 @@ function ProductGridBlock({ block, skin }: BlockComponentProps) {
     <div className="space-y-3">
       <h3 className="text-base font-semibold text-slate-900">{title}</h3>
       {items.length === 0 ? (
-        <p className="text-sm text-slate-500">No products</p>
+        <p className="text-sm text-slate-500">暂无热销商品</p>
       ) : (
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
           {items.map((item, index) => (
@@ -187,6 +187,10 @@ function ProductGridBlock({ block, skin }: BlockComponentProps) {
 function CategoryNavBlock({ block, skin }: BlockComponentProps) {
   const content = partContent(skin, block.props?.partKey) as Record<string, unknown> | null;
   const items = asItems(block.props?.items ?? content?.items);
+
+  if (items.length === 0) {
+    return <p className="text-sm text-slate-500">暂无分类</p>;
+  }
 
   return (
     <div className="flex flex-wrap gap-2">
@@ -237,7 +241,7 @@ function FaqListBlock({ block }: BlockComponentProps) {
     <div className="space-y-3">
       <h3 className="text-base font-semibold text-slate-900">{title}</h3>
       {items.length === 0 ? (
-        <p className="text-sm text-slate-500">暂无 FAQ</p>
+        <p className="text-sm text-slate-500">暂无常见问题</p>
       ) : (
         <div className="space-y-2">
           {items.map((item, index) => (
