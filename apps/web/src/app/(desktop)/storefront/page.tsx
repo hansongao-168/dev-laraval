@@ -68,19 +68,21 @@ export default async function StorefrontHomePage({
     <div className="mx-auto max-w-3xl px-6 py-10">
       <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900">{title}</h1>
-          <p className="mt-1 text-sm text-slate-600">
-            Resolved from <code>GET /api/v1/front-pages/home</code>
+          <p className="text-xs font-semibold tracking-[0.18em] text-teal-700 uppercase">
+            ERP Global
           </p>
+          <h1 className="mt-1 text-2xl font-bold tracking-tight text-slate-900">{title}</h1>
         </div>
         <div className="flex flex-wrap items-center gap-3 text-sm font-medium text-teal-700">
           <ShareButton title={title} text={description ?? title} image={shareImage} />
           <Link href="/storefront/help" className="hover:underline">
-            Help →
+            帮助
           </Link>
-          <Link href="/dev/front-studio" className="hover:underline">
-            Front Studio →
-          </Link>
+          {process.env.NODE_ENV !== 'production' ? (
+            <Link href="/dev/front-studio" className="text-slate-500 hover:underline">
+              Studio
+            </Link>
+          ) : null}
         </div>
       </div>
 
