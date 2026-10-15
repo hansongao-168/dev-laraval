@@ -40,9 +40,17 @@ final class StorefrontHomeMvpTest extends TestCase
 
         $product = $main->firstWhere('type', 'mall.product-grid');
         $this->assertSame('mall.grid.hot', $product['props']['partKey'] ?? null);
+        $this->assertFalse(
+            array_key_exists('items', $product['props'] ?? []) && ($product['props']['items'] ?? null) === [],
+            'product-grid with partKey must not force empty items so clients can use skin fallback',
+        );
 
         $category = $main->firstWhere('type', 'mall.category-nav');
         $this->assertSame('mall.category.nav', $category['props']['partKey'] ?? null);
+        $this->assertFalse(
+            array_key_exists('items', $category['props'] ?? []) && ($category['props']['items'] ?? null) === [],
+            'category-nav with partKey must not force empty items so clients can use skin fallback',
+        );
 
         $parts = $response->json('data.skin.parts');
         $this->assertNotEmpty($parts['mall.category.nav']['value']['content']['items'] ?? []);
