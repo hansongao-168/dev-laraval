@@ -57,6 +57,14 @@ function BannerCarouselBlock ({ block, skin }: BlockComponentProps) {
   const content = partContent(skin, block.props?.partKey) as Record<string, unknown> | null
   const items = asItems(block.props?.items ?? content?.items)
 
+  if (items.length === 0) {
+    return (
+      <View className='fe-banners'>
+        <Text>暂无轮播</Text>
+      </View>
+    )
+  }
+
   return (
     <View className='fe-banners'>
       {items.map((item, index) => {
@@ -102,6 +110,15 @@ function ProductGridBlock ({ block, skin }: BlockComponentProps) {
     'Hot'
   const items = asItems(block.props?.items ?? content?.items).slice(0, Number(block.props?.limit ?? 8))
 
+  if (items.length === 0) {
+    return (
+      <View className='fe-grid'>
+        <Text className='fe-grid-title'>{title}</Text>
+        <Text>暂无热销商品</Text>
+      </View>
+    )
+  }
+
   return (
     <View className='fe-grid'>
       <Text className='fe-grid-title'>{title}</Text>
@@ -119,6 +136,10 @@ function CategoryNavBlock ({ block, skin }: BlockComponentProps) {
   const content = partContent(skin, block.props?.partKey) as Record<string, unknown> | null
   const items = asItems(block.props?.items ?? content?.items)
 
+  if (items.length === 0) {
+    return <Text>暂无分类</Text>
+  }
+
   return (
     <View className='fe-cats'>
       {items.map((item, index) => (
@@ -133,6 +154,15 @@ function CategoryNavBlock ({ block, skin }: BlockComponentProps) {
 function ArticleListBlock ({ block }: BlockComponentProps) {
   const title = typeof block.props?.title === 'string' ? block.props.title : '帮助文章'
   const items = asItems(block.props?.items)
+
+  if (items.length === 0) {
+    return (
+      <View className='fe-articles'>
+        <Text className='fe-section-title'>{title}</Text>
+        <Text>暂无文章</Text>
+      </View>
+    )
+  }
 
   return (
     <View className='fe-articles'>
@@ -181,6 +211,15 @@ function ArticleDetailBlock ({ block }: BlockComponentProps) {
 function FaqListBlock ({ block }: BlockComponentProps) {
   const title = typeof block.props?.title === 'string' ? block.props.title : '常见问题'
   const items = asItems(block.props?.items)
+
+  if (items.length === 0) {
+    return (
+      <View className='fe-faqs'>
+        <Text className='fe-section-title'>{title}</Text>
+        <Text>暂无常见问题</Text>
+      </View>
+    )
+  }
 
   return (
     <View className='fe-faqs'>

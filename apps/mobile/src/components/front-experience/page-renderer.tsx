@@ -10,10 +10,6 @@ export function PageRenderer({ page }: { page: ResolvedPage }) {
 
   return (
     <View style={[styles.page, { borderTopColor: primary }]}>
-      <Text style={styles.meta}>
-        skin: {page.skin.code}
-        {page.theme ? ` · theme: ${page.theme.code}` : ''}
-      </Text>
       {rows.map(({ slot, block }) => {
         const Component = resolveBlockComponent(mobileBlockRegistry, block.type) as
           | ((props: {
@@ -25,11 +21,10 @@ export function PageRenderer({ page }: { page: ResolvedPage }) {
 
         return (
           <View key={`${slot}-${block.id}`} style={styles.slot}>
-            <Text style={styles.slotLabel}>{slot}</Text>
             {Component ? (
               <Component block={block} skin={page.skin} channel="mobile" />
             ) : (
-              <Text>Missing {block.type}</Text>
+              <Text>未知区块: {block.type}</Text>
             )}
           </View>
         );
@@ -43,16 +38,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 4,
     gap: 12,
   },
-  meta: {
-    fontSize: 12,
-    color: '#64748b',
-  },
   slot: {
     gap: 4,
-  },
-  slotLabel: {
-    fontSize: 10,
-    color: '#94a3b8',
-    textTransform: 'uppercase',
   },
 });

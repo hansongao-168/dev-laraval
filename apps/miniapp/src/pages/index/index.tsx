@@ -1,5 +1,5 @@
 import { Text, View } from '@tarojs/components'
-import Taro, { useLoad } from '@tarojs/taro'
+import { useLoad } from '@tarojs/taro'
 import { useState } from 'react'
 import type { ResolvedPage } from '@erp/front-experience/core'
 import { PageRenderer } from '../../components/front-experience/page-renderer'
@@ -24,22 +24,13 @@ export default function Index () {
         <View className='logo'>E</View>
         <View>
           <Text className='brand-name'>ERP GLOBAL</Text>
-          <Text className='brand-copy'>Storefront · FrontExperience</Text>
+          <Text className='brand-copy'>首页</Text>
         </View>
       </View>
 
       {error ? <Text className='description'>{error}</Text> : null}
-      {!page && !error ? <Text className='description'>Loading storefront…</Text> : null}
+      {!page && !error ? <Text className='description'>加载中…</Text> : null}
       {page ? <PageRenderer page={page} /> : null}
-
-      <View
-        className='fe-banner'
-        onClick={() => {
-          Taro.navigateTo({ url: '/pages/help/index' }).catch(() => undefined)
-        }}
-      >
-        <Text className='fe-banner-title'>帮助中心</Text>
-      </View>
     </View>
   )
 }

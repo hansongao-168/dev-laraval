@@ -58,6 +58,14 @@ function BannerCarouselBlock({ block, skin }: BlockComponentProps) {
   const content = partContent(skin, block.props?.partKey) as Record<string, unknown> | null;
   const items = asItems(block.props?.items ?? content?.items);
 
+  if (items.length === 0) {
+    return (
+      <View style={styles.card}>
+        <Text>暂无轮播</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.bannerList}>
       {items.map((item, index) => {
@@ -117,6 +125,15 @@ function ProductGridBlock({ block, skin }: BlockComponentProps) {
     Number(block.props?.limit ?? 8),
   );
 
+  if (items.length === 0) {
+    return (
+      <View style={styles.section}>
+        <Text style={styles.strong}>{title}</Text>
+        <Text>暂无热销商品</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.section}>
       <Text style={styles.strong}>{title}</Text>
@@ -136,6 +153,10 @@ function CategoryNavBlock({ block, skin }: BlockComponentProps) {
   const content = partContent(skin, block.props?.partKey) as Record<string, unknown> | null;
   const items = asItems(block.props?.items ?? content?.items);
 
+  if (items.length === 0) {
+    return <Text>暂无分类</Text>;
+  }
+
   return (
     <View style={styles.cats}>
       {items.map((item, index) => (
@@ -151,6 +172,15 @@ function ArticleListBlock({ block }: BlockComponentProps) {
   const router = useRouter();
   const title = typeof block.props?.title === 'string' ? block.props.title : '帮助文章';
   const items = asItems(block.props?.items);
+
+  if (items.length === 0) {
+    return (
+      <View style={styles.section}>
+        <Text style={styles.strong}>{title}</Text>
+        <Text>暂无文章</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.section}>
@@ -199,6 +229,15 @@ function ArticleDetailBlock({ block }: BlockComponentProps) {
 function FaqListBlock({ block }: BlockComponentProps) {
   const title = typeof block.props?.title === 'string' ? block.props.title : '常见问题';
   const items = asItems(block.props?.items);
+
+  if (items.length === 0) {
+    return (
+      <View style={styles.section}>
+        <Text style={styles.strong}>{title}</Text>
+        <Text>暂无常见问题</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.section}>
