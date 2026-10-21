@@ -21,8 +21,17 @@
 /docs-host/apache-vhost.conf
 /storage/*.key
 /storage/pail
+/storage/framework/cache
+/storage/framework/sessions
+/storage/framework/testing
+/storage/framework/views
 /vendor
 _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# 本地调试脚本与临时产物
+.tmp-*
+_probe_*.py
+register_modules.py

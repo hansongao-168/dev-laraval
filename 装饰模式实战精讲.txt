@@ -1,0 +1,588 @@
+DESIGN PATTERNS · 
+
+
+
+
+""
+
+----Decorator
+
+"  "
+Python ////
+
+
+ TOPIC                                  
+
+·                           8  ·  Python 
+Dive Into Design Patterns
+ · p.182-198
+ ·             
+
+CONTENTS
+
+· 
+
+" ·  ·  · "
+
+  /            P.03
+
+  /  Python    P.04
+
+  /  /  /  /   P.05
+
+  /            P.06
+
+  Python  /    P.07
+
+  /            P.08
+
+5     5
+
+      
+
+3     4
+
+      
+
+
+
+
+
+
+ ·             02
+ ·                              PART 1 · 
+
+PART 01 · DEFINITION & ESSENCE
+
+ 
+
+ / Wrapper · Decorator 
+
+
+""""----
+
+
+ p.182-183
+
+
+
+   A                  B
+
+ QQ......           N 
+ "+""+QQ"""----N    N  + 1 
+ 2-1 "
+ "
+
+
+
+           
+             /
+             
+             
+
+  
+
+ ----
+ A  BB  A A  B A  B B 
+ 
+
+ p.188
+
+        ""
+  
+  ----""
+
+CORE INSIGHT
+
+
+----""
+
+PART 1 ·                        03
+ ·                                                                        PART 2 · 
+
+PART 02 · STRUCTURE & CLASSIC EXAMPLE
+
+ 
+
+ p.189-190
+
+   
+
+    «interface»  Component   
+
+     operation()                            
+
+   
+
+                                implements
+
+
+
+                                              
+
+                               
+
+                                   BaseDecorator                wrappee 
+
+ ConcreteComponent                - wrappee:                   
+
+ ()                             operation() {           
+
+ operation(){...}                 wrappee.op()              
+
+                               }                          
+
+                                 
+
+                                               extends
+
+                               
+
+                                                        
+
+                                                
+
+   A                               B   
+
+  operation(){                    operation(){            
+
+                                                  super()
+
+ super()                          super()               
+
+                                 
+
+}                                }              
+
+                               
+
+ +  p.190-194 Python
+ Python
+decorator_data_source.py · 
+                                                                          PYTHON
+from abc import ABC, abstractmethod
+import base64, zlib
+
+#  
+class DataSource(ABC):
+
+      @abstractmethod
+      def write_data(self, data: str) -> None: ...
+
+      @abstractmethod
+      def read_data(self) -> str: ...
+
+#  
+class FileDataSource(DataSource):
+
+      def __init__(self, filename): self.filename = filename
+      def write_data(self, data):
+
+            with open(self.filename, 'w', encoding='utf-8') as f: f.write(data)
+      def read_data(self):
+
+            with open(self.filename, 'r', encoding='utf-8') as f: return f.read()
+
+#  
+
+class DataSourceDecorator(DataSource):
+
+def __init__(self, source: DataSource): self.wrappee = source
+
+def write_data(self, data): self.wrappee.write_data(data)
+
+def read_data(self):         return self.wrappee.read_data()
+
+#   A
+
+class EncryptionDecorator(DataSourceDecorator):
+
+def write_data(self, data):
+
+encrypted = base64.b64encode(data.encode()).decode() # 
+
+super().write_data(encrypted)                              # 
+
+def read_data(self):
+
+return base64.b64decode(super().read_data()).decode() # 
+
+#   B
+
+class CompressionDecorator(DataSourceDecorator):
+
+def write_data(self, data):
+
+compressed = zlib.compress(data.encode()).hex()            # 
+
+super().write_data(compressed)
+
+def read_data(self):
+
+return zlib.decompress(bytes.fromhex(super().read_data())).decode()
+
+#  
+
+if __name__ == "__main__":
+
+salary = ",10000;,15000"
+
+#  3 + 
+
+source = EncryptionDecorator(           # 
+
+CompressionDecorator(                   # 
+
+           FileDataSource("salary.dat"))) # 
+
+source.write_data(salary)
+
+print(source.read_data()) #  ",10000;,15000"
+
+    p.193
+
+         
+ Compression > Encryption   = 
+
+ p.194-195
+
+ ----
+ ---- final 
+ ----"" + 
+
+PART 2 ·                                                                           04
+ ·                             PART 3 · 
+
+PART 03 · COMPARING WITH NEIGHBORING PATTERNS
+
+ 
+
+ p.196-197 ----
+
+
+ vs  vs ""
+
+
+
+
+
+                    
+                    Type-C  USB
+ Adapter AB         
+                    
+ Proxy       //
+
+ Decorator   
+
+
+
+ vs 
+
+                    
+
+                    
+                    
+ vs 
+
+                    
+
+                    
+                    
+ vs                 
+
+
+
+
+
+         Decorator   Strategy
+                    
+                    
+                    
+        //          //
+
+  DECISION RULE
+
+     
+ 
+
+
+
+  
+Java I/OPython @decorator@log @cache @retry Spring Filter / Express 
+// + + +
+
+Java I/O ""
+
+  new BufferedReader(new InputStreamReader(new FileInputStream("a.txt"))))
+----
+
+Java I/O 
+
+  // 
+  FileInputStream fis = new FileInputStream("a.txt");
+
+  // 
+  InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
+
+  //  IO
+  BufferedReader br = new BufferedReader(isr);
+
+  // br.read()    isr.read()  fis.read()  
+  // fis  / isr  / br 
+  String line = br.readLine();
+
+Java I/O  CipherInputStream
+ GZIPInputStream----
+
+PART 3 ·                                                              05
+ ·                                                                          PART 4 · ·
+
+PART 04 · REFACTORING · THE PROBLEM
+
+ 
+
+        
+...""
+
+ v1
+
+---- if-else 
+
+ order_bad.py · 
+
+class OrderService:
+
+def calculate_total(self, order):
+
+# 1. 
+
+total = sum(item.price * item.qty for item in order.items)
+
+# 2. 
+
+if order.user.is_vip: total *= 0.9
+
+elif order.user.level == 'gold': total *= 0.95
+
+# 3. 
+
+if order.coupon:
+
+if order.coupon.type == 'fixed': total -= order.coupon.value
+
+elif order.coupon.type == 'percent': total *= (1 - order.coupon.value/100)
+
+# 4. 
+
+if total >= 300: total -= 30
+
+# 5. 
+
+if total < 99:                     total += 12
+
+elif order.user.is_remote: total += 25
+
+return max(total, 0)
+
+
+
+                                   
+ +                                  5 ""
+ +                                 5  ×  = 
+                                   ----
+
+ v2
+
+"" 
+
+ order_bad2.py · 
+
+   class BaseCalculator:
+         def calculate(self, order): return sum(i.price*i.qty for i in order.items)
+
+   class VIPDiscount(BaseCalculator):
+         def calculate(self, order): return super().calculate(order) * 0.9
+
+   class FixedCoupon(BaseCalculator):
+         def calculate(self, order): return super().calculate(order) - order.coupon.value
+
+   #   VIP +  +  + 
+   class VIPFixedCouponFullReductionShipping(VIPDiscount, FixedCoupon, ...): ...
+
+ p.183 ""----5  2-1=31 
+
+THE INSIGHT
+
+""""""""----
+
+
+
+ 5 "(3:/VIP/) × (3://) × 
+(2) × (3)"
+
+  
+
+ 3 × 3 × 2 × 3 = 54  Order  8-10 
+ 
+
+VIPDiscountDecorator "VIP  9 "54 
+5  3-5 
+
+  
+
+ 
+ ----
+
+PART 4 · ·  06
+ ·                                                                                         PART 5 · ·
+
+PART 05 · REFACTORING · THE SOLUTION                                                                              PYTHON
+
+ 
+
+ p.195 ""
+
+order_decorator.py · 
+
+from abc import ABC, abstractmethod
+
+#  Component
+class PriceCalculator(ABC):
+
+      @abstractmethod
+      def calculate(self, order) -> float: ...
+
+#  
+class BasePriceCalculator(PriceCalculator):
+
+      def calculate(self, order):
+            return sum(i.unit_price * i.quantity for i in order.items)
+
+#  
+class PriceDecorator(PriceCalculator):
+
+      def __init__(self, wrapped: PriceCalculator): self._wrapped = wrapped
+      def calculate(self, order): return self._wrapped.calculate(order)
+
+#   /  /  / 
+class VIPDiscountDecorator(PriceDecorator):
+
+      def calculate(self, order):
+            base = super().calculate(order)
+            return base * 0.9 if order.user.is_vip else base
+
+class CouponDecorator(PriceDecorator):
+      def calculate(self, order):
+            base = super().calculate(order)
+            if not order.coupon: return base
+            if order.coupon.type == 'fixed': return base - order.coupon.value
+            if order.coupon.type == 'percent': return base * (1 - order.coupon.value/100)
+            return base
+
+class FullReductionDecorator(PriceDecorator):
+      def calculate(self, order):
+
+            base = super().calculate(order)
+            return base - 30 if base >= 300 else base
+
+class ShippingDecorator(PriceDecorator):
+      def calculate(self, order):
+            base = super().calculate(order)
+            ship = 12 if base < 99 else 0
+            if order.user.is_remote: ship += 25
+            return base + ship
+
+#  
+
+def build_calculator(order, ctx) -> PriceCalculator:
+
+calc = BasePriceCalculator()                           # 
+
+if ctx.get('enable_member'):
+
+if order.user.is_vip:                calc = VIPDiscountDecorator(calc)
+
+if order.coupon:                     calc = CouponDecorator(calc)
+
+if ctx.get('enable_full_reduction'): calc = FullReductionDecorator(calc)
+
+if ctx.get('include_shipping'): calc = ShippingDecorator(calc)
+
+return calc
+
+
+
+"VIP +  + 300 + "
+ShippingDecorator  ·  base = super()  base < 99 ? +12 ; remote ? +25  return base
++ shipping
+FullReductionDecorator  300  30 base = super()  base >= 300 ? -30  return base
+CouponDecorator  base = super()  coupon.type=='fixed' ? -val  return base
+VIPDiscountDecorator 9  base = super()  is_vip ? *0.9  return base * 0.9
+BasePriceCalculator  ·  return sum(item.unit_price * item.quantity)  
+
+
+
+            v1                    v3 
+             calculate_total if   
+                                  
+                                  "+"
+             if                   
+
+PART 5 · ·                                                                         07
+ ·                                    PART 6 · 
+
+PART 06 · ANTI-PATTERNS & CONCLUSION
+
+ 
+
+
+
+  1          2
+ Logging  Auth Builder  ReadOnlyCollection  add() ----
+""         
+
+   3         4
+
+ 5  3      /
+           
+
+ p.196
+
+            
+
+   /         
+            
+ 
+            
+             
+           /  
+           """"  
+ 
+ final 
+ """"
+
+FINAL TAKEAWAY
+
+----
+ if-else 
+
+
+PART 6 ·                                                08
+                    EPILOGUE
+
+         
+
+   
+             ---- 
+
+""
+......
+
+                       
+
+NEXT ·   NEXT · 
+
+"" HTTP //
+
+          ·  ·  8 
+

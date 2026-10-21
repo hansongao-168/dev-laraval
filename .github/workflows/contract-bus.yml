@@ -1,0 +1,220 @@
+name: contract-bus
+
+# CI for the gz168/contract-bus module. Three concerns run as parallel
+# jobs so the failing one is obvious in the PR check list:
+#
+#   1. module-tests    — Pint + PHPUnit + contract validation (the gate).
+#                        Triggered by changes to contract-bus source
+#                        files OR to any contract.yaml across gz168.
+#   2. impact          — runs `contract-bus:impact --since=main` and
+#                        POSTS the result back to the PR as a comment.
+#                        Failures (exit 1) only when a change is
+#                        BREAKING. Non-breaking changes are informational.
+#   3. graph-artifact  — re-renders deps.png / deps.json and uploads
+#                        them so reviewers can see the new graph without
+#                        pulling the branch locally.
+
+on:
+  push:
+    paths:
+      - 'gz168/ContractBus/**'
+      - 'gz168/*/resources/contracts/**'
+      - 'composer.json'
+      - 'composer.lock'
+      - '.github/workflows/contract-bus.yml'
+  pull_request:
+    paths:
+      - 'gz168/ContractBus/**'
+      - 'gz168/*/resources/contracts/**'
+      - 'composer.json'
+      - 'composer.lock'
+      - '.github/workflows/contract-bus.yml'
+
+concurrency:
+  group: contract-bus-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  module-tests:
+    name: php ${{ matrix.php }} — pint + phpunit + contracts
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['8.3']
+
+    env:
+      CACHE_STORE: array
+      APP_ENV: testing
+      # skip Redis binding for the cache warm smoke check
+      CONTRACT_BUS_CACHE_STORE: array
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP ${{ matrix.php }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mbstring, intl, sqlite, pdo_sqlite
+          coverage: none
+          tools: composer
+
+      - name: Composer install
+        run: |
+          composer install \
+            --no-interaction \
+            --prefer-dist \
+            --no-progress \
+            --ignore-platform-req=ext-zip
+
+      - name: Pint (dirty files only)
+        run: vendor/bin/pint --dirty
+
+      - name: Module PHPUnit (gz168/ContractBus)
+        working-directory: gz168/ContractBus
+        run: ../../vendor/bin/phpunit --no-coverage
+
+      - name: Contract gate — composer test:contracts
+        # exit non-zero if any contract.yaml fails meta-schema validation,
+        # has a cycle, has an unknown depends_on, or has unreferenced schemas.
+        # This is the actual DIP / SOLID enforcement gate.
+        run: composer test:contracts --no-interaction
+
+      - name: Smoke — cache warm
+        # Flip cache on temporarily and prove the warm/clear round-trip
+        # works against the array driver (no external services needed).
+        run: |
+          cp gz168/ContractBus/config/contract-bus.php gz168/ContractBus/config/contract-bus.php.bak
+          sed -i "s/'enabled' => false/'enabled' => true/" gz168/ContractBus/config/contract-bus.php
+          sed -i "s/'store'   => null/'store'   => 'array'/" gz168/ContractBus/config/contract-bus.php
+          php artisan contract-bus:cache:warm --no-ansi
+          php artisan contract-bus:cache:clear --no-ansi --force
+          mv gz168/ContractBus/config/contract-bus.php.bak gz168/ContractBus/config/contract-bus.php
+
+  impact:
+    name: impact — who is affected by this change?
+    runs-on: ubuntu-latest
+    needs: module-tests
+    if: github.event_name == 'pull_request'
+    env:
+      CACHE_STORE: array
+      APP_ENV: testing
+      CONTRACT_BUS_CACHE_STORE: array
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup PHP 8.3
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, intl, sqlite, pdo_sqlite
+          coverage: none
+          tools: composer
+
+      - name: Composer install
+        run: |
+          composer install \
+            --no-interaction \
+            --prefer-dist \
+            --no-progress \
+            --ignore-platform-req=ext-zip
+
+      - name: Compute impact vs target branch
+        id: impact
+        run: |
+          set +e
+          php artisan contract-bus:impact --since=${{ github.base_ref }} --no-ansi > impact.txt
+          rc=$?
+          set -e
+          echo "exit=$rc"
+          if [ "$rc" = "1" ]; then
+            echo "has_breaking=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_breaking=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Upload impact report
+        uses: actions/upload-artifact@v4
+        with:
+          name: contract-impact-report
+          path: impact.txt
+
+      - name: Comment on PR
+        if: steps.impact.outputs.has_breaking == 'true'
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: contract-bus-impact
+          message: |
+            ### ContractBus Impact — BREAKING changes detected
+            ```
+            $(cat impact.txt)
+            ```
+            Please coordinate with the listed consumer modules before merging.
+
+      - name: Comment on PR (non-breaking)
+        if: steps.impact.outputs.has_breaking == 'false'
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: contract-bus-impact
+          message: |
+            ### ContractBus Impact — no breaking changes
+            ```
+            $(cat impact.txt)
+            ```
+            See the workflow artifact for the full report.
+
+  graph-artifact:
+    name: graph — render deps.png / deps.json
+    runs-on: ubuntu-latest
+    needs: module-tests
+    env:
+      CACHE_STORE: array
+      APP_ENV: testing
+      CONTRACT_BUS_CACHE_STORE: array
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP 8.3
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, intl, sqlite, pdo_sqlite
+          coverage: none
+          tools: composer
+          # Graphviz binary for PNG render
+          coverage: none
+
+      - name: Install Graphviz
+        uses: tspascoal/get-graphviz@v5
+
+      - name: Composer install
+        run: |
+          composer install \
+            --no-interaction \
+            --prefer-dist \
+            --no-progress \
+            --ignore-platform-req=ext-zip
+
+      - name: Render dependency graph
+        run: |
+          mkdir -p gz168/ContractBus/docs
+          php artisan contract-bus:graph --no-ansi > gz168/ContractBus/docs/deps.dot
+          dot -Tpng gz168/ContractBus/docs/deps.dot -o gz168/ContractBus/docs/deps.png
+          php artisan contract-bus:graph --json --no-ansi > gz168/ContractBus/docs/deps.json
+
+      - name: Upload graph artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: contract-bus-graph
+          paths: |
+            gz168/ContractBus/docs/deps.dot
+            gz168/ContractBus/docs/deps.png
+            gz168/ContractBus/docs/deps.json
