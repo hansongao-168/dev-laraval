@@ -38,6 +38,7 @@ return [
     */
 
     'guard' => ['web'],
+    // `customer` is appended by gz168/Customer ServiceProvider when the package boots.
 
     /*
     |--------------------------------------------------------------------------

@@ -42,6 +42,7 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        // `customer` guard is registered by gz168/Customer ServiceProvider.
     ],
 
     /*
@@ -66,6 +67,7 @@ return [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', User::class),
         ],
+        // `customers` provider is registered by gz168/Customer ServiceProvider.
 
         // 'users' => [
         //     'driver' => 'database',

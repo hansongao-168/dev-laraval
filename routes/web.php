@@ -1,6 +1,12 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+declare(strict_types=1);
 
-Route::view('/', 'front.home')->name('home');
-Route::view('/storefront', 'front.storefront-placeholder')->name('storefront');
+/*
+|--------------------------------------------------------------------------
+| Host web routes
+|--------------------------------------------------------------------------
+|
+| Consumer front (landing + auth/account) lives in gz168/Customer routes/web.php.
+|
+*/

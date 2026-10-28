@@ -6,7 +6,9 @@ use App\Models\User;
 use Gz168\GitManagement\Support\GitManagementAuthorization;
 use Gz168\RedisManagement\Filament\Pages\RedisManagementPage;
 use Gz168\RolePermission\Contracts\Authorizable;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Schema;
 use Tests\TestCase;
 
 /**
@@ -19,6 +21,44 @@ use Tests\TestCase;
 class AdminModuleVisibilityForSuperAdminTest extends TestCase
 {
     use RefreshDatabase;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        // RolePermission migrations are not auto-loaded by the package; regular
+        // users fall through to a roles() query that needs these tables.
+        if (! Schema::hasTable('roles')) {
+            Schema::create('roles', function (Blueprint $table): void {
+                $table->id();
+                $table->string('slug')->unique();
+                $table->string('name')->nullable();
+                $table->timestamps();
+            });
+        }
+        if (! Schema::hasTable('permissions')) {
+            Schema::create('permissions', function (Blueprint $table): void {
+                $table->id();
+                $table->string('slug')->unique();
+                $table->string('name')->nullable();
+                $table->timestamps();
+            });
+        }
+        if (! Schema::hasTable('permission_role')) {
+            Schema::create('permission_role', function (Blueprint $table): void {
+                $table->foreignId('permission_id');
+                $table->foreignId('role_id');
+                $table->primary(['permission_id', 'role_id']);
+            });
+        }
+        if (! Schema::hasTable('role_user')) {
+            Schema::create('role_user', function (Blueprint $table): void {
+                $table->foreignId('role_id');
+                $table->foreignId('user_id');
+                $table->primary(['role_id', 'user_id']);
+            });
+        }
+    }
 
     public function test_user_model_implements_authorizable_contract(): void
     {

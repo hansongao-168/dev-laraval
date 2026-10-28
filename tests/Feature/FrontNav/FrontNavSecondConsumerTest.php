@@ -62,20 +62,23 @@ final class FrontNavSecondConsumerTest extends TestCase
         );
     }
 
-    public function test_cross_consumer_aggregation_in_sidebar(): void
+    public function test_cross_consumer_aggregation_for_guests(): void
     {
-        // Sidebar combines customer + demo items for guests.
-        $response = $this->getJson('/api/v1/front-nav?location=sidebar');
-        $response->assertOk();
+        // Customer guest auth links live in header; demo auth items stay sidebar.
+        $header = $this->getJson('/api/v1/front-nav?location=header');
+        $header->assertOk();
+        $headerKeys = array_column($header->json('data'), 'key');
+        self::assertContains('customer.login', $headerKeys);
+        self::assertContains('customer.register', $headerKeys);
+        self::assertContains('demo.dashboard', $headerKeys);
 
-        $keys = array_column($response->json('data'), 'key');
-        // Customer guest items
-        self::assertContains('customer.login', $keys);
-        self::assertContains('customer.register', $keys);
-        // Demo auth-gated items must NOT appear for guests.
-        self::assertNotContains('demo.reports', $keys);
-        self::assertNotContains('demo.settings', $keys);
-        self::assertNotContains('demo.submenu', $keys);
+        $sidebar = $this->getJson('/api/v1/front-nav?location=sidebar');
+        $sidebar->assertOk();
+        $sidebarKeys = array_column($sidebar->json('data'), 'key');
+        self::assertNotContains('demo.reports', $sidebarKeys);
+        self::assertNotContains('demo.settings', $sidebarKeys);
+        self::assertNotContains('demo.submenu', $sidebarKeys);
+        self::assertNotContains('customer.me.settings', $sidebarKeys);
     }
 
     public function test_demo_items_visible_to_authed_visitors(): void
@@ -86,8 +89,8 @@ final class FrontNavSecondConsumerTest extends TestCase
 
         $keys = array_column($response->json('data'), 'key');
 
-        // Customer's auth-gated item shows up.
-        self::assertContains('customer.me', $keys);
+        // Customer account settings (sidebar) + demo reports.
+        self::assertContains('customer.me.settings', $keys);
         // DemoConsumer's auth-gated items show up (requiresAuth: true but no
         // permission ⇒ visible).
         self::assertContains('demo.reports', $keys);
@@ -120,14 +123,15 @@ final class FrontNavSecondConsumerTest extends TestCase
         $response->assertOk();
 
         $rows = $response->json('data');
-        // customer.me (sort=10) appears before demo.reports (sort=50) — proves
+        // customer.me.settings (sort=10) before demo.reports (sort=50) — proves
         // the resolver does global sort across groups, not per-group.
         $keys = array_column($rows, 'key');
-        $customerIdx = array_search('customer.me', $keys, true);
+        $customerIdx = array_search('customer.me.settings', $keys, true);
         $demoIdx = array_search('demo.reports', $keys, true);
 
         self::assertNotFalse($customerIdx);
         self::assertNotFalse($demoIdx);
+        // PHPUnit: assertLessThan($expected, $actual) ⇒ $actual < $expected
         self::assertLessThan($demoIdx, $customerIdx);
     }
 

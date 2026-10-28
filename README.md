@@ -73,8 +73,8 @@ npm run dev:miniapp
 **架构亮点**（详见 [`gz168/FrontNav/ARCHITECTURE.md`](gz168/FrontNav/ARCHITECTURE.md)）：
 
 - **Contracts only**：业务模块只 `use Gz168\FrontNav\Contracts\*`，不引入具体实现，可替换 Registry/Resolver
-- **双模式集成**：push mode（`NavRegistry::group()`）+ pull mode（Container bind `NavRegistrar`）
-- **跨模块无耦合**：Customer（pull） + DemoConsumer（push） + builtin core（push）三种模式在同一 Registry 共存
+- **三模式集成**：contract mode（`contract.yaml` 的 `nav:` 段，经 `gz168/contract-bus` 读取）+ push mode（`NavRegistry::group()`）+ pull mode（Container bind `NavRegistrar`）
+- **跨模块无耦合**：Customer（contract） + DemoConsumer（push） + builtin core（push）在同一 Registry 共存
 - **完整链路 CI**：GitHub Actions `.github/workflows/front-nav.yml` 在 PHP 8.3 + 8.5 双版本上跑全栈（backend PHPUnit + SDK node:test + apps/web scoped typecheck + eslint + Pint）
 - **SDK 端到端**：`@erp/front-nav` 同时提供 server-side (`getFrontNav()` for SSR) 与 client-side (`useFrontNav` React 19 hook) 双形态
 
@@ -125,7 +125,7 @@ $registry->group('mymodule', function (\Gz168\FrontNav\Contracts\NavRegistrar $r
 
 一条命令跑完全部：`CACHE_STORE=array composer run test:front-nav`
 
-参考实现：`gz168/Customer`（pull mode）+ `gz168/DemoConsumer`（push mode）—— 一个真实业务模块，一个最小演示模块。
+参考实现：`gz168/Customer`（contract mode，见其 `resources/contracts/contract.yaml` 的 `nav:` 段）+ `gz168/DemoConsumer`（push mode）—— 一个真实业务模块，一个最小演示模块。
 
 需要从本项目生成一个包含后端、全部客户端、AI 配置、Obsidian 和 Markdown 文档的
 新项目时，执行：
